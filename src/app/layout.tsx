@@ -28,7 +28,9 @@ export default function RootLayout({
       >
         <Header />
 
-        {children}
+        <main className="pt-20">
+          {children}
+        </main>
 
         <SocialIcons />
       </body>
