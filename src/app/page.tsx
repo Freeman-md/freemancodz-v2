@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 export default function Home() {
-  const lines = ["Building", "Clean", "Cloud", "Shit", "Since", "2023"];
+  const lines = ["Building", "Clean", "Cloud", "Apps", "Since", "2023"];
 
   return (
     <section className="relative h-[calc(100vh-5rem)] overflow-hidden">
