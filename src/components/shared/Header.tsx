@@ -4,7 +4,7 @@ import NavigationLinks from "./NavigationLinks";
 
 export default function Header() {
   return (
-    <header className="py-6 fixed w-full backdrop-blur max-h-16">
+    <header className="py-6 fixed w-full backdrop-blur max-h-16 z-50">
       <div className="container flex justify-between space-x-4 items-start">
         <Link href="/">
           <Image
