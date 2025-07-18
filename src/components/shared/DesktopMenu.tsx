@@ -25,7 +25,7 @@ export default function DesktopMenu() {
       }}
       className="hidden sm:block my-20"
     >
-      <ul className="flex flex-col space-y-4 items-end uppercase font-medium backdrop-blur-2xl pl-20 pr-4 py-4  rounded-lg">
+      <ul className="flex flex-col space-y-4 items-end uppercase font-medium backdrop-blur-2xl pl-20 pr-4 py-4 rounded-lg">
         {links.map(({ text, url }) => (
           <motion.li
             key={text}

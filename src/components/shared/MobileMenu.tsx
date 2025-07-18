@@ -33,7 +33,7 @@ export default function MobileMenu() {
             animate={{ opacity: 1, y: 4 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ type: "spring", damping: 18, stiffness: 160 }}
-            className="absolute right-0 mt-8 w-56 py-4 rounded-xl backdrop-blur-2xl bg-secondary drop-shadow-lg z-20"
+            className="absolute right-0 mt-8 w-56 py-4 rounded-xl backdrop-blur ring-1 ring-white/10 drop-shadow-lg z-[999]"
           >
             {links.map(({ text, url }, index) => (
               <motion.div
