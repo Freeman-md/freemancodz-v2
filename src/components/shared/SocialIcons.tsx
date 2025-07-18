@@ -55,7 +55,7 @@ export default function SocialIcons() {
                 duration: 0.5,
                 ease: "easeOut",
               }}
-              className="w-8 h-8 rounded-full border border-white flex items-center justify-center transition duration-200 transform hover:-translate-y-1"
+              className="w-8 h-8 rounded-full border border-white flex items-center justify-center transition duration-200 transform hover:-translate-y-1 backdrop-blur-2xl"
             >
               <Icon size={16} />
             </motion.a>

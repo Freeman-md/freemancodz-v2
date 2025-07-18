@@ -16,11 +16,11 @@ export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="sm:hidden relative z-[9999]">
+    <div className="sm:hidden relative z-20">
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="w-10 h-10 bg-white text-black shadow rounded-full flex items-center justify-center ml-auto"
+        className="w-10 h-10 text-white ring-1 ring-white/20 shadow rounded-full flex items-center justify-center ml-auto"
       >
         {isOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
@@ -33,7 +33,7 @@ export default function MobileMenu() {
             animate={{ opacity: 1, y: 4 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ type: "spring", damping: 18, stiffness: 160 }}
-            className="absolute right-0 mt-8 w-56 py-4 rounded-xl backdrop-blur-3xl drop-shadow-lg z-[9999] bg-secondary"
+            className="absolute right-0 mt-8 w-56 py-4 rounded-xl backdrop-blur-2xl bg-secondary drop-shadow-lg z-20"
           >
             {links.map(({ text, url }, index) => (
               <motion.div

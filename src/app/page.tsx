@@ -1,3 +1,4 @@
+import About from "@/components/home/About";
 import Hero from "@/components/home/Hero";
 
 export default function Home() {
@@ -5,7 +6,7 @@ export default function Home() {
     <>
       <Hero />
 
-      <div className="h-[100vh]"></div>
+      <About />
     </>
   );
 }
