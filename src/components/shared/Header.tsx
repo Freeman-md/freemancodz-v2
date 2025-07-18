@@ -12,7 +12,7 @@ export default function Header() {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="py-6 fixed w-full backdrop-blur max-h-16 z-50"
+      className="py-4 sm:py-6 fixed w-full backdrop-blur sm:max-h-16 z-50"
     >
       <div className="container flex justify-between space-x-4 items-center sm:items-start">
         <motion.div
