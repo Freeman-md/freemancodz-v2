@@ -26,7 +26,7 @@ export default function About() {
     <section id="about" className="bg-secondary-light">
       <div
         ref={ref}
-        className="container py-40 space-y-4"
+        className="container py-40 pb-20 space-y-4"
       >
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -41,7 +41,7 @@ export default function About() {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.3, duration: 0.7 }}
-          className="space-y-6 text-5xl sm:text-6xl font-medium leading-tight tracking-tight"
+          className="space-y-6 text-4xl sm:text-6xl font-medium leading-tight tracking-tight"
         >
           <p>
             I’m a{" "}

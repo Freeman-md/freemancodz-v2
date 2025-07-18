@@ -48,7 +48,7 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
   });
 
   return (
-    <div className="overflow-hidden whitespace-nowrap parallax -my-4">
+    <div className="overflow-hidden whitespace-nowrap parallax my-0 sm:-my-4">
       <motion.div
         className="scroller flex gap-x-10 text-4xl font-semibold"
         style={{ x }}
@@ -76,12 +76,12 @@ export default function TechStackMarquee() {
 
   return (
     <section id="tools" className="bg-secondary-light">
-      <div ref={ref} className="py-5 space-y-4">
+      <div ref={ref} className="space-y-4">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.1, duration: 0.6 }}
-          className="uppercase text-base font-medium container mb-16"
+          className="uppercase text-base font-medium container mb-8 sm:mb-16"
         >
           Tools I Use To Build Magic
         </motion.h2>
