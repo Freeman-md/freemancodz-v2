@@ -1,4 +1,5 @@
 "use client";
+import { ArrowDown } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -49,7 +50,10 @@ export default function Hero() {
             <motion.div
               key={index}
               variants={item}
-              className={['max-sm:text-center', index % 2 === 0 ? "sm:text-left" : "sm:text-right"].join(" ")}
+              className={[
+                "max-sm:text-center",
+                index % 2 === 0 ? "sm:text-left" : "sm:text-right",
+              ].join(" ")}
             >
               {index === 2 ? (
                 <AnimatePresence mode="wait">
@@ -86,6 +90,26 @@ export default function Hero() {
           priority
         />
       </motion.div>
+
+      <motion.a
+        href="#about"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{
+          opacity: 1,
+          y: [0, -10, 0],
+        }}
+        transition={{
+          delay: 1,
+          duration: 1.6,
+          ease: "easeInOut",
+        }}
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 z-40"
+        data-cursor="hover"
+      >
+        <div className="backdrop-blur border border-white/20 rounded-full w-12 h-12 flex items-center justify-center shadow-lg animate-bounce">
+          <ArrowDown className="w-6 h-6 text-white/40 transition hover:text-white" />
+        </div>
+      </motion.a>
     </section>
   );
 }
