@@ -4,7 +4,7 @@ import { useProjectsData } from "@/hooks/useProjectsData";
 
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
-import ProjectCard from "../ui/ProjectCard";
+import ProjectCard from "../projects/ProjectCard";
 
 export default function Projects() {
   const ref = useRef(null);
