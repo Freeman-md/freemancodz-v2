@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
-import DesktopMenu from "./DesktopMenu";
 import MobileMenu from "./MobileMenu";
 
 export default function Header() {
@@ -12,7 +11,7 @@ export default function Header() {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="py-4 sm:py-6 fixed w-full max-sm:bg-secondary sm:backdrop-blur sm:max-h-16 z-50"
+      className="py-4 sm:py-6 fixed w-full max-sm:bg-secondary sm:backdrop-blur z-50"
     >
       <div className="container flex justify-between space-x-4 items-center sm:items-start">
         <motion.div
@@ -29,8 +28,6 @@ export default function Header() {
             />
           </Link>
         </motion.div>
-
-        <DesktopMenu />
 
         <MobileMenu />
       </div>

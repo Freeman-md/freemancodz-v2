@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/shared/Header";
 import SocialIcons from "@/components/shared/SocialIcons";
 import CustomCursor from "@/components/shared/CustomCursor";
+import DesktopMenu from "@/components/shared/DesktopMenu";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -27,6 +28,9 @@ export default function RootLayout({
         className={`${poppins.className} antialiased relative cursor-none`}
       >
         <Header />
+
+        <DesktopMenu />
+
         <CustomCursor />
 
         <main className="pt-20">
