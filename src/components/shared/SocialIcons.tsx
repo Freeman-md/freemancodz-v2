@@ -48,8 +48,8 @@ export default function SocialIcons() {
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{
                 delay: 2.2 + index * 0.12,
                 duration: 0.5,

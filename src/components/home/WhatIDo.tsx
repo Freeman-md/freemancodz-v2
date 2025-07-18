@@ -14,7 +14,7 @@ const services = [
     description: "Creating cross-platform native desktop apps with Avalonia and performant mobile-ready UIs.",
   },
   {
-    title: "DevOps",
+    title: "DevOps & Infrastructure",
     description: "Automating CI/CD pipelines and Azure infrastructure for fast and safe deployments.",
   },
   {
@@ -80,10 +80,10 @@ export default function WhatIDo() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1.2, duration: 1.2, ease: "easeOut" }}
-        className="absolute -right-40 bottom-0 w-[70vw] h-[80vh] pointer-events-none"
+        className="absolute -right-60 sm:-right-40 md:-right-100 -rotate-15 bottom-0 w-[70vw] h-[80vh] pointer-events-none"
       >
         <Image
-          src="/images/me.png"
+          src="/images/me-sideways.png"
           alt="Freemancodz - Headshot"
           fill
           className="object-contain"
