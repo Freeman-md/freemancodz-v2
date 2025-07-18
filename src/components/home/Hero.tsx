@@ -44,12 +44,12 @@ export default function Hero() {
         animate="show"
         className="container grid grid-cols-2 h-full content-center relative z-10"
       >
-        <div className="text-8xl lg:text-9xl uppercase font-medium tracking-tighter space-y-2 leading-[0.9]">
+        <div className="text-7xl sm:text-8xl max-sm:col-span-2 lg:text-9xl uppercase font-medium tracking-tighter space-y-2 leading-[0.9] max-sm:-mt-20">
           {lines.map((line, index) => (
             <motion.div
               key={index}
               variants={item}
-              className={index % 2 === 0 ? "text-left" : "text-right"}
+              className={['max-sm:text-center', index % 2 === 0 ? "sm:text-left" : "sm:text-right"].join(" ")}
             >
               {index === 2 ? (
                 <AnimatePresence mode="wait">
@@ -76,7 +76,7 @@ export default function Hero() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1.2, duration: 1.2, ease: "easeOut" }}
-        className="absolute -right-40 bottom-0 w-[70vw] h-[110vh] top-4 pointer-events-none z-0"
+        className="absolute -right-40 bottom-0 w-[70vw] h-[110vh] top-36 sm:top-20 md:top-4 pointer-events-none z-0"
       >
         <Image
           src="/images/me.png"
