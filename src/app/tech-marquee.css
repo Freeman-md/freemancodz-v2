@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Plaster&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+.parallax {
+    font-family: "Plaster", sans-serif;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.scroller {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: clamp(2rem, 5vw, 4rem);
+  display: flex;
+  gap: 3rem;
+  color: rgba(255, 255, 255, 0.15);
+  transition: color 0.3s ease;
+}

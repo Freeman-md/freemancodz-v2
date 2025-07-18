@@ -13,7 +13,7 @@ const rotatingTitles = [
 export default function About() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref);
 
   useEffect(() => {
     const interval = setInterval(() => {
