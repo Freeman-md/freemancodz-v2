@@ -3,9 +3,8 @@ import { Badge } from "@/components/ui/badge";
 import { useProjectsData } from "@/hooks/useProjectsData";
 
 import { motion, useInView } from "motion/react";
-import Image from "next/image";
-import Link from "next/link";
 import { useRef } from "react";
+import ProjectCard from "../ui/ProjectCard";
 
 export default function Projects() {
   const ref = useRef(null);
@@ -26,99 +25,77 @@ export default function Projects() {
 
         <div>
           <motion.div
-          className="flex items-center justify-center md:flex-wrap overflow-x-scroll w-full mx-auto"
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={{
-            visible: { transition: { staggerChildren: 0.07 } },
-            hidden: {},
-          }}
-        >
-          {categories.map((category, index) => (
-            <motion.div
-              key={index}
-              variants={{
-                hidden: { opacity: 0, y: 10 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-            >
-              <Badge
-                variant="outline"
-                className="rounded-full p-2 m-2 border-white/40 text-white/40 transition duration-500 hover:text-white hover:border-white"
-                asChild
+            className="flex items-center justify-center md:flex-wrap overflow-x-scroll w-full mx-auto"
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            variants={{
+              visible: { transition: { staggerChildren: 0.07 } },
+              hidden: {},
+            }}
+          >
+            {categories.map((category, index) => (
+              <motion.div
+                key={index}
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
               >
-                <button className="cursor-pointer">{category}</button>
-              </Badge>
-            </motion.div>
-          ))}
-        </motion.div>
+                <Badge
+                  variant="outline"
+                  className="rounded-full p-2 m-2 border-white/40 text-white/40 transition duration-500 hover:text-white hover:border-white"
+                  asChild
+                >
+                  <button className="cursor-pointer">{category}</button>
+                </Badge>
+              </motion.div>
+            ))}
+          </motion.div>
 
-        <motion.div
-          className="flex items-center justify-center md:flex-wrap overflow-x-scroll w-full mx-auto"
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={{
-            visible: { transition: { staggerChildren: 0.05 } },
-            hidden: {},
-          }}
-        >
-          {tools.map((tool, index) => (
-            <motion.div
-              key={index}
-              variants={{
-                hidden: { opacity: 0, y: 10 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-            >
-              <Badge
-                variant="outline"
-                className="rounded-full p-2 m-2 border-white/40 text-white/40 transition duration-500 hover:text-white hover:border-white"
-                asChild
+          <motion.div
+            className="flex items-center justify-center md:flex-wrap overflow-x-scroll w-full mx-auto"
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            variants={{
+              visible: { transition: { staggerChildren: 0.05 } },
+              hidden: {},
+            }}
+          >
+            {tools.map((tool, index) => (
+              <motion.div
+                key={index}
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
               >
-                <button className="cursor-pointer">{tool}</button>
-              </Badge>
-            </motion.div>
-          ))}
-        </motion.div>
+                <Badge
+                  variant="outline"
+                  className="rounded-full p-2 m-2 border-white/40 text-white/40 transition duration-500 hover:text-white hover:border-white"
+                  asChild
+                >
+                  <button className="cursor-pointer">{tool}</button>
+                </Badge>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
 
         {/* Masonry Grid */}
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4 mt-8">
           {projects.map((project, index) => {
-            // Cycle aspect ratio based on index
-            let aspectClass = "aspect-[4/3]";
-            if (index % 3 === 1) aspectClass = "aspect-square";
-            if (index % 3 === 2) aspectClass = "aspect-[5/6]"; // optional tighter vertical
-
+            let aspect = "aspect-[4/3]";
+            if (index % 3 === 1) aspect = "aspect-square";
+            if (index % 3 === 2) aspect = "aspect-[5/6]";
             return (
-              <motion.div
+              <ProjectCard
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="break-inside-avoid rounded-xl overflow-hidden border border-white/10 hover:shadow-lg hover:border-white/20 transition-all duration-300 group"
-              >
-                <Link href={project.link} target="_blank">
-                  <div className={`relative ${aspectClass} bg-black`}>
-                    <Image
-                      src={project.coverImage}
-                      alt={project.title}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-4 space-y-1">
-                    <h3 className="text-lg font-semibold text-white group-hover:text-primary">
-                      {project.title}
-                    </h3>
-                    <p className="text-sm text-white/70 leading-snug">
-                      {project.description}
-                    </p>
-                  </div>
-                </Link>
-              </motion.div>
+                project={project}
+                aspect={aspect}
+                delay={index * 0.1}
+              />
             );
           })}
         </div>
