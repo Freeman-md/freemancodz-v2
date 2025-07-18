@@ -1,4 +1,5 @@
 import About from "@/components/home/About";
+import Contact from "@/components/home/Contact";
 import Hero from "@/components/home/Hero";
 import Projects from "@/components/home/Projects";
 import TechStackMarquee from "@/components/home/TechStackMarquee";
@@ -16,6 +17,8 @@ export default function Home() {
       <WhatIDo />
 
       <Projects />
+
+      <Contact />
     </>
   );
 }
