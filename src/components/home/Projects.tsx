@@ -1,59 +1,18 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
+import { useProjectsData } from "@/hooks/useProjectsData";
 
 import { motion, useInView } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 
-const categories = [
-  "Web App Development",
-  "Native App Development",
-  "DevOps & Infrastructure",
-  "Agentic App Development",
-];
-
-const tools = [
-  "Next.js",
-  "Nuxt.js",
-  "C#",
-  "Azure",
-  "TypeScript",
-  "Git",
-  "GitHub",
-  "JavaScript",
-  "TypeScript",
-  "Tailwind CSS",
-];
-
-const projects = [
-  {
-    title: "FileTidy",
-    category: "Native App Development",
-    description: "Cross-platform file organization tool built with Avalonia and .NET.",
-    coverImage: "/images/filetidy.png",
-    link: "https://github.com/freemancodz/filetidy",
-  },
-  {
-    title: "PlanPilot",
-    category: "Agentic App Development",
-    description: "AI project planner using LangGraph & Next.js.",
-    coverImage: "/images/planpilot.png",
-    link: "https://planpilot.ai",
-  },
-  {
-    title: "PlanPilot",
-    category: "Agentic App Development",
-    description: "AI project planner using LangGraph & Next.js.",
-    coverImage: "/images/planpilot.png",
-    link: "https://planpilot.ai",
-  },
-];
-
 
 export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref);
+    const { categories, tools, projects } = useProjectsData();
+
 
   return (
     <section id="projects" className="bg-secondary/50">
