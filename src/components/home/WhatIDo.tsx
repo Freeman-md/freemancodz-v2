@@ -80,7 +80,7 @@ export default function WhatIDo() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1.2, duration: 1.2, ease: "easeOut" }}
-        className="absolute -right-60 sm:-right-40 md:-right-100 -rotate-15 bottom-0 w-[70vw] h-[80vh] pointer-events-none"
+        className="absolute -right-60 sm:-right-40 md:-right-120 -rotate-45 bottom-0 w-[70vw] h-[80vh] pointer-events-none"
       >
         <Image
           src="/images/me-sideways.png"

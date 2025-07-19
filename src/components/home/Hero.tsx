@@ -80,7 +80,7 @@ export default function Hero() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1.2, duration: 1.2, ease: "easeOut" }}
-        className="absolute -right-40 bottom-0 w-[70vw] h-[110vh] top-36 sm:top-20 md:top-4 pointer-events-none"
+        className="absolute -right-60 bottom-0 w-[70vw] h-[110vh] top-36 sm:top-20 md:top-4 pointer-events-none"
       >
         <Image
           src="/images/me.png"

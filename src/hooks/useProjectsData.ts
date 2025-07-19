@@ -29,19 +29,21 @@ export function useProjectsData() {
       link: "https://github.com/freemancodz/filetidy",
     },
     {
-      title: "SkillBridge",
-      category: "Agentic App Development",
-      description: "AI **** using LangGraph & Next.js.",
-      coverImage: "/images/filetidy-og-image.png",
-      link: "https://skillbridge.ai",
+      title: "SnappShare",
+      category: "Web App Development",
+      description: "Fast, secure file sharing built with .NET, Azure Blob Storage & Vue.js.",
+      coverImage: "/images/snappshare-og-image.png",
+      link: "https://snappshare.vercel.app",
     },
+
     {
-      title: "SkillBridge",
-      category: "Agentic App Development",
-      description: "AI ***** planner using LangGraph & Next.js.",
-      coverImage: "/images/filetidy-og-image.png",
-      link: "https://skillbridge.ai",
+      title: "TellTheDev",
+      category: "Feedback Tooling",
+      description: "Lightweight dev feedback widget built with Vite, Supabase & TailwindCSS.",
+      coverImage: "/images/tellthedev-og-image.png",
+      link: "https://tellthedev.vercel.app",
     },
+
   ];
 
   // Enhance with aspect ratios
