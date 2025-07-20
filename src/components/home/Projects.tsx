@@ -10,7 +10,7 @@ import { useProjectStore } from "@/store/useProjectStore";
 import Empty from "../shared/Empty";
 
 export default function Projects() {
-  const { activeCategories, activeTools, toggleCategory, toggleTool } =
+  const { activeCategories, activeTools, toggleCategory, toggleTool, resetFilters } =
     useProjectFilterStore();
   const ref = useRef(null);
   const isInView = useInView(ref);
@@ -99,6 +99,18 @@ export default function Projects() {
                 </motion.div>
               ))}
           </motion.div>
+
+          {(activeCategories.length > 0 || activeTools.length > 0) && (
+  <div className="flex justify-center pt-4">
+    <button
+      onClick={resetFilters}
+      className="text-sm px-4 py-1.5 border border-white/30 rounded-full text-white/60 hover:text-white hover:border-white transition"
+    >
+      Reset Filters
+    </button>
+  </div>
+)}
+
         </div>
 
         {filteredProjects.length > 0 ? (
