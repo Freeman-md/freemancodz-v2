@@ -23,9 +23,9 @@ export default function Projects() {
           I Build Stuff that Works
         </motion.h2>
 
-        <div>
+        <div className="space-y-2">
           <motion.div
-            className="flex items-center justify-center md:flex-wrap overflow-x-scroll w-full mx-auto"
+            className="flex items-center justify-center md:flex-wrap gap-2 overflow-x-scroll w-full mx-auto"
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
             variants={{
@@ -44,7 +44,7 @@ export default function Projects() {
               >
                 <Badge
                   variant="outline"
-                  className="rounded-full p-2 m-2 border-white/40 text-white/40 transition duration-500 hover:text-white hover:border-white"
+                  className="border-white/40 text-white/40 hover:text-white hover:border-white"
                   asChild
                 >
                   <button className="cursor-pointer">{category}</button>
@@ -54,7 +54,7 @@ export default function Projects() {
           </motion.div>
 
           <motion.div
-            className="flex items-center justify-center md:flex-wrap overflow-x-scroll w-full mx-auto"
+            className="flex items-center justify-center md:flex-wrap gap-2 overflow-x-scroll w-full mx-auto"
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
             variants={{
@@ -73,7 +73,7 @@ export default function Projects() {
               >
                 <Badge
                   variant="outline"
-                  className="rounded-full p-2 m-2 border-white/40 text-white/40 transition duration-500 hover:text-white hover:border-white"
+                  className="border-white/40 text-white/40 hover:text-white hover:border-white"
                   asChild
                 >
                   <button className="cursor-pointer">{tool}</button>
