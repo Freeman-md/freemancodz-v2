@@ -26,23 +26,25 @@ export default function ProjectCard({
 
   return (
     <motion.div
-      layoutId={`project-card-${project.id}`}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.5 }}
       className="break-inside-avoid rounded-xl overflow-hidden group relative"
     >
-      <div
-        className={`relative ${aspect} rounded-xl overflow-hidden`}
-      >
-        <Link href={project.link}>
-          <Image
-            src={project.coverImage}
-            alt={project.title}
-            fill
-            className="object-cover rounded-xl transition-transform duration-300 group-hover:scale-105 group-hover:z-10"
-          />
-        </Link>
+      <div className={`relative ${aspect} rounded-xl overflow-hidden`}>
+          <motion.div
+            layoutId={`project-image-${project.id}`}
+            className="absolute inset-0 rounded-xl overflow-hidden group-hover:z-10"
+            onClick={handleViewMoreClick}
+          >
+            <Image
+              src={project.coverImage}
+              alt={project.title}
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+        </motion.div>
 
         <div className="absolute inset-0 bg-black/60 transition-opacity duration-300 group-hover:opacity-0 z-10 group-hover:z-0" />
 

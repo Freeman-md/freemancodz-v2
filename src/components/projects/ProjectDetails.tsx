@@ -48,12 +48,10 @@ export default function ProjectDetails() {
         onClick={handleClose}
       >
         <motion.div
-          layoutId={`project-card-${id}`}
           className="relative bg-secondary rounded-xl shadow-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto"
           onClick={(e) => e.stopPropagation()}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
         >
-          {/* Close Button */}
           <button
             onClick={handleClose}
             className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
@@ -61,8 +59,10 @@ export default function ProjectDetails() {
             <XIcon className="h-5 w-5" />
           </button>
 
-          {/* Media Section */}
-          <div className="relative w-full aspect-video rounded-t-xl overflow-hidden bg-black">
+          <motion.div
+            layoutId={`project-image-${id}`}
+            className="relative w-full aspect-video rounded-t-xl overflow-hidden bg-black"
+          >
             {video_url && showVideo ? (
               <iframe
                 src={video_url}
@@ -93,10 +93,18 @@ export default function ProjectDetails() {
                 )}
               </>
             )}
-          </div>
+          </motion.div>
 
-          {/* Details Section */}
           <div className="p-6">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-sm text-white/60">
+                {selectedProject.year}
+              </span>
+              <span className="text-xs bg-white/10 text-white px-3 py-1 rounded-full uppercase tracking-wide">
+                {selectedProject.category}
+              </span>
+            </div>
+
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -120,7 +128,6 @@ export default function ProjectDetails() {
               </Accordion>
             </motion.div>
 
-            {/* Tools */}
             {tools && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -144,7 +151,27 @@ export default function ProjectDetails() {
               </motion.div>
             )}
 
-            {/* Links */}
+            {selectedProject.tags?.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.45, duration: 0.3 }}
+                className="mb-6"
+              >
+                <h3 className="text-lg font-semibold text-white mb-2">Tags</h3>
+                <div className="flex flex-wrap gap-2">
+                  {selectedProject.tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="bg-white/10 text-white px-3 py-1 rounded-full text-sm"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
