@@ -53,7 +53,7 @@ export default function SocialIcons() {
               transition={{
                 delay: 2.2 + index * 0.12,
                 duration: 0.5,
-                ease: "easeOut",
+                ease: [0.22, 1, 0.36, 1],
               }}
               className="w-8 h-8 rounded-full border border-white flex items-center justify-center transition duration-200 transform hover:-translate-y-1 backdrop-blur-2xl"
             >
