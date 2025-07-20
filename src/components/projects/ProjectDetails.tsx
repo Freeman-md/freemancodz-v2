@@ -13,6 +13,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Badge } from "../ui/badge";
+import { getStatusBadgeVariant } from "@/lib/badge-utils";
+import { cn } from "@/lib/utils";
 
 export default function ProjectDetails() {
   const { selectedProject, clearSelectedProject } = useProjectStore();
@@ -36,6 +38,8 @@ export default function ProjectDetails() {
     coverImage,
     video_url,
   } = selectedProject;
+
+  const statusVariant = getStatusBadgeVariant(selectedProject.status ?? "Beta");
 
   return (
     <AnimatePresence>
@@ -118,6 +122,28 @@ export default function ProjectDetails() {
               {title}
             </motion.h2>
 
+            <div className="flex items-center justify-between space-x-2">
+              {selectedProject.status && (
+                <Badge
+                  variant={
+                    statusVariant.variant as React.ComponentProps<
+                      typeof Badge
+                    >["variant"]
+                  }
+                  className={cn(
+                    "uppercase text-xs tracking-wide",
+                    statusVariant.className
+                  )}
+                >
+                  {selectedProject.status}
+                </Badge>
+              )}
+
+              {selectedProject.role && (
+                <p className="text-xs text-white/50 italic">{selectedProject.role}</p>
+              )}
+            </div>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -131,6 +157,22 @@ export default function ProjectDetails() {
                 </AccordionItem>
               </Accordion>
             </motion.div>
+
+            {selectedProject.impactNote && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.48, duration: 0.3 }}
+                className="mb-6"
+              >
+                <h3 className="text-lg font-semibold text-white mb-2">
+                  Impact
+                </h3>
+                <p className="text-white/80 leading-relaxed">
+                  {selectedProject.impactNote}
+                </p>
+              </motion.div>
+            )}
 
             {tools && (
               <motion.div
