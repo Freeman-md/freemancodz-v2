@@ -1,8 +1,11 @@
+import { useProjectStore } from "@/store/useProjectStore";
 import { Project } from "@/types/project";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 export function useProjects() {
-  const rawProjects: Project[] = [
+  const { setProjects } = useProjectStore()
+
+  const rawProjects: Project[] = useMemo(() => [
     {
       id: 1,
       title: "FileTidy",
@@ -58,20 +61,31 @@ export function useProjects() {
       categories: ["Widget", "Developer Tools", "Feedback"],
       impactNote: "Helped validate 3+ early products during alpha"
     }
-  ];
+  ], []);
 
 
   // Enhance with aspect ratios
-  const projects = rawProjects.map((project, index) => {
-    let aspect = "aspect-[4/3]";
-    if (index % 3 === 1) aspect = "aspect-square";
-    if (index % 3 === 2) aspect = "aspect-[5/6]";
+  const projects = useMemo(() => {
+    return rawProjects.map((project, index) => {
+      let aspect = "aspect-[4/3]";
+      if (index % 3 === 1) aspect = "aspect-square";
+      if (index % 3 === 2) aspect = "aspect-[5/6]";
+      return { ...project, aspect };
+    });
+  }, [rawProjects]);
 
-    return { ...project, aspect };
-  });
+  useEffect(() => {
+    setProjects(projects);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const categories = useMemo(() => [...new Set(projects?.flatMap(project => project.categories))], [projects]);
-  const tools = useMemo(() => [...new Set(projects?.flatMap(project => project.tools))], [projects]);
+  const categories = useMemo(() => {
+    return [...new Set(rawProjects.flatMap(project => project.categories))];
+  }, [rawProjects]);
+
+  const tools = useMemo(() => {
+    return [...new Set(rawProjects.flatMap(project => project.tools))];
+  }, [rawProjects]);
 
   return {
     categories,

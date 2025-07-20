@@ -50,8 +50,10 @@ export type Project = {
   year: number;
 
   // Stack
-  tools?: string[];
+  tools: string[];
 
   // Extra context
   impactNote?: string;      // e.g. "Used by 500+ people"
+
+  aspect?: string;
 };

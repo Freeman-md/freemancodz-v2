@@ -6,13 +6,16 @@ import ProjectCard from "../projects/ProjectCard";
 import { useProjects } from "@/hooks/useProjects";
 import ProjectDetails from "../projects/ProjectDetails";
 import { useProjectFilterStore } from "@/store/useProjectFilterStore";
+import { useProjectStore } from "@/store/useProjectStore";
 
 export default function Projects() {
   const { activeCategories, activeTools, toggleCategory, toggleTool } =
     useProjectFilterStore();
   const ref = useRef(null);
   const isInView = useInView(ref);
-  const { categories, tools, projects } = useProjects();
+  const { categories, tools } = useProjects();
+  const { filteredProjects } = useProjectStore();
+
 
   return (
     <section id="projects" className="bg-secondary/50">
@@ -97,7 +100,7 @@ export default function Projects() {
         </div>
 
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4 mt-8">
-          {projects.map((project, index) => {
+          {filteredProjects.map((project, index) => {
             return (
               <ProjectCard
                 key={index}
