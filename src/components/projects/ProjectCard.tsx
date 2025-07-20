@@ -25,13 +25,16 @@ export default function ProjectCard({ project, aspect = "aspect-[4/3]", delay = 
       className="break-inside-avoid rounded-xl overflow-hidden group relative"
     >
       {/* Clickable Project Area */}
-      <div className={`relative ${aspect} bg-zinc-900 rounded-xl overflow-hidden`}>
+      <Link href={project.link} className={`relative ${aspect} rounded-xl overflow-hidden block`}>
         <Image
           src={project.coverImage}
           alt={project.title}
           fill
           className="object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
         />
+
+          <div className="absolute inset-0 bg-black/60 transition-opacity duration-300 group-hover:opacity-0 z-10" />
+
 
         {/* Top-right hover hint */}
         <div className="absolute top-2 right-2 z-10">
@@ -40,7 +43,7 @@ export default function ProjectCard({ project, aspect = "aspect-[4/3]", delay = 
             <span>View more</span>
           </div>
         </div>
-      </div>
+      </Link>
 
       {/* Details */}
       <div className="pt-3 space-y-2 px-1">
