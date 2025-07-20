@@ -3,31 +3,33 @@
 import { useInView, motion } from "motion/react";
 import { useRef, useState } from "react";
 import Image from "next/image";
+import { useProjectFilterStore } from "@/store/useProjectFilterStore";
+import { ProjectCategory } from "@/types/project";
 
 const services = [
   {
     title: "Web App Development",
-    description: "Building responsive, full-stack applications using Nuxt, Next.js, .NET, and more.",
-    categories: ["Frontend", "Backend", "Fullstack"]
-
+    description:
+      "Building responsive, full-stack applications using Nuxt, Next.js, .NET, and more.",
+    categories: ["Frontend", "Backend", "Fullstack"],
   },
   {
     title: "Native App Development",
-    description: "Creating cross-platform native desktop apps with Avalonia and performant mobile-ready UIs.",
-    categories: ["Desktop", "Cross-platform", "Tooling"]
-
+    description:
+      "Creating cross-platform native desktop apps with Avalonia and performant mobile-ready UIs.",
+    categories: ["Desktop", "Cross-platform", "Tooling"],
   },
   {
     title: "DevOps & Infrastructure",
-    description: "Automating CI/CD pipelines and Azure infrastructure for fast and safe deployments.",
-    categories: ["DevOps", "Automation"]
-
+    description:
+      "Automating CI/CD pipelines and Azure infrastructure for fast and safe deployments.",
+    categories: ["DevOps", "Automation"],
   },
   {
     title: "Agentic App Development",
-    description: "Designing apps with LLMs, LangGraph, and custom agents that reason and act.",
-    categories: ["AI", "Tooling"]
-
+    description:
+      "Designing apps with LLMs, LangGraph, and custom agents that reason and act.",
+    categories: ["AI", "Tooling"],
   },
 ];
 
@@ -36,8 +38,22 @@ export default function WhatIDo() {
   const isInView = useInView(ref);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
+  const { setCategories } = useProjectFilterStore();
+
+  const handleServiceClick = (categories: ProjectCategory[]) => {
+    setCategories(categories);
+
+    const el = document.getElementById("projects");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <section id="what-i-do" className="bg-secondary-light relative overflow-hidden">
+    <section
+      id="what-i-do"
+      className="bg-secondary-light relative overflow-hidden"
+    >
       <div ref={ref} className="py-40 space-y-8 relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -59,6 +75,9 @@ export default function WhatIDo() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="border-t border-white/20 py-6 transition duration-500 hover:bg-primary hover:text-secondary relative"
               data-cursor="hover"
+              onClick={() =>
+                handleServiceClick(service.categories as ProjectCategory[])
+              }
             >
               <div className="container py-0">
                 <h3 className="uppercase text-xl md:text-3xl lg:text-5xl font-semibold">

@@ -5,6 +5,7 @@ import { useProjectStore } from "./useProjectStore";
 type ProjectFilterStore = {
   activeCategories: Array<ProjectCategory>;
   toggleCategory: (category: ProjectCategory) => void;
+  setCategories: (categories: ProjectCategory[]) => void;
   activeTools: Array<string>;
   toggleTool: (tool: string) => void;
   resetFilters: () => void;
@@ -21,6 +22,11 @@ export const useProjectFilterStore = create<ProjectFilterStore>((set, get) => ({
       : [...activeCategories, category];
 
     set({ activeCategories: newCategories });
+    useProjectStore.getState().setFilteredProjects();
+  },
+
+  setCategories: (categories) => {
+    set({ activeCategories: [...new Set(categories)] });
     useProjectStore.getState().setFilteredProjects();
   },
 
