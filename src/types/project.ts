@@ -11,5 +11,6 @@ export type Project = {
     year: number
     tools?: Array<string>
     tags: Array<string>
-    longdescription?: string
+    longdescription?: string,
+    video_url?: string
 }
