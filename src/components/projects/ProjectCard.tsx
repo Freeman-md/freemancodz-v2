@@ -17,22 +17,24 @@ export default function ProjectCard({
   aspect = "aspect-[4/3]",
   delay = 0,
 }: Props) {
-  const { setSelectedProject } = useProjectStore()
+  const { setSelectedProject } = useProjectStore();
 
   const handleViewMoreClick = () => {
-    console.log('setting active project')
-    setSelectedProject(project)
-  }
+    console.log("setting active project");
+    setSelectedProject(project);
+  };
 
   return (
     <motion.div
+      layoutId={`project-card-${project.id}`}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.5 }}
       className="break-inside-avoid rounded-xl overflow-hidden group relative"
     >
-      {/* Clickable Project Area */}
-      <div className={`relative ${aspect} rounded-xl overflow-hidden`}>
+      <div
+        className={`relative ${aspect} rounded-xl overflow-hidden`}
+      >
         <Link href={project.link}>
           <Image
             src={project.coverImage}
@@ -44,8 +46,10 @@ export default function ProjectCard({
 
         <div className="absolute inset-0 bg-black/60 transition-opacity duration-300 group-hover:opacity-0 z-10 group-hover:z-0" />
 
-        {/* Top-right hover hint */}
-        <button onClick={handleViewMoreClick} className="absolute top-2 right-2 z-10 cursor-pointer">
+        <button
+          onClick={handleViewMoreClick}
+          className="absolute top-2 right-2 z-10 cursor-pointer"
+        >
           <div className="bg-black/50 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
             <InfoIcon className="text-sm" />
             <span>View more</span>
@@ -53,7 +57,6 @@ export default function ProjectCard({
         </button>
       </div>
 
-      {/* Details */}
       <div className="pt-3 space-y-2 px-1">
         <h3 className="text-base font-semibold text-white group-hover:text-primary">
           {project.title}
@@ -62,7 +65,6 @@ export default function ProjectCard({
           {project.description}
         </p>
 
-        {/* Links */}
         <div className="flex items-center gap-4 pt-2">
           <Link
             href={project.link}
