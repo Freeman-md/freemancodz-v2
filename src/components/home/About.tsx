@@ -23,7 +23,7 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" className="bg-secondary-light">
+    <section id="about" className="bg-dot-pattern">
       <div
         ref={ref}
         className="container py-40 pb-20 space-y-4"

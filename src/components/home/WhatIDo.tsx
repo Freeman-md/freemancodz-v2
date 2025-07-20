@@ -52,7 +52,7 @@ export default function WhatIDo() {
   return (
     <section
       id="what-i-do"
-      className="bg-secondary-light relative overflow-hidden"
+      className="relative overflow-hidden"
     >
       <div ref={ref} className="py-40 space-y-8 relative z-10">
         <motion.h2

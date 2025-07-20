@@ -9,7 +9,7 @@ export default function Contact() {
   const isInView = useInView(ref);
 
   return (
-    <section id="contact" className="bg-secondary/50">
+    <section id="contact" className=" relative bg-dot-pattern">
       <div
         ref={ref}
         className="container py-32 grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
@@ -62,13 +62,13 @@ export default function Contact() {
             <input
               type="text"
               placeholder="Your name"
-              className="bg-background border border-white/20 rounded-lg px-4 py-3 text-sm w-full text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-primary"
+              className="transition bg-background border border-white/20 rounded-lg px-4 py-3 text-sm w-full text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-primary"
               required
             />
             <input
               type="email"
               placeholder="Your email"
-              className="bg-background border border-white/20 rounded-lg px-4 py-3 text-sm w-full text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-primary"
+              className="transition bg-background border border-white/20 rounded-lg px-4 py-3 text-sm w-full text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-primary"
               required
             />
           </div>
@@ -76,7 +76,7 @@ export default function Contact() {
           <textarea
             rows={5}
             placeholder="Your message"
-            className="bg-background border border-white/20 rounded-lg px-4 py-3 text-sm w-full text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+            className="transition bg-background border border-white/20 rounded-lg px-4 py-3 text-sm w-full text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-primary resize-none"
             required
           />
 

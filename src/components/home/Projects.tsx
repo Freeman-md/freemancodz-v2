@@ -18,7 +18,7 @@ export default function Projects() {
   const { filteredProjects } = useProjectStore();
 
   return (
-    <section id="projects" className="bg-secondary/50">
+    <section id="projects">
       <div ref={ref} className="container py-20 pb-20 space-y-4">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

@@ -75,7 +75,7 @@ export default function TechStackMarquee() {
   const isInView = useInView(ref);
 
   return (
-    <section id="tools" className="bg-secondary-light">
+    <section id="tools" className="bg-dot-pattern">
       <div ref={ref} className="space-y-4">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
