@@ -6,6 +6,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink, GithubIcon, XIcon, PlayIcon } from "lucide-react"; // PlayIcon for video
 import { useState } from "react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export default function ProjectDetails() {
   const { selectedProject, clearSelectedProject } = useProjectStore();
@@ -18,7 +24,17 @@ export default function ProjectDetails() {
 
   if (!selectedProject) return null;
 
-  const { id, title, description, tools, link, github, coverImage, video_url } = selectedProject;
+  const {
+    id,
+    title,
+    description,
+    longdescription,
+    tools,
+    link,
+    github,
+    coverImage,
+    video_url,
+  } = selectedProject;
 
   return (
     <AnimatePresence>
@@ -90,14 +106,19 @@ export default function ProjectDetails() {
               {title}
             </motion.h2>
 
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.3 }}
               className="text-white/80 leading-relaxed mb-6"
             >
-              {description}
-            </motion.p>
+              <Accordion type="single" collapsible>
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>{description}</AccordionTrigger>
+                  <AccordionContent>{longdescription}</AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </motion.div>
 
             {/* Tools */}
             {tools && (
@@ -107,7 +128,9 @@ export default function ProjectDetails() {
                 transition={{ delay: 0.4, duration: 0.3 }}
                 className="mb-6"
               >
-                <h3 className="text-lg font-semibold text-white mb-2">Tools Used:</h3>
+                <h3 className="text-lg font-semibold text-white mb-2">
+                  Tools Used:
+                </h3>
                 <div className="flex flex-wrap gap-2">
                   {tools.map((tech, index) => (
                     <span
