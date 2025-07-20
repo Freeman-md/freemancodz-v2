@@ -86,15 +86,15 @@ export default function TechStackMarquee() {
           Tools I Use To Build Magic
         </motion.h2>
         
-        <ParallaxText baseVelocity={-2}>
+        <ParallaxText baseVelocity={-0.5}>
           Next.js React Tailwind Nuxt.js Vue.js Razor CSSModules Motion
         </ParallaxText>
 
-        <ParallaxText baseVelocity={2}>
+        <ParallaxText baseVelocity={0.5}>
           Azure Supabase Node.js .NET AzureFunctions CosmosDB AKS KeyVault
         </ParallaxText>
 
-        <ParallaxText baseVelocity={-1.5}>
+        <ParallaxText baseVelocity={-0.2}>
           TypeScript Git GitHub Docker Vite Playwright SQLite Hygen VitePress
         </ParallaxText>
       </div>
