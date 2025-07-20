@@ -86,14 +86,11 @@ export default function Projects() {
         {/* Masonry Grid */}
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4 mt-8">
           {projects.map((project, index) => {
-            let aspect = "aspect-[4/3]";
-            if (index % 3 === 1) aspect = "aspect-square";
-            if (index % 3 === 2) aspect = "aspect-[5/6]";
             return (
               <ProjectCard
                 key={index}
                 project={project}
-                aspect={aspect}
+                aspect={project.aspect}
                 delay={index * 0.1}
               />
             );
