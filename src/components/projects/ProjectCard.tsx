@@ -1,22 +1,29 @@
 "use client";
+import { useProjectStore } from "@/store/useProjectStore";
+import { Project } from "@/types/project";
 import { motion } from "framer-motion";
 import { ExternalLink, GithubIcon, InfoIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
-  project: {
-    title: string;
-    description: string;
-    coverImage: string;
-    link: string;
-    github?: string;
-  };
+  project: Project;
   aspect?: string;
   delay?: number;
 };
 
-export default function ProjectCard({ project, aspect = "aspect-[4/3]", delay = 0 }: Props) {
+export default function ProjectCard({
+  project,
+  aspect = "aspect-[4/3]",
+  delay = 0,
+}: Props) {
+  const { setSelectedProject } = useProjectStore()
+
+  const handleViewMoreClick = () => {
+    console.log('setting active project')
+    setSelectedProject(project)
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -25,25 +32,26 @@ export default function ProjectCard({ project, aspect = "aspect-[4/3]", delay = 
       className="break-inside-avoid rounded-xl overflow-hidden group relative"
     >
       {/* Clickable Project Area */}
-      <Link href={project.link} className={`relative ${aspect} rounded-xl overflow-hidden block`}>
-        <Image
-          src={project.coverImage}
-          alt={project.title}
-          fill
-          className="object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
-        />
+      <div className={`relative ${aspect} rounded-xl overflow-hidden`}>
+        <Link href={project.link}>
+          <Image
+            src={project.coverImage}
+            alt={project.title}
+            fill
+            className="object-cover rounded-xl transition-transform duration-300 group-hover:scale-105 group-hover:z-10"
+          />
+        </Link>
 
-          <div className="absolute inset-0 bg-black/60 transition-opacity duration-300 group-hover:opacity-0 z-10" />
-
+        <div className="absolute inset-0 bg-black/60 transition-opacity duration-300 group-hover:opacity-0 z-10 group-hover:z-0" />
 
         {/* Top-right hover hint */}
-        <div className="absolute top-2 right-2 z-10">
+        <button onClick={handleViewMoreClick} className="absolute top-2 right-2 z-10 cursor-pointer">
           <div className="bg-black/50 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
             <InfoIcon className="text-sm" />
             <span>View more</span>
           </div>
-        </div>
-      </Link>
+        </button>
+      </div>
 
       {/* Details */}
       <div className="pt-3 space-y-2 px-1">

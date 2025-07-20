@@ -1,5 +1,6 @@
-// hooks/useProjectsData.ts
-export function useProjectsData() {
+import { Project } from "@/types/project";
+
+export function useProjects() {
   const categories = [
     "Web App Development",
     "Native App Development",
@@ -20,7 +21,7 @@ export function useProjectsData() {
     "Tailwind CSS",
   ];
 
-  const rawProjects = [
+  const rawProjects: Project[] = [
     {
       title: "FileTidy",
       category: "Native App Development",
@@ -55,5 +56,9 @@ export function useProjectsData() {
     return { ...project, aspect };
   });
 
-  return { categories, tools, projects };
+  return {
+    categories,
+    tools,
+    projects,
+  };
 }

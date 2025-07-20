@@ -1,15 +1,15 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
-import { useProjectsData } from "@/hooks/useProjectsData";
-
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 import ProjectCard from "../projects/ProjectCard";
+import { useProjects } from "@/hooks/useProjects";
+import ProjectDetails from "../projects/ProjectDetails";
 
 export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref);
-  const { categories, tools, projects } = useProjectsData();
+  const { categories, tools, projects } = useProjects();
 
   return (
     <section id="projects" className="bg-secondary/50">
@@ -83,7 +83,6 @@ export default function Projects() {
           </motion.div>
         </div>
 
-        {/* Masonry Grid */}
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4 mt-8">
           {projects.map((project, index) => {
             return (
@@ -96,6 +95,8 @@ export default function Projects() {
             );
           })}
         </div>
+
+        <ProjectDetails />
       </div>
     </section>
   );
