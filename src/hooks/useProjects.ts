@@ -35,7 +35,8 @@ export function useProjects() {
     year: 2025,
     tools: [".NET", "C#", "Avalonia", "SQLite"],
     tags: ["Desktop", "Cross-platform", "Automation"],
-    longdescription: "FileTidy is a cross-platform native desktop app that automatically organizes cluttered folders like Downloads or Desktop. Built with Avalonia UI and .NET, it uses smart sorting logic to move files into categorized subfolders based on extension and metadata. The project started as a CLI tool but evolved into a sleek GUI experience. It's designed for freelancers, remote workers, and anyone tired of messy desktops. All sorting logic lives in a shared core library, making it easy to reuse across CLI, GUI, and mobile in the future."
+    longdescription: "FileTidy is a cross-platform native desktop app that automatically organizes cluttered folders like Downloads or Desktop. Built with Avalonia UI and .NET, it uses smart sorting logic to move files into categorized subfolders based on extension and metadata. The project started as a CLI tool but evolved into a sleek GUI experience. It's designed for freelancers, remote workers, and anyone tired of messy desktops. All sorting logic lives in a shared core library, making it easy to reuse across CLI, GUI, and mobile in the future.",
+    video_url: "https://www.youtube.com/embed/hl2d-QiPfQA"
   },
   {
     id: 2,
