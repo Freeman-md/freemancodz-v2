@@ -1,11 +1,16 @@
-import { Project } from "@/types/project";
+import { Project, ProjectCategory } from "@/types/project";
 
 export function useProjects() {
-  const categories = [
-    "Web App Development",
-    "Native App Development",
-    "DevOps & Infrastructure",
-    "Agentic App Development",
+  const categories: ProjectCategory[] = [
+    "Frontend",
+    "Backend",
+    "Fullstack",
+    "AI",
+    "Tooling",
+    "DevOps",
+    "Mobile",
+    "SaaS",
+    "Showcase",
   ];
 
   const tools = [
