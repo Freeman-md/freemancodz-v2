@@ -5,14 +5,19 @@ import { useRef } from "react";
 import ProjectCard from "../projects/ProjectCard";
 import { useProjects } from "@/hooks/useProjects";
 import ProjectDetails from "../projects/ProjectDetails";
+import { useProjectFilterStore } from "@/store/useProjectFilterStore";
 
 export default function Projects() {
+  const { activeCategories, activeTools, toggleCategory, toggleTool } =
+    useProjectFilterStore();
   const ref = useRef(null);
   const isInView = useInView(ref);
   const { categories, tools, projects } = useProjects();
 
   return (
     <section id="projects" className="bg-secondary/50">
+      <pre>{activeCategories}</pre>
+      <pre>{activeTools}</pre>
       <div ref={ref} className="container py-20 pb-20 space-y-4">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -44,10 +49,16 @@ export default function Projects() {
               >
                 <Badge
                   variant="outline"
-                  className="border-white/40 text-white/40 hover:text-white hover:border-white"
+                  className={`cursor-pointer ${
+                    activeCategories.includes(category)
+                      ? "text-primary border-primary"
+                      : "border-white/40 text-white/40 hover:text-white hover:border-white"
+                  }`}
                   asChild
                 >
-                  <button className="cursor-pointer">{category}</button>
+                  <button onClick={() => toggleCategory(category)}>
+                    {category}
+                  </button>
                 </Badge>
               </motion.div>
             ))}
@@ -73,10 +84,14 @@ export default function Projects() {
               >
                 <Badge
                   variant="outline"
-                  className="border-white/40 text-white/40 hover:text-white hover:border-white"
+                  className={`cursor-pointer ${
+                    activeTools.includes(tool)
+                      ? "text-primary border-primary"
+                      : "border-white/40 text-white/40 hover:text-white hover:border-white"
+                  }`}
                   asChild
                 >
-                  <button className="cursor-pointer">{tool}</button>
+                  <button onClick={() => toggleTool(tool)}>{tool}</button>
                 </Badge>
               </motion.div>
             ))}
