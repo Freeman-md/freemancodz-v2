@@ -82,7 +82,7 @@ export default function ProjectCard({
               target="_blank"
               className="text-sm flex items-center gap-1 text-white/70 hover:text-white"
             >
-              <GithubIcon /> GitHub
+              <GithubIcon width={20} /> GitHub
             </Link>
           )}
         </div>
