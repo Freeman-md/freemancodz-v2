@@ -8,7 +8,16 @@ export type ProjectCategory =
   | "DevOps"
   | "Mobile"
   | "SaaS"
-  | "Showcase";
+  | "Showcase"
+  | "Automation"
+  | "Cross-platform"
+  | "Tooling"
+  | "Widget"
+  | "Desktop"
+  | "Cloud"
+  | "Developer Tools"
+  | "Feedback"
+  | "File Sharing";
 
 export type ProjectStatus = "Idea" | "In Progress" | "Beta" | "Live" | "Archived";
 
@@ -22,7 +31,7 @@ export type Project = {
   longdescription?: string;
 
   // Classification
-  category: ProjectCategory;
+  categories: ProjectCategory[];
   status?: ProjectStatus;
   role?: ProjectRole;
 
@@ -40,9 +49,8 @@ export type Project = {
   isPrivate: boolean;
   year: number;
 
-  // Stack & Tags
+  // Stack
   tools?: string[];
-  tags: string[];  
 
   // Extra context
   impactNote?: string;      // e.g. "Used by 500+ people"

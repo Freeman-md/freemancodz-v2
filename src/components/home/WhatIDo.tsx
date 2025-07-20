@@ -8,18 +8,26 @@ const services = [
   {
     title: "Web App Development",
     description: "Building responsive, full-stack applications using Nuxt, Next.js, .NET, and more.",
+    categories: ["Frontend", "Backend", "Fullstack"]
+
   },
   {
     title: "Native App Development",
     description: "Creating cross-platform native desktop apps with Avalonia and performant mobile-ready UIs.",
+    categories: ["Desktop", "Cross-platform", "Tooling"]
+
   },
   {
     title: "DevOps & Infrastructure",
     description: "Automating CI/CD pipelines and Azure infrastructure for fast and safe deployments.",
+    categories: ["DevOps", "Automation"]
+
   },
   {
     title: "Agentic App Development",
     description: "Designing apps with LLMs, LangGraph, and custom agents that reason and act.",
+    categories: ["AI", "Tooling"]
+
   },
 ];
 

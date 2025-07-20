@@ -66,16 +66,6 @@ export default function ProjectCard({
       <div className="pt-3 space-y-2 px-1">
         <div className="flex items-center justify-between mb-4">
           <span className="text-sm text-white/60">{project.year}</span>
-          <Badge variant="muted" className="uppercase text-xs tracking-wide">
-            {project.category}
-          </Badge>
-        </div>
-
-        <h3 className="text-base font-semibold text-white group-hover:text-primary">
-          {project.title}
-        </h3>
-
-        <div className="flex items-center justify-between space-x-2">
           {project.status && (
             <Badge
               variant={
@@ -91,11 +81,15 @@ export default function ProjectCard({
               {project.status}
             </Badge>
           )}
-
-          {project.role && (
-            <p className="text-xs text-white/50 italic">{project.role}</p>
-          )}
         </div>
+
+        <h3 className="text-base font-semibold text-white group-hover:text-primary">
+          {project.title}
+        </h3>
+
+        {project.role && (
+          <p className="text-xs text-white/50 italic">{project.role}</p>
+        )}
 
         <p className="text-sm text-white/70 leading-snug">
           {project.description}

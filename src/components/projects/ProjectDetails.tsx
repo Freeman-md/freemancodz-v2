@@ -105,24 +105,6 @@ export default function ProjectDetails() {
               <span className="text-sm text-white/60">
                 {selectedProject.year}
               </span>
-              <Badge
-                variant="muted"
-                className="uppercase text-xs tracking-wide"
-              >
-                {selectedProject.category}
-              </Badge>
-            </div>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.3 }}
-              className="text-3xl font-bold mb-4 text-primary"
-            >
-              {title}
-            </motion.h2>
-
-            <div className="flex items-center justify-between space-x-2">
               {selectedProject.status && (
                 <Badge
                   variant={
@@ -138,11 +120,22 @@ export default function ProjectDetails() {
                   {selectedProject.status}
                 </Badge>
               )}
-
-              {selectedProject.role && (
-                <p className="text-xs text-white/50 italic">{selectedProject.role}</p>
-              )}
             </div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.3 }}
+              className="text-3xl font-bold mb-4 text-primary"
+            >
+              {title}
+            </motion.h2>
+
+            {selectedProject.role && (
+              <p className="text-xs text-white/50 italic">
+                {selectedProject.role}
+              </p>
+            )}
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -191,27 +184,6 @@ export default function ProjectDetails() {
                       className="bg-primary/20 text-primary px-3 py-1 rounded-full text-sm"
                     >
                       {tech}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-
-            {selectedProject.tags?.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.45, duration: 0.3 }}
-                className="mb-6"
-              >
-                <h3 className="text-lg font-semibold text-white mb-2">Tags</h3>
-                <div className="flex flex-wrap gap-2">
-                  {selectedProject.tags.map((tag, index) => (
-                    <span
-                      key={index}
-                      className="bg-white/10 text-white px-3 py-1 rounded-full text-sm"
-                    >
-                      #{tag}
                     </span>
                   ))}
                 </div>

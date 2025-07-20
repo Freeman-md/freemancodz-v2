@@ -4,8 +4,10 @@ import { create } from "zustand";
 type ProjectFilterStore = {
   activeCategories: Array<ProjectCategory>;
   toggleCategory: (category: ProjectCategory) => void;
+  setCategories: (categories: ProjectCategory[]) => void
   activeTools: Array<string>;
   toggleTool: (tool: string) => void;
+  resetFilters: () => void;
 };
 
 export const useProjectFilterStore = create<ProjectFilterStore>((set) => ({
@@ -27,4 +29,14 @@ export const useProjectFilterStore = create<ProjectFilterStore>((set) => ({
         : [...state.activeTools, tool],
     }));
   },
+  
+  setCategories: (categories) => set({ activeCategories: categories }),
+
+
+  resetFilters: () => {
+    set({
+      activeCategories: [],
+      activeTools: []
+    })
+  }
 }));

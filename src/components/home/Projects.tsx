@@ -16,8 +16,6 @@ export default function Projects() {
 
   return (
     <section id="projects" className="bg-secondary/50">
-      <pre>{activeCategories}</pre>
-      <pre>{activeTools}</pre>
       <div ref={ref} className="container py-20 pb-20 space-y-4">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -73,7 +71,7 @@ export default function Projects() {
               hidden: {},
             }}
           >
-            {tools.map((tool, index) => (
+            {tools.filter((tool): tool is string => typeof tool === "string").map((tool, index) => (
               <motion.div
                 key={index}
                 variants={{

@@ -1,36 +1,11 @@
-import { Project, ProjectCategory } from "@/types/project";
+import { Project } from "@/types/project";
+import { useMemo } from "react";
 
 export function useProjects() {
-  const categories: ProjectCategory[] = [
-    "Frontend",
-    "Backend",
-    "Fullstack",
-    "AI",
-    "Tooling",
-    "DevOps",
-    "Mobile",
-    "SaaS",
-    "Showcase",
-  ];
-
-  const tools = [
-    "Next.js",
-    "Nuxt.js",
-    "C#",
-    "Azure",
-    "TypeScript",
-    "Git",
-    "GitHub",
-    "JavaScript",
-    "TypeScript",
-    "Tailwind CSS",
-  ];
-
   const rawProjects: Project[] = [
     {
       id: 1,
       title: "FileTidy",
-      category: "Tooling",
       status: "Live",
       role: "Solo Build",
       description: "Cross-platform file organization tool built with Avalonia and .NET.",
@@ -44,13 +19,12 @@ export function useProjects() {
       isPrivate: false,
       year: 2025,
       tools: [".NET", "C#", "Avalonia", "SQLite"],
-      tags: ["Desktop", "Cross-platform", "Automation"],
+      categories: ["Desktop", "Cross-platform", "Automation"],
       impactNote: "Currently being used to organize 5k+ files weekly"
     },
     {
       id: 2,
       title: "SnappShare",
-      category: "Fullstack",
       status: "Archived",
       role: "Solo Build",
       description: "Fast, secure file sharing built with .NET, Azure Blob Storage & Vue.js.",
@@ -63,13 +37,12 @@ export function useProjects() {
       isPrivate: false,
       year: 2024,
       tools: [".NET", "Azure Blob Storage", "Vue.js", "TailwindCSS"],
-      tags: ["Cloud", "File Sharing", "Frontend"],
+      categories: ["Cloud", "File Sharing", "Frontend"],
       impactNote: "Shared over 10GB worth of files during launch week"
     },
     {
       id: 3,
       title: "TellTheDev",
-      category: "Frontend",
       status: "Beta",
       role: "Solo Build",
       description: "Lightweight dev feedback widget built with Vite, Supabase & TailwindCSS.",
@@ -82,11 +55,10 @@ export function useProjects() {
       isPrivate: false,
       year: 2024,
       tools: ["Vite", "Supabase", "TailwindCSS", "TypeScript"],
-      tags: ["Widget", "Developer Tools", "Feedback"],
+      categories: ["Widget", "Developer Tools", "Feedback"],
       impactNote: "Helped validate 3+ early products during alpha"
     }
   ];
-
 
 
   // Enhance with aspect ratios
@@ -97,6 +69,9 @@ export function useProjects() {
 
     return { ...project, aspect };
   });
+
+  const categories = useMemo(() => [...new Set(projects?.flatMap(project => project.categories))], [projects]);
+  const tools = useMemo(() => [...new Set(projects?.flatMap(project => project.tools))], [projects]);
 
   return {
     categories,
