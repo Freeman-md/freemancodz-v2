@@ -5,11 +5,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Briefcase, ExternalLink } from "lucide-react";
+import { motion, useInView, useAnimation } from "motion/react";
 import { Badge } from "./badge";
 import { useProjectStore } from "@/store/useProjectStore";
 import { ScrollArea, ScrollBar } from "./scroll-area";
 import { Project } from "@/types/project";
 import Image from "next/image";
+import { useRef, useEffect } from "react";
 
 export type TimelineItemProps = {
   title: string;
@@ -36,6 +38,9 @@ export default function TimelineItem({
   projects = [],
   responsibilities = [],
 }: TimelineItemProps) {
+  const ref = useRef(null);
+  const isInView = useInView(ref);
+
   const renderDate = () => {
     if (startDate && endDate) return `${startDate} – ${endDate}`;
     if (date) return date;
@@ -44,14 +49,49 @@ export default function TimelineItem({
 
   const { selectProjectById } = useProjectStore();
 
+  const controls = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      controls.start("visible");
+    }
+  }, [isInView, controls]);
+
   return (
-    <li className="relative ps-10 mb-8">
+    <motion.li
+      ref={ref}
+      variants={{
+        hidden: { opacity: 0, y: 50 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: {
+            duration: 0.6,
+            ease: "easeOut",
+          },
+        },
+      }}
+      initial="hidden"
+      animate={controls}
+      className="relative ps-10 mb-8"
+    >
       {/* Line + Icon */}
       <div className="absolute left-0 inset-y-0 flex flex-col items-center w-6 space-y-2">
         <div className="w-6 h-6 rounded-full flex items-center justify-center z-10 bg-white text-background">
           <Briefcase className="w-4 h-4" />
         </div>
-        <div className="w-px h-full bg-white" />
+        <motion.div
+          variants={{
+            hidden: { height: 0 },
+            visible: {
+              height: "100%",
+              transition: { duration: 0.8, ease: "easeInOut" },
+            },
+          }}
+          initial="hidden"
+          animate={controls}
+          className="w-px h-full bg-white"
+        />
       </div>
 
       <div className="flex items-center gap-2">
@@ -145,6 +185,6 @@ export default function TimelineItem({
           </AccordionItem>
         </Accordion>
       )}
-    </li>
+    </motion.li>
   );
 }
