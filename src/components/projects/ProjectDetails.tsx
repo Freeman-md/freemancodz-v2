@@ -12,6 +12,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Badge } from "../ui/badge";
 
 export default function ProjectDetails() {
   const { selectedProject, clearSelectedProject } = useProjectStore();
@@ -100,9 +101,12 @@ export default function ProjectDetails() {
               <span className="text-sm text-white/60">
                 {selectedProject.year}
               </span>
-              <span className="text-xs bg-white/10 text-white px-3 py-1 rounded-full uppercase tracking-wide">
+              <Badge
+                variant="muted"
+                className="uppercase text-xs tracking-wide"
+              >
                 {selectedProject.category}
-              </span>
+              </Badge>
             </div>
 
             <motion.h2
