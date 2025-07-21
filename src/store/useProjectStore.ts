@@ -9,7 +9,6 @@ type ProjectStore = {
   filteredProjects: Project[];
   setFilteredProjects: () => void;
   selectedProject: Project | null;
-  setSelectedProject: (project: Project) => void;
   clearSelectedProject: () => void;
   selectProjectById: (id: number) => void
 };
@@ -40,7 +39,6 @@ export const useProjectStore = create<ProjectStore>((set, get) => ({
   },
 
   selectedProject: null,
-  setSelectedProject: (project) => set({ selectedProject: project }),
   clearSelectedProject: () => set({ selectedProject: null }),
 
   selectProjectById: (id: number) => {

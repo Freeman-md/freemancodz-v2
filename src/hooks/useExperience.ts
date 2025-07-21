@@ -1,4 +1,4 @@
-import { ExperienceItem } from "@/types/experience";
+import { Experience } from "@/types/experience";
 
 export const useExperience = () => ({
   experienceData: [
@@ -49,5 +49,5 @@ export const useExperience = () => ({
         },
       ]
     },
-  ] as ExperienceItem[],
+  ] as Experience[],
 });

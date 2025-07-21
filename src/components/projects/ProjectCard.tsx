@@ -20,10 +20,10 @@ export default function ProjectCard({
   aspect = "aspect-[4/3]",
   delay = 0,
 }: Props) {
-  const { setSelectedProject } = useProjectStore();
+  const { selectProjectById } = useProjectStore();
 
   const handleViewMoreClick = () => {
-    setSelectedProject(project);
+    selectProjectById(project.id);
   };
 
   const statusVariant = getStatusBadgeVariant(project.status ?? "Beta");

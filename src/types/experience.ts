@@ -1,6 +1,6 @@
 import { Project } from "./project";
 
-export type ExperienceItem = {
+export type Experience = {
   id: string;
   title: string;
   company: string;
