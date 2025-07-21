@@ -9,7 +9,7 @@ export const useEducation = () => ({
       school: "Middlesex University",
       degree: "BSc Information Technology",
       startDate: "2020",
-      endDate: "Jul 2023",
+      endDate: "2023",
       grade: "First Class",
       modules: ["Advanced Web Development with Big Data", "Business Intelligence", "Web & Mobile App Development", "Artificial Intelligence"],
       description: "Graduated with First Class Honours. Built strong foundations in full-stack development, microservices, and modern software practices.",

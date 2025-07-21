@@ -38,7 +38,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative h-[calc(100vh-5rem)] overflow-hidden">
+    <section id="hero" className="relative h-[calc(100vh-5rem)] overflow-hidden">
       <motion.div
         variants={container}
         initial="hidden"

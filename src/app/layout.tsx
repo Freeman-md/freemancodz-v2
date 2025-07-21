@@ -3,8 +3,8 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/shared/Header";
 import SocialIcons from "@/components/shared/SocialIcons";
-import CustomCursor from "@/components/shared/CustomCursor";
 import DesktopMenu from "@/components/shared/DesktopMenu";
+import CursorWrapper from "@/components/shared/CustomCursor";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -25,13 +25,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.className} antialiased relative cursor-none`}
+        className={`${poppins.className} antialiased relative md:cursor-none`}
       >
         <Header />
 
         <DesktopMenu />
 
-        <CustomCursor />
+        <CursorWrapper />
 
         <main className="pt-20">
           {children}

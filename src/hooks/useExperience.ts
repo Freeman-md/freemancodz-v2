@@ -12,7 +12,6 @@ export const useExperience = () => {
       type: "experience",
       title: ".NET + Azure Cloud Developer",
       company: "Open Source Projects",
-      employmentType: "Contract",
       description: "Built developer tools and cloud-native apps, shared knowledge publicly, and mentored peers.",
       startDate: "Feb 2024",
       endDate: "Present",

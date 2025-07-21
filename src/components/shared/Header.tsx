@@ -19,7 +19,7 @@ export default function Header() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
         >
-          <Link href="/">
+          <Link href="#hero">
             <Image
               src="/images/logo.png"
               width={100}

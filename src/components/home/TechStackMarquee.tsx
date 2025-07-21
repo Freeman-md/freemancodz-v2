@@ -58,6 +58,8 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
             {children.split(" ").map((word, idx) => (
               <span
                 key={idx}
+                data-cursor="hover"
+                data-cursor-label={word}
                 className="word text-primary/20 hover:text-primary transition-colors duration-300"
               >
                 {word}

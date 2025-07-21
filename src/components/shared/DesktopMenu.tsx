@@ -4,11 +4,12 @@ import Link from "next/link";
 
 export default function DesktopMenu() {
   const links = [
-    { text: "About", url: "#about" },
-    { text: "Projects", url: "#projects" },
-    { text: "Journey", url: "#journey" },
-    { text: "Contact", url: "#contact" },
-  ];
+  { text: "About", url: "#about", label: "My Ethos" },
+  { text: "Journey", url: "#journey", label: "View My Journey" },
+  { text: "Projects", url: "#projects", label: "Explore Projects" },
+  { text: "Contact", url: "#contact", label: "Say Hello" },
+];
+
 
   return (
     <motion.nav
@@ -26,7 +27,7 @@ export default function DesktopMenu() {
       className="fixed hidden sm:block top-20 right-20 z-20"
     >
       <ul className="flex flex-col space-y-4 items-end uppercase font-medium backdrop-blur pl-20 pr-4 py-4 rounded-lg">
-        {links.map(({ text, url }) => (
+        {links.map(({ text, url, label }) => (
           <motion.li
             key={text}
             variants={{
@@ -40,6 +41,8 @@ export default function DesktopMenu() {
               },
             }}
             className="transition duration-500 hover:text-primary active:text-primary focus:text-primary"
+            data-cursor="hover"
+            data-cursor-label={label}
           >
             <Link href={url}>{text}</Link>
           </motion.li>

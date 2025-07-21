@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 
-export default function CustomCursor() {
+function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const [hovering, setHovering] = useState(false);
   const [label, setLabel] = useState<string | null>(null);
@@ -50,21 +50,23 @@ export default function CustomCursor() {
     <motion.div
       ref={cursorRef}
       style={{ x, y }}
-      className="fixed top-0 left-0 z-[9999] w-10 h-10 -translate-x-1/2 -translate-y-1/2 pointer-events-none mix-blend-difference"
+      className={`fixed top-0 left-0 z-[9999] min-w-10 min-h-10 -translate-x-1/2 -translate-y-1/2 pointer-events-none ${
+        label ? "" : "mix-blend-difference"
+      }`}
     >
       <motion.div
         animate={{
           scale: clicking ? 0.75 : hovering ? 1.5 : 1,
         }}
         transition={{ type: "spring", stiffness: 400, damping: 20 }}
-        className={`w-full h-full rounded-full border backdrop-blur-xl flex items-center justify-center text-[10px] font-medium uppercase tracking-wide transition-colors duration-300 ${
+        className={`min-w-10 min-h-10 px-2 max-w-24 max-h-24 aspect-square rounded-full border backdrop-blur-xl flex items-center justify-center text-[10px] font-medium uppercase tracking-wide transition-colors duration-300 ${
           hovering
-            ? "bg-white/90 border-white text-black"
+            ? "bg-white border-white text-black"
             : "bg-primary/80 border-white/10 text-white"
         }`}
       >
         <span
-          className={`transition-opacity duration-200 ${
+          className={`transition-opacity duration-200 text-center break-words ${
             label ? "opacity-100" : "opacity-0"
           }`}
         >
@@ -73,4 +75,17 @@ export default function CustomCursor() {
       </motion.div>
     </motion.div>
   );
+}
+
+export default function CursorWrapper() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 768);
+    check(); // initial
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  return isDesktop ? <CustomCursor /> : null;
 }

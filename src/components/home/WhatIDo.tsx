@@ -73,8 +73,9 @@ export default function WhatIDo() {
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="border-t border-white/20 py-6 transition duration-500 hover:bg-primary hover:text-secondary relative"
+              className="border-t border-white/20 py-6 transition duration-500 hover:bg-primary hover:text-secondary relative max-md:cursor-pointer"
               data-cursor="hover"
+              data-cursor-label="View projects"
               onClick={() =>
                 handleServiceClick(service.categories as ProjectCategory[])
               }
