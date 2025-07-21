@@ -98,7 +98,7 @@ export default function TimelineItem(entry: TimeLineEntry) {
       </div>
 
       {["experience", "education", "certification"].includes(entry.type) && (
-        <div className="text-primary/80 font-medium text-sm mt-1 flex flex-col sm:flex-row sm:items-center sm:gap-2">
+        <div className="text-primary/80 font-medium text-sm mt-1 flex flex-wrap flex-row items-center gap-2">
           <span>
             {entry.type === "experience" && entry.company}
             {entry.type === "education" && entry.school}
