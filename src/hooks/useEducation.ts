@@ -1,12 +1,19 @@
+import { Education } from "@/types/journey";
+
 export const useEducation = () => ({
   educationData: [
     {
-      id: "edu-1",
-      title: "BSc Computer Science",
-      school: "University of Lagos",
-      startDate: "2017",
-      endDate: "2021",
-      description: "Focused on software engineering and distributed systems.",
+      id: "edu-mdx",
+      type: "education",
+      title: "Bachelor of Science - BS, Information Technology",
+      school: "Middlesex University",
+      degree: "BSc Information Technology",
+      startDate: "2020",
+      endDate: "Jul 2023",
+      grade: "First Class",
+      modules: ["Advanced Web Development with Big Data", "Business Intelligence", "Web & Mobile App Development", "Artificial Intelligence"],
+      description: "Graduated with First Class Honours. Built strong foundations in full-stack development, microservices, and modern software practices.",
+      link: "https://www.mdx.ac.uk/",
     },
-  ],
+  ] as Education[],
 });

@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Briefcase, ExternalLink, GraduationCap } from "lucide-react";
+import { Award, Briefcase, ExternalLink, GraduationCap } from "lucide-react";
 import { motion, useInView, useAnimation } from "motion/react";
 import { Badge } from "./badge";
 import { useProjectStore } from "@/store/useProjectStore";
@@ -54,11 +54,12 @@ export default function TimelineItem(entry: TimeLineEntry) {
     >
       <div className="absolute left-0 inset-y-0 flex flex-col items-center w-6 space-y-2">
         <div className="w-6 h-6 rounded-full flex items-center justify-center z-10 bg-white text-background">
-          {entry.type === "experience" ? (
-            <Briefcase className="w-4 h-4" />
-          ) : (
-            <GraduationCap className="w-4 h-4" />
-          )}
+          {entry.type === "experience" &&
+            <Briefcase className="w-4 h-4" /> }
+            {entry.type === "education" &&
+            <GraduationCap className="w-4 h-4" /> }
+            {entry.type === "certification" &&
+            <Award className="w-4 h-4" /> }
         </div>
         <motion.div
           variants={{
@@ -78,7 +79,7 @@ export default function TimelineItem(entry: TimeLineEntry) {
         {entry.type === "education" ? (
           <h3 className="text-xl font-semibold text-white">
             {entry.degree}
-            {entry.grade && ` • Grade: ${entry.grade}`}
+            <span className="text-primary">{entry.grade && ` • ${entry.grade}`}</span>
           </h3>
         ) : (
           <h3 className="text-xl font-semibold text-white">{entry.title}</h3>
@@ -89,7 +90,7 @@ export default function TimelineItem(entry: TimeLineEntry) {
             href={entry.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-primary transition-colors"
+            className="text-white/80 hover:text-primary transition-colors"
           >
             <ExternalLink className="w-4 h-4 hover:scale-110 transition-transform" />
           </a>
@@ -105,31 +106,31 @@ export default function TimelineItem(entry: TimeLineEntry) {
           </span>
 
           {entry.type === "experience" && entry.employmentType && (
-            <span className="text-muted-foreground">
+            <span className="text-white/80">
               • {entry.employmentType}
             </span>
           )}
 
           {entry.location && (
-            <span className="text-muted-foreground">• {entry.location}</span>
+            <span className="text-white/80">• {entry.location}</span>
           )}
         </div>
       )}
 
       {renderDate() && (
-        <p className="text-muted-foreground text-xs italic mt-0.5">
+        <p className="text-white/80 text-xs italic mt-0.5">
           {renderDate()}
         </p>
       )}
 
       {entry.description && (
-        <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+        <p className="mt-3 text-sm text-white/80 leading-relaxed">
           {entry.description}
         </p>
       )}
 
       {(entry.tools ?? []).length > 0 && (
-        <div className="flex flex-wrap gap-2 text-xs mt-4 text-muted-foreground">
+        <div className="flex flex-wrap gap-2 text-xs mt-4">
           {(entry.tools ?? []).map((tool) => (
             <Badge key={tool} variant="outline">
               {tool}
@@ -139,7 +140,7 @@ export default function TimelineItem(entry: TimeLineEntry) {
       )}
 
       {(entry.modules ?? []).length > 0 && (
-        <div className="flex flex-wrap gap-2 text-xs mt-4 text-muted-foreground">
+        <div className="flex flex-wrap gap-2 text-xs mt-4">
           {(entry.modules ?? []).map((moduleItem) => (
             <Badge key={moduleItem} variant="outline">
               {moduleItem}
@@ -195,12 +196,6 @@ export default function TimelineItem(entry: TimeLineEntry) {
             </AccordionItem>
           </Accordion>
         )}
-
-      {entry.type === "certification" && entry.grade && (
-        <p className="mt-3 text-sm text-muted-foreground font-medium">
-          Grade: {entry.grade}
-        </p>
-      )}
     </motion.li>
   );
 }

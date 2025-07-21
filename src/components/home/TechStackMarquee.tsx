@@ -76,7 +76,7 @@ export default function TechStackMarquee() {
 
   return (
     <section id="tools" className="bg-dot-pattern">
-      <div ref={ref} className="space-y-4">
+      <div ref={ref} className="space-y-4 pb-20">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
