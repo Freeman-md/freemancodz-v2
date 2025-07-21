@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.className} ${bungee.variable} ${plaster.variable} antialiased relative md:cursor-none`}
+        className={`${poppins.className} ${bungee.variable} ${plaster.variable} antialiased relative`}
       >
         { children } 
       </body>
