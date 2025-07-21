@@ -6,7 +6,7 @@ export default function DesktopMenu() {
   const links = [
     { text: "About", url: "#about" },
     { text: "Projects", url: "#projects" },
-    { text: "Work", url: "#work" },
+    { text: "Journey", url: "#journey" },
     { text: "Contact", url: "#contact" },
   ];
 
