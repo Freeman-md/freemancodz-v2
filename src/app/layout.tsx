@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import { Bungee, Plaster, Poppins } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/shared/Header";
-import SocialIcons from "@/components/shared/SocialIcons";
-import DesktopMenu from "@/components/shared/DesktopMenu";
-import CursorWrapper from "@/components/shared/CustomCursor";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -40,17 +36,7 @@ export default function RootLayout({
       <body
         className={`${poppins.className} ${bungee.variable} ${plaster.variable} antialiased relative md:cursor-none`}
       >
-        <Header />
-
-        <DesktopMenu />
-
-        <CursorWrapper />
-
-        <main className="pt-20">
-          {children}
-        </main>
-
-        <SocialIcons />
+        { children } 
       </body>
     </html>
   );
