@@ -39,6 +39,8 @@ export default function ProjectCard({
         <motion.div
           layoutId={`project-image-${project.id}`}
           className="absolute inset-0 rounded-xl overflow-hidden group-hover:z-10"
+          data-cursor="hover"
+          data-cursor-label="More Info"
           onClick={handleViewMoreClick}
         >
           <Image

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Bungee, Plaster, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/shared/Header";
 import SocialIcons from "@/components/shared/SocialIcons";
@@ -11,6 +11,19 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"]
 });
+
+const bungee = Bungee({
+  variable: "--font-bungee",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const plaster = Plaster({
+  variable: "--font-plaster",
+  subsets: ["latin"],
+  weight: "400",
+});
+
 
 export const metadata: Metadata = {
   title: "Freemancodz",
@@ -25,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.className} antialiased relative md:cursor-none`}
+        className={`${poppins.className} ${bungee.variable} ${plaster.variable} antialiased relative md:cursor-none`}
       >
         <Header />
 

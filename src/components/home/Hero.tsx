@@ -38,14 +38,18 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero" className="relative h-[calc(100vh-5rem)] overflow-hidden">
+    <section
+      id="hero"
+      className="relative h-[calc(100vh-5rem)] overflow-hidden"
+    >
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
         className="container grid grid-cols-2 h-full content-center relative"
       >
-        <div className="text-7xl sm:text-8xl max-sm:col-span-2 lg:text-9xl uppercase font-medium tracking-wide sm:tracking-tighter space-y-2 leading-[0.9] max-sm:-mt-20">
+        <div  className="text-7xl sm:text-8xl max-sm:col-span-2 lg:text-9xl uppercase tracking-wide sm:tracking-tighter space-y-2 leading-[0.9] max-sm:-mt-20 font-(family-name:--font-bungee)"
+>
           {lines.map((line, index) => (
             <motion.div
               key={index}

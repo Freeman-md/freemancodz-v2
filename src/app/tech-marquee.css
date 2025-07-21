@@ -1,7 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plaster&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
 .parallax {
-    font-family: "Plaster", sans-serif;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   overflow: hidden;

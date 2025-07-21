@@ -48,7 +48,7 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
   });
 
   return (
-    <div className="overflow-hidden whitespace-nowrap parallax my-0">
+    <div className="overflow-hidden whitespace-nowrap parallax my-0 font-(family-name:--font-bungee)">
       <motion.div
         className="scroller flex gap-x-10 text-4xl font-semibold"
         style={{ x }}
