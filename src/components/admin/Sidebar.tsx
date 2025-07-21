@@ -29,6 +29,7 @@ import {
   IconLayoutGrid,
   IconLayersDifference,
 } from "@tabler/icons-react"
+import Link from "next/link"
 
 const groups = [
   {
@@ -80,10 +81,10 @@ export function AdminSidebar() {
                 {group.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <a href={item.href}>
+                      <Link href={item.href}>
                         <item.icon className="w-4 h-4" />
                         <span>{item.title}</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
