@@ -25,6 +25,9 @@ import {
   IconUser,
   IconSettings,
   IconLogout,
+  IconTool,
+  IconLayoutGrid,
+  IconLayersDifference,
 } from "@tabler/icons-react"
 
 const groups = [
@@ -37,6 +40,14 @@ const groups = [
       { title: "Experience", href: "/admin/experience", icon: IconBriefcase },
       { title: "Education", href: "/admin/education", icon: IconSchool },
       { title: "Certifications", href: "/admin/certifications", icon: IconCertificate },
+    ],
+  },
+  {
+    label: "Showcase",
+    items: [
+      { title: "Tools", href: "/admin/tools", icon: IconTool },
+      { title: "Services", href: "/admin/services", icon: IconLayoutGrid },
+      { title: "Categories", href: "/admin/categories", icon: IconLayersDifference },
     ],
   },
   {
