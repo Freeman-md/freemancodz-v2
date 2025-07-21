@@ -9,7 +9,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="md:cursor-none">
+    <div className="md:cursor-none bg-background text-foreground">
       <Header />
 
       <DesktopMenu />
