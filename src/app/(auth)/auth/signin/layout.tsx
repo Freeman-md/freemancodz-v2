@@ -6,9 +6,7 @@ export default function Layout({
     children: ReactNode
 }>) {
     return (
-        <div>
-            This is the Layout
-
+        <div className="container w-screen h-screen grid place-items-center">
             {children}
         </div>
     )
