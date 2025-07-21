@@ -1,9 +1,10 @@
-import { Experience } from "@/types/experience";
+import { Experience } from "@/types/journey";
 
 export const useExperience = () => ({
   experienceData: [
     {
       id: "exp-1",
+      type: "experience",
       title: "Frontend Engineer",
       company: "FreemanCodz",
       description: "Led development of cross-platform UI components.",
@@ -15,6 +16,7 @@ export const useExperience = () => ({
     },
     {
       id: "exp-2",
+      type: "experience",
       title: "Frontend Engineer",
       company: "FreemanCodz",
       description: "Led development of cross-platform UI components.",
