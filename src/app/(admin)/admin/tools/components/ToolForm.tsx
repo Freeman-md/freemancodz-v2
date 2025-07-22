@@ -4,6 +4,7 @@ import { Dialog, DialogTrigger, DialogContent, DialogHeader } from "@/components
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
+import { DialogTitle } from "@radix-ui/react-dialog"
 
 export function ToolForm({ onSubmit }: { onSubmit: (name: string) => void }) {
   const [name, setName] = useState("")
@@ -21,7 +22,7 @@ export function ToolForm({ onSubmit }: { onSubmit: (name: string) => void }) {
         <Button variant="outline">+ Add Tool</Button>
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>Add Tool</DialogHeader>
+        <DialogTitle>Add Tool</DialogTitle>
         <div className="flex flex-col gap-4">
           <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Tool name" />
           <Button onClick={handleSubmit}>Save</Button>

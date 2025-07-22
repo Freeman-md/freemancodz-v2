@@ -1,7 +1,8 @@
 import { AdminSidebar } from "@/components/admin/Sidebar"
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import "@/app/layout-admin.css"
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
       <div className="flex min-h-screen w-full">
