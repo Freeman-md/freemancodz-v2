@@ -1,24 +1,25 @@
-"use client"
+import { getTools } from "@/lib/tools/data"
+import { Suspense } from "react"
+import ToolTableSkeleton from "./components/ToolTableSkeleton"
+import ToolTable from "./components/ToolTable"
+import ToolForm from "./components/ToolForm"
 
-import { ToolForm } from "./components/ToolForm"
-import { ToolTable } from "./components/ToolTable"
-import { useTools } from "./hooks/use-tools"
+export const metadata = { title: "Tools | Admin" }
 
-export default function ToolsPage() {
-  const { tools, addTool, deleteTool, loading } = useTools()
+
+export default async function ToolsPage() {
+  const tools = await getTools()
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">Tools</h1>
-        <ToolForm onSubmit={addTool} />
+        <ToolForm />
       </div>
 
-      {loading ? (
-        <p>Loading tools...</p>
-      ) : (
-        <ToolTable tools={tools} onDelete={deleteTool} />
-      )}
+       <Suspense fallback={<ToolTableSkeleton />}>
+        <ToolTable tools={tools} />
+      </Suspense>
     </div>
   )
 }

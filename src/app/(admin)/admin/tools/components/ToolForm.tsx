@@ -1,20 +1,13 @@
-"use client"
+'use client'
 
-import { Dialog, DialogTrigger, DialogContent, DialogHeader } from "@/components/ui/dialog"
+import { createTool } from "@/lib/tools/actions"
+import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useState } from "react"
-import { DialogTitle } from "@radix-ui/react-dialog"
+import { useRef } from "react"
 
-export function ToolForm({ onSubmit }: { onSubmit: (name: string) => void }) {
-  const [name, setName] = useState("")
-
-  const handleSubmit = () => {
-    if (name.trim()) {
-      onSubmit(name.trim())
-      setName("")
-    }
-  }
+export default function ToolForm() {
+  const formRef = useRef<HTMLFormElement>(null)
 
   return (
     <Dialog>
@@ -23,10 +16,13 @@ export function ToolForm({ onSubmit }: { onSubmit: (name: string) => void }) {
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Add Tool</DialogTitle>
-        <div className="flex flex-col gap-4">
-          <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Tool name" />
-          <Button onClick={handleSubmit}>Save</Button>
-        </div>
+        <form ref={formRef} action={async (formData) => {
+          await createTool(formData)
+          formRef.current?.reset()
+        }} className="flex flex-col gap-4">
+          <Input name="name" placeholder="Tool name" required />
+          <Button type="submit">Save</Button>
+        </form>
       </DialogContent>
     </Dialog>
   )

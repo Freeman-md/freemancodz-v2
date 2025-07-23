@@ -1,10 +1,11 @@
-"use client"
+'use client'
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { deleteTool } from "@/lib/tools/actions"
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
-import { Trash } from "lucide-react";
+import { Trash } from "lucide-react"
 
-export function ToolTable({ tools, onDelete }: { tools: string[]; onDelete: (name: string) => void }) {
+export default function ToolTable({ tools }: { tools: { name: string }[] }) {
   return (
     <Table>
       <TableHeader>
@@ -15,12 +16,14 @@ export function ToolTable({ tools, onDelete }: { tools: string[]; onDelete: (nam
       </TableHeader>
       <TableBody>
         {tools.map((tool) => (
-          <TableRow key={tool}>
-            <TableCell>{tool}</TableCell>
+          <TableRow key={tool.name}>
+            <TableCell>{tool.name}</TableCell>
             <TableCell className="text-right">
-              <Button variant="destructive" onClick={() => onDelete(tool)}>
-                <Trash />
-              </Button>
+              <form action={async () => await deleteTool(tool.name)}>
+                <Button type="submit" variant="destructive">
+                  <Trash />
+                </Button>
+              </form>
             </TableCell>
           </TableRow>
         ))}
