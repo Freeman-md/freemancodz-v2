@@ -4,8 +4,12 @@ import { deleteTool } from "@/lib/tools/actions"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Trash } from "lucide-react"
+import { use } from "react"
+import { Tool } from "@/types/showcase"
 
-export default function ToolTable({ tools }: { tools: { name: string }[] }) {
+export default function ToolTable({ tools } : { tools: Promise<Tool[]> }) {
+  const data = use(tools)
+
   return (
     <Table>
       <TableHeader>
@@ -15,7 +19,7 @@ export default function ToolTable({ tools }: { tools: { name: string }[] }) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {tools.map((tool) => (
+        {data.map((tool) => (
           <TableRow key={tool.name}>
             <TableCell>{tool.name}</TableCell>
             <TableCell className="text-right">

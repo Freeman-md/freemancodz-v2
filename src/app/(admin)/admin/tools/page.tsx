@@ -8,7 +8,7 @@ export const metadata = { title: "Tools | Admin" }
 
 
 export default async function ToolsPage() {
-  const tools = await getTools()
+  const tools = getTools()
 
   return (
     <div className="space-y-6">
