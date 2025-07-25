@@ -7,7 +7,7 @@ import { useProjects } from "@/hooks/useProjects";
 import ProjectDetails from "../projects/ProjectDetails";
 import { useProjectFilterStore } from "@/store/useProjectFilterStore";
 import { useProjectStore } from "@/store/useProjectStore";
-import Empty from "../shared/Empty";
+import Empty from "../shared/empty";
 
 export default function Projects() {
   const { activeCategories, activeTools, toggleCategory, toggleTool, resetFilters } =

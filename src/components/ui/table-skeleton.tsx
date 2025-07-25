@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton"
 
-export default function ToolTableSkeleton() {
+export default function TableSkeleton() {
   return (
     <div className="space-y-4">
       <Skeleton className="h-6 w-1/3" />

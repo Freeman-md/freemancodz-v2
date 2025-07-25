@@ -1,14 +1,13 @@
-import { getTools } from "@/lib/tools/data"
-import { Suspense } from "react"
-import ToolTableSkeleton from "./components/ToolTableSkeleton"
-import ToolTable from "./components/ToolTable"
-import ToolForm from "./components/ToolForm"
+import { getTools } from "@/lib/tools/data";
+import { Suspense } from "react";
+import TableSkeleton from "@/components/ui/table-skeleton";
+import ToolTable from "./components/ToolTable";
+import ToolForm from "./components/ToolForm";
 
-export const metadata = { title: "Tools | Admin" }
-
+export const metadata = { title: "Tools | Admin" };
 
 export default async function ToolsPage() {
-  const tools = getTools()
+  const tools = getTools();
 
   return (
     <div className="space-y-6">
@@ -17,9 +16,9 @@ export default async function ToolsPage() {
         <ToolForm />
       </div>
 
-       <Suspense fallback={<ToolTableSkeleton />}>
+      <Suspense fallback={<TableSkeleton />}>
         <ToolTable tools={tools} />
       </Suspense>
     </div>
-  )
+  );
 }
