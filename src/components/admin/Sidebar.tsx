@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Sidebar,
@@ -11,7 +11,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 import {
   IconHome,
@@ -28,8 +28,9 @@ import {
   IconTool,
   IconLayoutGrid,
   IconLayersDifference,
-} from "@tabler/icons-react"
-import Link from "next/link"
+} from "@tabler/icons-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const groups = [
   {
@@ -40,7 +41,11 @@ const groups = [
       { title: "Skills", href: "/admin/skills", icon: IconBrain },
       { title: "Experience", href: "/admin/experience", icon: IconBriefcase },
       { title: "Education", href: "/admin/education", icon: IconSchool },
-      { title: "Certifications", href: "/admin/certifications", icon: IconCertificate },
+      {
+        title: "Certifications",
+        href: "/admin/certifications",
+        icon: IconCertificate,
+      },
     ],
   },
   {
@@ -48,7 +53,11 @@ const groups = [
     items: [
       { title: "Tools", href: "/admin/tools", icon: IconTool },
       { title: "Services", href: "/admin/services", icon: IconLayoutGrid },
-      { title: "Categories", href: "/admin/categories", icon: IconLayersDifference },
+      {
+        title: "Categories",
+        href: "/admin/categories",
+        icon: IconLayersDifference,
+      },
     ],
   },
   {
@@ -65,9 +74,11 @@ const groups = [
       { title: "Settings", href: "/admin/settings", icon: IconSettings },
     ],
   },
-]
+];
 
 export function AdminSidebar() {
+  const pathname = usePathname();
+
   return (
     <Sidebar>
       <SidebarHeader />
@@ -78,16 +89,30 @@ export function AdminSidebar() {
             <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {group.items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <Link href={item.href}>
-                        <item.icon className="w-4 h-4" />
-                        <span>{item.title}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
+                {group.items.map((item) => {
+                  const isActive =
+                    item.href === "/admin"
+                      ? pathname === "/admin"
+                      : pathname.startsWith(item.href);
+
+                  return (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild>
+                        <Link
+                          href={item.href}
+                          className={`flex items-center gap-2 px-2.5 py-2 rounded text-sm transition-colors ${
+                            isActive
+                              ? "bg-muted text-foreground font-medium"
+                              : "hover:bg-muted/50 text-muted-foreground"
+                          }`}
+                        >
+                          <item.icon className="w-4 h-4" />
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
@@ -107,5 +132,5 @@ export function AdminSidebar() {
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }
