@@ -22,6 +22,7 @@ import { Badge } from "@/components/ui/badge";
 import CategoryForm from "../../categories/components/CategoryForm"; // reuse
 import { CheckIcon, XCircleIcon } from "lucide-react";
 import { IconCrop11 } from "@tabler/icons-react";
+import { createService } from "@/lib/services/actions";
 
 export default function CreateServicePage() {
   const [categories, setCategories] = useState<string[]>([]);
@@ -48,7 +49,7 @@ export default function CreateServicePage() {
     <div className="md:max-w-2xl space-y-6">
       <h1 className="text-xl font-semibold">Create Service</h1>
 
-      <form className="space-y-4">
+      <form className="space-y-4" action={createService}>
         <div className="space-y-2">
           <label className="text-sm font-medium">Title</label>
           <Input name="name" placeholder="Service title" required />
