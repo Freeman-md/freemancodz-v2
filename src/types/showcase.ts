@@ -5,3 +5,8 @@ export type Tool = {
 export type Category = {
   name: string
 }
+
+export type Services = {
+  name: string;
+  description: string;
+}

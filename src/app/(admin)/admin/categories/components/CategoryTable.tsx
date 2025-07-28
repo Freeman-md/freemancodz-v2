@@ -17,13 +17,13 @@ import Empty from "@/components/shared/empty";
 import { deleteCategory } from "@/lib/categories/actions";
 
 export default function CategoryTable({
-  categories,
+  data,
 }: {
-  categories: Promise<Category[]>;
+  data: Promise<Category[]>;
 }) {
-  const data = use(categories)
+  const categories = use(data)
 
-  if (data.length <= 0) {
+  if (categories.length <= 0) {
     return (
       <Empty classes="text-black" message="No categories found" />
     );
@@ -38,7 +38,7 @@ export default function CategoryTable({
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.map((category) => (
+        {categories.map((category) => (
           <TableRow key={category.name}>
             <TableCell>{category.name}</TableCell>
             <TableCell className="text-right">

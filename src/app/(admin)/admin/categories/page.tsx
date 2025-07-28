@@ -16,7 +16,7 @@ export default function Page() {
       </div>
 
       <Suspense fallback={<TableSkeleton />}>
-        <CategoryTable categories={categories} />
+        <CategoryTable data={categories} />
       </Suspense>
     </div>
   );
