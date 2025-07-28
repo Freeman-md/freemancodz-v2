@@ -1,6 +1,5 @@
 "use client";
 
-// import { deleteTool } from "@/lib/tools/actions"
 import {
   Table,
   TableHeader,
