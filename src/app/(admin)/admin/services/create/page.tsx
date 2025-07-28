@@ -24,6 +24,7 @@ import { CheckIcon, XCircleIcon } from "lucide-react";
 import { IconCrop11 } from "@tabler/icons-react";
 import { createService } from "@/lib/services/actions";
 import { toast } from "sonner";
+import { AnimatePresence, motion } from "motion/react";
 
 export default function CreateServicePage() {
   const [categories, setCategories] = useState<string[]>([]);
@@ -125,28 +126,38 @@ export default function CreateServicePage() {
         <div className="space-y-2">
           <label className="text-sm font-medium">Selected Categories</label>
           <div className="flex flex-wrap gap-2">
-            {selectedCategories.map((category) => (
-              <Badge
-                key={category}
-                variant="secondary"
-                className="flex items-center gap-1"
-              >
-                {category}
-                <button
-                  type="button"
-                  className="ml-1 text-xs cursor-pointer"
-                  onClick={() =>
-                    setSelectedCategories((prev) =>
-                      prev.filter(
-                        (existingCategory) => existingCategory !== category
-                      )
-                    )
-                  }
+            <AnimatePresence>
+              {selectedCategories.map((category) => (
+                <motion.div
+                  key={category}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.15 }}
                 >
-                  <XCircleIcon width={20} />
-                </button>
-              </Badge>
-            ))}
+                  <Badge
+                    key={category}
+                    variant="secondary"
+                    className="flex items-center gap-1"
+                  >
+                    {category}
+                    <button
+                      type="button"
+                      className="ml-1 text-xs cursor-pointer"
+                      onClick={() =>
+                        setSelectedCategories((prev) =>
+                          prev.filter(
+                            (existingCategory) => existingCategory !== category
+                          )
+                        )
+                      }
+                    >
+                      <XCircleIcon width={20} />
+                    </button>
+                  </Badge>
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
         </div>
 
