@@ -10,6 +10,7 @@ import { deleteService } from "@/lib/services/actions";
 import { AnimatePresence, motion } from "motion/react";
 import Spinner from "@/components/ui/spinner";
 import { useTransition, useState } from "react";
+import Link from "next/link";
 
 export default function ServiceList({ data }: { data: Promise<Service[]> }) {
   const services = use(data);
@@ -46,8 +47,10 @@ export default function ServiceList({ data }: { data: Promise<Service[]> }) {
               <h3 className="text-lg font-semibold">{service.name}</h3>
 
               <div className="flex">
-                <Button variant="ghost" className="cursor-pointer">
+                <Button asChild variant="ghost" className="cursor-pointer">
+                  <Link href={`/admin/services/edit/${service.id}`}>
                   <Pencil className="w-4 h-4" />
+                  </Link>
                 </Button>
 
                 <Button

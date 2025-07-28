@@ -7,6 +7,7 @@ export type Category = {
 }
 
 export type RawService = {
+  id?: string;
   name: string;
   description: string;
   service_categories: {
@@ -16,6 +17,7 @@ export type RawService = {
 
 
 export type Service = {
+  id?: string;
   name: string;
   description: string;
   categories: string[]

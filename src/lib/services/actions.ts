@@ -59,6 +59,61 @@ export async function createService(prevState: unknown, formData: FormData) {
   return { status: "success" };
 }
 
+export async function updateService(prevState: unknown, formData: FormData) {
+  const raw = {
+    name: formData.get("name")?.toString() || "",
+    description: formData.get("description")?.toString() || "",
+    categories: formData.getAll("categories").map((c) => c.toString()),
+  };
+
+  const result = schema.safeParse(raw);
+
+  if (!result.success) {
+    return {
+      status: "error",
+      errors: result.error.flatten().fieldErrors,
+      values: raw,
+    };
+  }
+
+  const { name, description, categories } = result.data;
+
+  const { data: service, error } = await supabase
+    .from("services")
+    .update({ description })
+    .eq("name", name)
+    .select()
+    .single();
+
+  if (error || !service) {
+    return {
+      status: "error",
+      errors: { name: ["Failed to update service"] },
+      values: raw,
+    };
+  }
+
+  await supabase.from("service_categories").delete().eq("service_id", service.id);
+
+  const { data: categoryRows } = await supabase
+    .from("categories")
+    .select("id, name")
+    .in("name", categories);
+
+  if (categoryRows && categoryRows.length > 0) {
+    const links = categoryRows.map((cat) => ({
+      service_id: service.id,
+      category_id: cat.id
+    }));
+
+    await supabase.from("service_categories").insert(links);
+  }
+
+  revalidatePath("/admin/services");
+
+  return { status: "success" };
+}
+
 export async function deleteService(prevState: unknown, formData: FormData) {
   console.log(formData)
   const name = formData.get("name")?.toString();
