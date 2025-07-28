@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import {
   Dialog,
@@ -10,14 +10,29 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRef } from "react";
 import { createCategory } from "@/lib/categories/actions";
+import { cn } from "@/lib/utils"; // shadcn utility for conditional classes
 
-export default function CategoryForm() {
+type Props = {
+  variant?: "button" | "link";
+};
+
+export default function CategoryForm({ variant = "button" }: Props) {
   const formRef = useRef<HTMLFormElement>(null);
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">+ Create Category</Button>
+        {variant === "button" ? (
+          <Button variant="outline">+ Create Category</Button>
+        ) : (
+          <span
+            className={cn(
+              "text-sm underline underline-offset-4 cursor-pointer text-muted-foreground hover:text-foreground"
+            )}
+          >
+            Create it
+          </span>
+        )}
       </DialogTrigger>
       <DialogContent aria-description="Create Category Form">
         <DialogTitle>Create Category</DialogTitle>
@@ -29,7 +44,7 @@ export default function CategoryForm() {
           }}
           className="flex flex-col gap-4"
         >
-          <Input name="name" placeholder="Cateory name" required />
+          <Input name="name" placeholder="Category name" required />
           <Button type="submit">Save</Button>
         </form>
       </DialogContent>
