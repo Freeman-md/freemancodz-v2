@@ -59,9 +59,13 @@ export async function createService(prevState: unknown, formData: FormData) {
   return { status: "success" };
 }
 
-export async function deleteService(name: string) {
-  if (!name?.trim()) return;
-  await supabase.from("services").delete().eq("name", name);
+export async function deleteService(prevState: unknown, formData: FormData) {
+  console.log(formData)
+  const name = formData.get("name")?.toString();
+  if (!name?.trim()) return { status: "error" };
 
+  await supabase.from("services").delete().eq("name", name);
   revalidatePath("/admin/services");
+
+  return { status: "success" };
 }
