@@ -34,6 +34,14 @@ export default function CreateServicePage() {
     errors: {},
   });
 
+  const selectCategory = (category: string) => {
+    if (selectedCategories.includes(category)) {
+      setSelectedCategories((prev) => prev.filter((c) => c !== category));
+    } else {
+      setSelectedCategories((prev) => [...prev, category]);
+    }
+  };
+
   useEffect(() => {
     async function loadCategories() {
       const data = await getCategories();
@@ -42,13 +50,11 @@ export default function CreateServicePage() {
     loadCategories();
   }, []);
 
-  const selectCategory = (category: string) => {
-    if (selectedCategories.includes(category)) {
-      setSelectedCategories((prev) => prev.filter((c) => c !== category));
-    } else {
-      setSelectedCategories((prev) => [...prev, category]);
+  useEffect(() => {
+    if (formState.status === "success") {
+      setSelectedCategories([]);
     }
-  };
+  }, [formState.status]);
 
   return (
     <div className="md:max-w-2xl space-y-6">
