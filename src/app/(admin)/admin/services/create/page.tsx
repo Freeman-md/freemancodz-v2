@@ -15,7 +15,7 @@ import {
   CommandList,
   CommandEmpty,
 } from "@/components/ui/command";
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import { getCategories } from "@/lib/categories/data";
 import { useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
@@ -28,6 +28,11 @@ export default function CreateServicePage() {
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [formState, formAction, isPending] = useActionState(createService, {
+    status: "",
+    errors: {},
+  });
 
   useEffect(() => {
     async function loadCategories() {
@@ -49,10 +54,19 @@ export default function CreateServicePage() {
     <div className="md:max-w-2xl space-y-6">
       <h1 className="text-xl font-semibold">Create Service</h1>
 
-      <form className="space-y-4" action={createService}>
+      {formState?.status === "error" && !formState.errors && (
+        <p className="text-sm text-red-500">Something went wrong.</p>
+      )}
+
+      <form className="space-y-4" action={formAction}>
         <div className="space-y-2">
           <label className="text-sm font-medium">Title</label>
-          <Input name="name" placeholder="Service title" required />
+          <Input name="name" placeholder="Service title" />
+          {formState?.errors?.name && (
+            <small className="text-sm text-red-500">
+              {formState.errors.name[0]}
+            </small>
+          )}
         </div>
 
         <div className="space-y-2">
@@ -64,6 +78,11 @@ export default function CreateServicePage() {
             rows={3}
             className="resize-none"
           />
+          {formState?.errors?.description && (
+            <small className="text-sm text-red-500">
+              {formState.errors.description[0]}
+            </small>
+          )}
         </div>
 
         <div className="space-y-2">
@@ -138,10 +157,25 @@ export default function CreateServicePage() {
               </Command>
             </PopoverContent>
           </Popover>
+
+          {formState?.errors?.categories && (
+            <small className="text-sm text-red-500">
+              {formState.errors.categories[0]}
+            </small>
+          )}
         </div>
 
-        <Button type="submit" className="mt-4">
-          Save Service
+        {selectedCategories.map((category) => (
+          <input
+            key={category}
+            type="hidden"
+            name="categories"
+            value={category}
+          />
+        ))}
+
+        <Button type="submit" className="mt-4" disabled={isPending}>
+          {isPending ? "Saving..." : "Save Service"}
         </Button>
       </form>
     </div>
