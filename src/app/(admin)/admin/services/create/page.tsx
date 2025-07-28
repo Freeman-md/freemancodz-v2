@@ -26,6 +26,7 @@ import { IconCrop11 } from "@tabler/icons-react";
 export default function CreateServicePage() {
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     async function loadCategories() {
@@ -104,10 +105,14 @@ export default function CreateServicePage() {
             </PopoverTrigger>
             <PopoverContent className="p-0 w-[var(--radix-popover-trigger-width)]">
               <Command>
-                <CommandInput placeholder="Search categories..." />
+                <CommandInput
+                  placeholder="Search categories..."
+                  onValueChange={(value) => setSearchTerm(value)}
+                />
+
                 <CommandEmpty className="flex py-4 items-center justify-center gap-2">
                   <small>Can’t find category?</small>
-                  <CategoryForm variant="link" />
+                  <CategoryForm variant="link" defaultValue={searchTerm} />
                 </CommandEmpty>
                 <CommandList>
                   {categories.map((category) => (

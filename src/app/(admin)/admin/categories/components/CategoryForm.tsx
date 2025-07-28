@@ -14,9 +14,10 @@ import { cn } from "@/lib/utils"; // shadcn utility for conditional classes
 
 type Props = {
   variant?: "button" | "link";
+    defaultValue?: string;
 };
 
-export default function CategoryForm({ variant = "button" }: Props) {
+export default function CategoryForm({ variant = "button", defaultValue }: Props) {
   const formRef = useRef<HTMLFormElement>(null);
 
   return (
@@ -44,7 +45,7 @@ export default function CategoryForm({ variant = "button" }: Props) {
           }}
           className="flex flex-col gap-4"
         >
-          <Input name="name" placeholder="Category name" required />
+          <Input name="name" placeholder="Category name" required defaultValue={defaultValue} />
           <Button type="submit">Save</Button>
         </form>
       </DialogContent>
