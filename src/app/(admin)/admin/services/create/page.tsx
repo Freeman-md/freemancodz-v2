@@ -23,6 +23,7 @@ import CategoryForm from "../../categories/components/CategoryForm"; // reuse
 import { CheckIcon, XCircleIcon } from "lucide-react";
 import { IconCrop11 } from "@tabler/icons-react";
 import { createService } from "@/lib/services/actions";
+import { toast } from "sonner";
 
 export default function CreateServicePage() {
   const [categories, setCategories] = useState<string[]>([]);
@@ -65,6 +66,15 @@ export default function CreateServicePage() {
   useEffect(() => {
     if (formState.status === "success") {
       setSelectedCategories([]);
+
+      toast.success("Service created", {
+        action: {
+          label: "View All Services",
+          onClick: () => {
+            window.location.href = "/admin/services";
+          },
+        },
+      });
     }
   }, [formState.status]);
 
@@ -91,9 +101,7 @@ export default function CreateServicePage() {
             defaultValue={formState?.values?.name}
           />
           {errors?.name && (
-            <small className="text-sm text-red-500">
-              {errors.name[0]}
-            </small>
+            <small className="text-sm text-red-500">{errors.name[0]}</small>
           )}
         </div>
 
