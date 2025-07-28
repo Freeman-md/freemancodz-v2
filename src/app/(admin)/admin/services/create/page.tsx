@@ -42,11 +42,12 @@ export default function CreateServicePage() {
     }
   };
 
+  const loadCategories = async () => {
+    const data = await getCategories();
+    setCategories(data.map((cat) => cat.name));
+  };
+
   useEffect(() => {
-    async function loadCategories() {
-      const data = await getCategories();
-      setCategories(data.map((cat) => cat.name));
-    }
     loadCategories();
   }, []);
 
@@ -138,7 +139,11 @@ export default function CreateServicePage() {
 
                 <CommandEmpty className="flex py-4 items-center justify-center gap-2">
                   <small>Can’t find category?</small>
-                  <CategoryForm variant="link" defaultValue={searchTerm} />
+                  <CategoryForm
+                    variant="link"
+                    defaultValue={searchTerm}
+                    onCreate={loadCategories}
+                  />
                 </CommandEmpty>
                 <CommandList>
                   {categories.map((category) => (

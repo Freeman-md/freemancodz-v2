@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Dialog,
@@ -14,10 +14,15 @@ import { cn } from "@/lib/utils"; // shadcn utility for conditional classes
 
 type Props = {
   variant?: "button" | "link";
-    defaultValue?: string;
+  defaultValue?: string;
+  onCreate?: () => void;
 };
 
-export default function CategoryForm({ variant = "button", defaultValue }: Props) {
+export default function CategoryForm({
+  variant = "button",
+  defaultValue,
+  onCreate
+}: Props) {
   const formRef = useRef<HTMLFormElement>(null);
 
   return (
@@ -42,10 +47,17 @@ export default function CategoryForm({ variant = "button", defaultValue }: Props
           action={async (formData) => {
             await createCategory(formData);
             formRef.current?.reset();
+            onCreate?.();
           }}
           className="flex flex-col gap-4"
         >
-          <Input name="name" placeholder="Category name" required defaultValue={defaultValue} />
+          <Input
+            key={defaultValue}
+            name="name"
+            placeholder="Category name"
+            required
+            defaultValue={defaultValue}
+          />
           <Button type="submit">Save</Button>
         </form>
       </DialogContent>
