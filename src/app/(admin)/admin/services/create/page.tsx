@@ -32,7 +32,18 @@ export default function CreateServicePage() {
   const [formState, formAction, isPending] = useActionState(createService, {
     status: "",
     errors: {},
+    values: {
+      name: "",
+      description: "",
+      categories: [],
+    },
   });
+
+  const errors = formState?.errors as {
+    name?: string[];
+    description?: string[];
+    categories?: string[];
+  };
 
   const selectCategory = (category: string) => {
     if (selectedCategories.includes(category)) {
@@ -57,21 +68,31 @@ export default function CreateServicePage() {
     }
   }, [formState.status]);
 
+  useEffect(() => {
+    if (formState?.status === "error" && formState.values?.categories) {
+      setSelectedCategories(formState.values.categories as string[]);
+    }
+  }, [formState]);
+
   return (
     <div className="md:max-w-2xl space-y-6">
       <h1 className="text-xl font-semibold">Create Service</h1>
 
-      {formState?.status === "error" && !formState.errors && (
+      {formState?.status === "error" && !errors && (
         <p className="text-sm text-red-500">Something went wrong.</p>
       )}
 
       <form className="space-y-4" action={formAction}>
         <div className="space-y-2">
           <label className="text-sm font-medium">Title</label>
-          <Input name="name" placeholder="Service title" />
-          {formState?.errors?.name && (
+          <Input
+            name="name"
+            placeholder="Service title"
+            defaultValue={formState?.values?.name}
+          />
+          {errors?.name && (
             <small className="text-sm text-red-500">
-              {formState.errors.name[0]}
+              {errors.name[0]}
             </small>
           )}
         </div>
@@ -84,10 +105,11 @@ export default function CreateServicePage() {
             maxLength={200}
             rows={3}
             className="resize-none"
+            defaultValue={formState?.values?.description}
           />
-          {formState?.errors?.description && (
+          {errors?.description && (
             <small className="text-sm text-red-500">
-              {formState.errors.description[0]}
+              {errors.description[0]}
             </small>
           )}
         </div>
@@ -169,9 +191,9 @@ export default function CreateServicePage() {
             </PopoverContent>
           </Popover>
 
-          {formState?.errors?.categories && (
+          {errors?.categories && (
             <small className="text-sm text-red-500">
-              {formState.errors.categories[0]}
+              {errors.categories[0]}
             </small>
           )}
         </div>

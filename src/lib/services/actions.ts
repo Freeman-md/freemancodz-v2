@@ -12,17 +12,19 @@ const schema = z.object({
 
 export async function createService(prevState: unknown, formData: FormData) {
   const raw = {
-    name: formData.get("name"),
-    description: formData.get("description"),
-    categories: formData.getAll("categories")
+    name: formData.get("name")?.toString() || "",
+    description: formData.get("description")?.toString() || "",
+    categories: formData.getAll("categories").map((category) => category.toString()),
   };
+
 
   const result = schema.safeParse(raw);
 
   if (!result.success) {
     return {
       status: "error",
-      errors: result.error.flatten().fieldErrors
+      errors: result.error.flatten().fieldErrors,
+      values: raw,
     };
   }
 
