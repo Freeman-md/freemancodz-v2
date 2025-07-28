@@ -2,6 +2,7 @@ import Empty from "@/components/shared/empty";
 import { Service } from "@/types/showcase";
 import { use } from "react";
 import { Badge } from "@/components/ui/badge";
+import { Pencil, Trash2 } from "lucide-react";
 
 export default function ServiceList({ data }: { data: Promise<Service[]> }) {
   const services = use(data);
@@ -14,7 +15,20 @@ export default function ServiceList({ data }: { data: Promise<Service[]> }) {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {services.map((service, index) => (
         <div key={index} className="rounded-xl border p-4 shadow-sm space-y-3">
-          <h3 className="text-lg font-semibold">{service.name}</h3>
+          <div className="flex justify-between items-start">
+            {/* Title */}
+            <h3 className="text-lg font-semibold">{service.name}</h3>
+
+            {/* Icons */}
+            <div className="flex gap-2">
+              <button className="text-muted-foreground hover:text-primary">
+                <Pencil className="w-4 h-4" />
+              </button>
+              <button className="text-muted-foreground hover:text-destructive">
+                <Trash2 className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
 
           <p className="text-sm text-muted-foreground">{service.description}</p>
 
