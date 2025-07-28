@@ -4,6 +4,7 @@ import { use } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { deleteService } from "@/lib/services/actions";
 
 export default function ServiceList({ data }: { data: Promise<Service[]> }) {
   const services = use(data);
@@ -25,9 +26,21 @@ export default function ServiceList({ data }: { data: Promise<Service[]> }) {
               <Button variant="ghost" className="cursor-pointer">
                 <Pencil className="w-4 h-4" />
               </Button>
-              <Button variant="ghost" className="cursor-pointer text-red-500">
-                <Trash2 className="w-4 h-4" />
-              </Button>
+
+              <form
+                action={async () => {
+                  "use server"
+                  await deleteService(service.name);
+                }}
+              >
+                <Button
+                  type="submit"
+                  variant="ghost"
+                  className="cursor-pointer text-red-500"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </Button>
+              </form>
             </div>
           </div>
 
