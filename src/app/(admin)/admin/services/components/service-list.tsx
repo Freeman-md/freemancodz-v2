@@ -3,6 +3,7 @@ import { Service } from "@/types/showcase";
 import { use } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Pencil, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function ServiceList({ data }: { data: Promise<Service[]> }) {
   const services = use(data);
@@ -20,13 +21,13 @@ export default function ServiceList({ data }: { data: Promise<Service[]> }) {
             <h3 className="text-lg font-semibold">{service.name}</h3>
 
             {/* Icons */}
-            <div className="flex gap-2">
-              <button className="text-muted-foreground hover:text-primary">
+            <div className="flex">
+              <Button variant="ghost" className="cursor-pointer">
                 <Pencil className="w-4 h-4" />
-              </button>
-              <button className="text-muted-foreground hover:text-destructive">
+              </Button>
+              <Button variant="ghost" className="cursor-pointer text-red-500">
                 <Trash2 className="w-4 h-4" />
-              </button>
+              </Button>
             </div>
           </div>
 
