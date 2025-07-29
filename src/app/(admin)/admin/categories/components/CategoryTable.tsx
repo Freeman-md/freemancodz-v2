@@ -41,7 +41,7 @@ export default function CategoryTable({
           <TableRow key={category.name}>
             <TableCell>{category.name}</TableCell>
             <TableCell className="text-right">
-              <form onSubmit={async() => await deleteCategory(category.name)}>
+              <form action={async() => await deleteCategory(category.name)}>
                 <Button type="submit" variant="destructive">
                   <Trash />
                 </Button>

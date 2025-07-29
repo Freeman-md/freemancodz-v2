@@ -17,7 +17,7 @@ export default async function ToolsPage() {
       </div>
 
       <Suspense fallback={<TableSkeleton />}>
-        <ToolTable tools={tools} />
+        <ToolTable data={tools} />
       </Suspense>
     </div>
   );

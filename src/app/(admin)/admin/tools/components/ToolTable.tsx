@@ -6,9 +6,16 @@ import { Button } from "@/components/ui/button"
 import { Trash } from "lucide-react"
 import { use } from "react"
 import { Tool } from "@/types/showcase"
+import Empty from "@/components/shared/empty"
 
-export default function ToolTable({ tools } : { tools: Promise<Tool[]> }) {
-  const data = use(tools)
+export default function ToolTable({ data } : { data: Promise<Tool[]> }) {
+  const tools = use(data)
+
+  if (tools.length <= 0) {
+      return (
+        <Empty classes="text-black" message="No tools found" />
+      );
+    }
 
   return (
     <Table>
@@ -19,7 +26,7 @@ export default function ToolTable({ tools } : { tools: Promise<Tool[]> }) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.map((tool) => (
+        {tools.map((tool) => (
           <TableRow key={tool.name}>
             <TableCell>{tool.name}</TableCell>
             <TableCell className="text-right">
