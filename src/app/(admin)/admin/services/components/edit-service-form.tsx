@@ -4,8 +4,8 @@ import { Service } from "@/types/showcase"
 import { use } from "react"
 import ServiceForm from "./service-form"
 import { updateService } from "@/lib/services/actions"
-import { notFound } from "next/navigation"
 import { toast } from "sonner"
+import Empty from "@/components/shared/empty"
 
 export default function EditServiceForm({
     data
@@ -14,7 +14,7 @@ export default function EditServiceForm({
 }) {
     const service = use(data)
 
-    if (!service) return notFound();
+    if (!service) return <Empty classes="text-black" message={`Service not found`} />;
 
     return (
         <ServiceForm

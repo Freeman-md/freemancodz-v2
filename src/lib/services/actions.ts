@@ -115,7 +115,6 @@ export async function updateService(prevState: unknown, formData: FormData) {
 }
 
 export async function deleteService(prevState: unknown, formData: FormData) {
-  console.log(formData)
   const name = formData.get("name")?.toString();
   if (!name?.trim()) return { status: "error" };
 
