@@ -14,7 +14,9 @@ type Props = {
     description?: string;
     categories?: string[];
   };
+  categories: string[],
   onSuccess?: () => void;
+  onReload: () => void;
   submitLabel?: string;
 };
 
@@ -22,6 +24,8 @@ export default function ServiceForm({
   action,
   defaultValues = {},
   onSuccess,
+  onReload,
+  categories,
   submitLabel = "Save Service",
 }: Props) {
   const [selectedCategories, setSelectedCategories] = useState<string[]>(
@@ -49,7 +53,7 @@ export default function ServiceForm({
       if (!defaultValues?.name) setSelectedCategories([]);
       onSuccess?.();
     }
-  }, [formState.status]);
+  }, [formState.status, onSuccess, defaultValues.name]);
 
   useEffect(() => {
     if (formState?.status === "error" && formState.values?.categories) {
@@ -94,6 +98,8 @@ export default function ServiceForm({
         selected={selectedCategories}
         onChange={setSelectedCategories}
         error={errors?.categories?.[0]}
+        categories={categories}
+        onReload={onReload}
       />
 
       {selectedCategories.map((category) => (

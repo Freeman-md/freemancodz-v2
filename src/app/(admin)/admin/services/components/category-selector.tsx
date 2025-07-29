@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,39 +12,32 @@ import {
 } from "@/components/ui/command";
 import { CheckIcon, XCircleIcon } from "lucide-react";
 import { IconCrop11 } from "@tabler/icons-react";
-import { getCategories } from "@/lib/categories/data";
 import { AnimatePresence, motion } from "motion/react";
 import { Badge } from "@/components/ui/badge";
 import CategoryForm from "@/app/(admin)/admin/categories/components/CategoryForm";
 
 type Props = {
+  categories: string[];
   selected: string[];
   onChange: (categories: string[]) => void;
   label?: string;
   error?: string;
+  onReload: () => void;
 };
 
 export default function CategorySelector({
   selected,
   onChange,
   label = "Categories",
+  categories,
   error,
+  onReload,
 }: Props) {
-  const [categories, setCategories] = useState<string[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-
-  useEffect(() => {
-    loadCategories();
-  }, []);
-
-  const loadCategories = async () => {
-    const data = await getCategories();
-    setCategories(data.map((c) => c.name));
-  };
 
   const toggleCategory = (category: string) => {
     if (selected.includes(category)) {
-      onChange(selected.filter((c) => c !== category));
+      onChange(selected.filter((existingCategory) => existingCategory !== category));
     } else {
       onChange([...selected, category]);
     }
@@ -96,7 +89,7 @@ export default function CategorySelector({
               <CategoryForm
                 variant="link"
                 defaultValue={searchTerm}
-                onCreate={loadCategories}
+                onCreate={onReload}
               />
             </CommandEmpty>
             <CommandList>
