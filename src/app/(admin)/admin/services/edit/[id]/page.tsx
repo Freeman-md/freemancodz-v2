@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import EditServiceForm from "../../components/edit-service-form";
 import FormSkeleton from "@/components/ui/form-skeleton";
 
-export default async function EditServicePage({ params }: { params: { id: string } }) {
+export default async function EditServicePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const service = getServiceById(id);
 
