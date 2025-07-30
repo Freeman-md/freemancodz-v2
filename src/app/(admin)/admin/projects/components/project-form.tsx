@@ -16,7 +16,7 @@ import { useActionState } from "react";
 import CategorySelector from "@/components/ui/category-selector";
 import ToolSelector from "@/components/ui/tool-selector";
 import { Switch } from "@/components/ui/switch";
-import { ProjectFormValues } from "@/types/project";
+import { ProjectFormErrors, ProjectFormValues } from "@/types/project";
 import { getDefaultProjectFormValues } from "@/lib/projects/form-utils";
 
 type Props = {
@@ -51,16 +51,7 @@ export default function ProjectForm({
     values: getDefaultProjectFormValues(defaultValues),
   });
 
-  const errors = formState?.errors as {
-    title?: string[];
-    description?: string[];
-    longdescription?: string[];
-    status?: string[];
-    role?: string[];
-    year?: string[];
-    categories?: string[];
-    tools?: string[];
-  };
+  const errors = formState?.errors as ProjectFormErrors;
 
   const [isFeatured, setIsFeatured] = useState(
     formState?.values?.featured ?? defaultValues.featured ?? false
@@ -220,20 +211,15 @@ export default function ProjectForm({
       ))}
 
       <div className="space-y-2">
-        <label className="text-sm font-medium">Cover Image</label>
-        <Input name="cover_image" type="file" accept="image/*" />
-        <p className="text-xs text-muted-foreground">
-          Upload PNG or JPG. Max 5MB.
-        </p>
-      </div>
-
-      <div className="space-y-2">
         <label className="text-sm font-medium">GitHub Repo</label>
         <Input
           name="github"
           placeholder="https://github.com/..."
           defaultValue={formState?.values?.github ?? defaultValues.github}
         />
+        {errors?.github && (
+            <small className="text-sm text-red-500">{errors.github[0]}</small>
+          )}
       </div>
 
       <div className="space-y-2">
@@ -243,6 +229,9 @@ export default function ProjectForm({
           placeholder="https://your-project-url.com"
           defaultValue={formState?.values?.link ?? defaultValues.link}
         />
+        {errors?.link && (
+            <small className="text-sm text-red-500">{errors.link[0]}</small>
+          )}
       </div>
 
       <div className="space-y-2">
@@ -256,6 +245,9 @@ export default function ProjectForm({
             formState?.values?.impact_note ?? defaultValues.impact_note
           }
         />
+        {errors?.impact_note && (
+            <small className="text-sm text-red-500">{errors.impact_note[0]}</small>
+          )}
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
@@ -267,6 +259,9 @@ export default function ProjectForm({
             </p>
           </div>
           <Switch checked={isFeatured} onCheckedChange={setIsFeatured} />
+          {errors?.featured && (
+            <small className="text-sm text-red-500">{errors.featured[0]}</small>
+          )}
           <input
             type="hidden"
             name="featured"
@@ -282,6 +277,9 @@ export default function ProjectForm({
             </p>
           </div>
           <Switch checked={isPrivate} onCheckedChange={setIsPrivate} />
+          {errors?.is_private && (
+            <small className="text-sm text-red-500">{errors.is_private[0]}</small>
+          )}
           <input
             type="hidden"
             name="isPrivate"

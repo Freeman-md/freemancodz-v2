@@ -23,6 +23,10 @@ export type ProjectStatus = "Idea" | "In Progress" | "Beta" | "Live" | "Archived
 
 export type ProjectRole = "Solo Build" | "Team Lead" | "Collaborator";
 
+export type ProjectFormErrors = {
+  [K in keyof ProjectFormValues]?: string[];
+};
+
 export type ProjectFormValues = Partial<
   Project & {
     categories: string[];

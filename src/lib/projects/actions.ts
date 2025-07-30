@@ -3,7 +3,6 @@
 import { supabase } from "../supabase";
 import { revalidatePath } from "next/cache";
 import { parseProjectForm } from "./form-utils";
-import { v4 as uuidv4 } from "uuid";
 
 export const createProject = async (prevState: unknown, formData: FormData) => {
   const { result, raw } = await parseProjectForm(formData);
@@ -32,31 +31,6 @@ export const createProject = async (prevState: unknown, formData: FormData) => {
     is_private,
   } = result.data;
 
-  let cover_image = "";
-  const file = formData.get("cover_image") as File | null;
-
-  if (file && file.size > 0) {
-    const filename = `project-covers/${uuidv4()}-${file.name}`;
-    const { error: uploadError } = await supabase.storage
-      .from("project-assets")
-      .upload(filename, file);
-
-    if (uploadError) {
-      return {
-        status: "error",
-        errors: { cover_image: ["Failed to upload cover image"] },
-        values: raw,
-      };
-    }
-
-    const { data } = supabase
-      .storage
-      .from("project-assets")
-      .getPublicUrl(filename);
-
-    cover_image = data.publicUrl;
-  }
-
 
   const { data: project, error } = await supabase
     .from("projects")
@@ -72,7 +46,6 @@ export const createProject = async (prevState: unknown, formData: FormData) => {
       impact_note,
       featured,
       is_private,
-      cover_image,
     })
     .select()
     .single();
