@@ -7,9 +7,9 @@ import { getCategories } from "@/lib/categories/data";
 import { getTools } from "@/lib/tools/data";
 import { createProject, updateProject } from "@/lib/projects/actions";
 import ProjectForm from "./project-form";
-import Empty from "@/components/shared/empty";
 import { Project } from "@/types/project";
 import { getDefaultProjectFormValues } from "@/lib/projects/form-utils";
+import Empty from "@/components/shared/empty";
 
 type Props = {
   mode: "create" | "edit";
