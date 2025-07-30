@@ -15,19 +15,13 @@ import {
 import { useActionState } from "react";
 import CategorySelector from "@/components/ui/category-selector";
 import ToolSelector from "@/components/ui/tool-selector";
+import { Switch } from "@/components/ui/switch";
+import { ProjectFormValues } from "@/types/project";
+import { getDefaultProjectFormValues } from "@/lib/projects/form-utils";
 
 type Props = {
   action: any;
-  defaultValues?: {
-    title?: string;
-    description?: string;
-    longdescription?: string;
-    categories?: string[];
-    tools?: string[];
-    status?: string;
-    role?: string;
-    year?: number;
-  };
+  defaultValues?: ProjectFormValues;
   categories: string[];
   tools: string[];
   onSuccess?: () => void;
@@ -47,7 +41,6 @@ export default function ProjectForm({
   const [selectedCategories, setSelectedCategories] = useState<string[]>(
     defaultValues.categories || []
   );
-
   const [selectedTools, setSelectedTools] = useState<string[]>(
     defaultValues.tools || []
   );
@@ -55,16 +48,7 @@ export default function ProjectForm({
   const [formState, formAction, isPending] = useActionState(action, {
     status: "",
     errors: {},
-    values: {
-      title: defaultValues.title || "",
-      description: defaultValues.description || "",
-      longdescription: defaultValues.longdescription || "",
-      status: defaultValues.status || "",
-      role: defaultValues.role || "",
-      year: defaultValues.year || new Date().getFullYear(),
-      categories: defaultValues.categories || [],
-      tools: defaultValues.tools || [],
-    },
+    values: getDefaultProjectFormValues(defaultValues),
   });
 
   const errors = formState?.errors as {
@@ -77,6 +61,13 @@ export default function ProjectForm({
     categories?: string[];
     tools?: string[];
   };
+
+  const [isFeatured, setIsFeatured] = useState(
+    formState?.values?.featured ?? defaultValues.featured ?? false
+  );
+  const [isPrivate, setIsPrivate] = useState(
+    formState?.values?.is_private ?? defaultValues.is_private ?? false
+  );
 
   useEffect(() => {
     if (formState.status === "success") {
@@ -227,6 +218,77 @@ export default function ProjectForm({
       {selectedTools.map((tool) => (
         <input key={tool} type="hidden" name="tools" value={tool} />
       ))}
+
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Cover Image</label>
+        <Input name="cover_image" type="file" accept="image/*" />
+        <p className="text-xs text-muted-foreground">
+          Upload PNG or JPG. Max 5MB.
+        </p>
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-sm font-medium">GitHub Repo</label>
+        <Input
+          name="github"
+          placeholder="https://github.com/..."
+          defaultValue={formState?.values?.github ?? defaultValues.github}
+        />
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Live Link</label>
+        <Input
+          name="link"
+          placeholder="https://your-project-url.com"
+          defaultValue={formState?.values?.link ?? defaultValues.link}
+        />
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Impact Note</label>
+        <Textarea
+          name="impact_note"
+          placeholder="What impact did this project make?"
+          rows={2}
+          className="resize-none"
+          defaultValue={
+            formState?.values?.impact_note ?? defaultValues.impact_note
+          }
+        />
+      </div>
+
+      <div className="flex flex-col md:flex-row gap-4">
+        <div className="flex flex-1 items-center justify-between rounded-md border p-3">
+          <div className="space-y-0.5">
+            <p className="text-sm font-medium">Featured</p>
+            <p className="text-sm text-muted-foreground">
+              Show on the main highlights section
+            </p>
+          </div>
+          <Switch checked={isFeatured} onCheckedChange={setIsFeatured} />
+          <input
+            type="hidden"
+            name="featured"
+            value={isFeatured ? "true" : "false"}
+          />
+        </div>
+
+        <div className="flex flex-1 items-center justify-between rounded-md border p-3">
+          <div className="space-y-0.5">
+            <p className="text-sm font-medium">Private</p>
+            <p className="text-sm text-muted-foreground">
+              Only visible to you (not public)
+            </p>
+          </div>
+          <Switch checked={isPrivate} onCheckedChange={setIsPrivate} />
+          <input
+            type="hidden"
+            name="isPrivate"
+            value={isPrivate ? "true" : "false"}
+          />
+        </div>
+      </div>
 
       <Button type="submit" className="mt-4" disabled={isPending}>
         {isPending ? "Saving..." : submitLabel}

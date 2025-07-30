@@ -11,7 +11,7 @@ export type TimelineItemBase = {
   modules?: string[];
   link?: string;
   location?: string;
-  projects?: Pick<Project, "id" | "title" | "coverImage" | "link">[];
+  projects?: Pick<Project, "id" | "title" | "cover_image" | "link">[];
 };
 
 

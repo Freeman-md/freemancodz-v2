@@ -23,6 +23,14 @@ export type ProjectStatus = "Idea" | "In Progress" | "Beta" | "Live" | "Archived
 
 export type ProjectRole = "Solo Build" | "Team Lead" | "Collaborator";
 
+export type ProjectFormValues = Partial<
+  Project & {
+    categories: string[];
+    tools: string[];
+  }
+>;
+
+
 // Main Project Type
 export type Project = {
   id: string;
@@ -36,9 +44,8 @@ export type Project = {
   role?: ProjectRole;
 
   // Media
-  coverImage: string;
+  cover_image: string;
   video_url?: string;
-  previewGif?: string;
 
   // Links
   link: string;
@@ -46,14 +53,14 @@ export type Project = {
 
   // Flags
   featured: boolean;
-  isPrivate: boolean;
+  is_private: boolean;
   year: number;
 
   // Stack
   tools: string[];
 
   // Extra context
-  impactNote?: string;      // e.g. "Used by 500+ people"
+  impact_note?: string;      // e.g. "Used by 500+ people"
 
   aspect?: string;
 };

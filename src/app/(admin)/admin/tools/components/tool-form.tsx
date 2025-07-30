@@ -51,9 +51,14 @@ export default function ToolForm({
             onCreate?.();
           }}
           className="flex flex-col gap-4"
-          defaultValue={defaultValue}
         >
-          <Input name="name" placeholder="Tool name" required />
+          <Input 
+          key={defaultValue}
+          name="name" 
+          placeholder="Tool name" 
+          required
+          defaultValue={defaultValue}
+           />
           <Button type="submit">Save</Button>
         </form>
       </DialogContent>

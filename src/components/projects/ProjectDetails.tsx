@@ -35,7 +35,7 @@ export default function ProjectDetails() {
     tools,
     link,
     github,
-    coverImage,
+    cover_image,
     video_url,
   } = selectedProject;
 
@@ -79,7 +79,7 @@ export default function ProjectDetails() {
             ) : (
               <>
                 <Image
-                  src={coverImage}
+                  src={cover_image}
                   alt={title}
                   fill
                   className="object-cover rounded-t-xl"
@@ -151,7 +151,7 @@ export default function ProjectDetails() {
               </Accordion>
             </motion.div>
 
-            {selectedProject.impactNote && (
+            {selectedProject.impact_note && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -162,7 +162,7 @@ export default function ProjectDetails() {
                   Impact
                 </h3>
                 <p className="text-white/80 leading-relaxed">
-                  {selectedProject.impactNote}
+                  {selectedProject.impact_note}
                 </p>
               </motion.div>
             )}

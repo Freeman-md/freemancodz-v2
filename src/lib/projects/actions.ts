@@ -1,34 +1,12 @@
 "use server"
 
-import { z } from "zod";
 import { supabase } from "../supabase";
 import { revalidatePath } from "next/cache";
-
-const projectSchema = z.object({
-  title: z.string().min(3, "Title is required"),
-  description: z.string().min(10, "Description is too short"),
-  longdescription: z.string().min(10, "Long description is too short"),
-  status: z.string().min(1, "Status is required"),
-  role: z.string().min(1, "Role is required"),
-  year: z.coerce.number().int().min(2000, "Enter a valid year"),
-  categories: z.array(z.string()).min(1, "Select at least one category"),
-  tools: z.array(z.string()).min(1, "Select at least one tool"),
-});
-
+import { parseProjectForm } from "./form-utils";
+import { v4 as uuidv4 } from "uuid";
 
 export const createProject = async (prevState: unknown, formData: FormData) => {
-  const raw = {
-    title: formData.get("title")?.toString() || "",
-    description: formData.get("description")?.toString() || "",
-    longdescription: formData.get("longdescription")?.toString() || "",
-    status: formData.get("status")?.toString() || "",
-    role: formData.get("role")?.toString() || "",
-    year: Number(formData.get("year") || 0),
-    categories: formData.getAll("categories").map((c) => c.toString()),
-    tools: formData.getAll("tools").map((t) => t.toString()),
-  };
-
-  const result = projectSchema.safeParse(raw);
+  const { result, raw } = await parseProjectForm(formData);
 
   if (!result.success) {
     return {
@@ -47,7 +25,38 @@ export const createProject = async (prevState: unknown, formData: FormData) => {
     year,
     categories,
     tools,
+    github,
+    link,
+    impact_note,
+    featured,
+    is_private,
   } = result.data;
+
+  let cover_image = "";
+  const file = formData.get("cover_image") as File | null;
+
+  if (file && file.size > 0) {
+    const filename = `project-covers/${uuidv4()}-${file.name}`;
+    const { error: uploadError } = await supabase.storage
+      .from("project-assets")
+      .upload(filename, file);
+
+    if (uploadError) {
+      return {
+        status: "error",
+        errors: { cover_image: ["Failed to upload cover image"] },
+        values: raw,
+      };
+    }
+
+    const { data } = supabase
+      .storage
+      .from("project-assets")
+      .getPublicUrl(filename);
+
+    cover_image = data.publicUrl;
+  }
+
 
   const { data: project, error } = await supabase
     .from("projects")
@@ -58,6 +67,12 @@ export const createProject = async (prevState: unknown, formData: FormData) => {
       status,
       role,
       year,
+      github,
+      link,
+      impact_note,
+      featured,
+      is_private,
+      cover_image,
     })
     .select()
     .single();
@@ -75,12 +90,12 @@ export const createProject = async (prevState: unknown, formData: FormData) => {
     .in("name", categories);
 
   if (categoryRows?.length) {
-    const projectCategoryLinks = categoryRows.map((cat) => ({
-      project_id: project.id,
-      category_id: cat.id,
-    }));
-
-    await supabase.from("projects_categories").insert(projectCategoryLinks);
+    await supabase.from("projects_categories").insert(
+      categoryRows.map((cat) => ({
+        project_id: project.id,
+        category_id: cat.id,
+      }))
+    );
   }
 
   const { data: toolRows } = await supabase
@@ -89,22 +104,23 @@ export const createProject = async (prevState: unknown, formData: FormData) => {
     .in("name", tools);
 
   if (toolRows?.length) {
-    const projectToolLinks = toolRows.map((tool) => ({
-      project_id: project.id,
-      tool_id: tool.id,
-    }));
-
-    await supabase.from("projects_tools").insert(projectToolLinks);
+    await supabase.from("projects_tools").insert(
+      toolRows.map((tool) => ({
+        project_id: project.id,
+        tool_id: tool.id,
+      }))
+    );
   }
 
   revalidatePath("/admin/projects");
 
   return { status: "success" };
 };
+
 export const updateProject = async (prevState: unknown, formData: FormData) => {
-    console.log(prevState, formData)
+  console.log(prevState, formData)
 }
 
 export const deleteProject = async (id: string) => {
-    console.log(id)
+  console.log(id)
 }

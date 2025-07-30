@@ -15,11 +15,7 @@ import { Project } from "@/types/project";
 import Empty from "@/components/shared/empty";
 import { deleteProject } from "@/lib/projects/actions";
 
-export default function ProjectTable({
-  data,
-}: {
-  data: Promise<Project[]>;
-}) {
+export default function ProjectTable({ data }: { data: Promise<Project[]> }) {
   const projects = use(data);
 
   if (projects.length <= 0) {
@@ -47,7 +43,7 @@ export default function ProjectTable({
             <TableCell>{project.role}</TableCell>
             <TableCell>{project.year}</TableCell>
             <TableCell>{project.featured ? "✅" : "❌"}</TableCell>
-            <TableCell>{project.isPrivate ? "🔒" : "🌐"}</TableCell>
+            <TableCell>{project.is_private ? "🔒" : "🌐"}</TableCell>
             <TableCell className="text-right">
               <form action={async () => await deleteProject(project.id)}>
                 <Button type="submit" variant="destructive">

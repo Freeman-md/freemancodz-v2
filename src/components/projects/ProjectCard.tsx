@@ -44,7 +44,7 @@ export default function ProjectCard({
           onClick={handleViewMoreClick}
         >
           <Image
-            src={project.coverImage}
+            src={project.cover_image}
             alt={project.title}
             fill
             className="object-cover"

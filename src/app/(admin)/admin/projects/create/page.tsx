@@ -7,7 +7,7 @@ export default function CreateProjectPage() {
   const tools = getTools();
 
   return (
-    <div className="md:max-w-2xl space-y-6">
+    <div className="space-y-6">
       <h1 className="text-xl font-semibold">Create Project</h1>
 
       <ProjectFormWrapper 

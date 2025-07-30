@@ -54,12 +54,9 @@ export default function TimelineItem(entry: TimeLineEntry) {
     >
       <div className="absolute left-0 inset-y-0 flex flex-col items-center w-6 space-y-2">
         <div className="w-6 h-6 rounded-full flex items-center justify-center z-10 bg-white text-background">
-          {entry.type === "experience" &&
-            <Briefcase className="w-4 h-4" /> }
-            {entry.type === "education" &&
-            <GraduationCap className="w-4 h-4" /> }
-            {entry.type === "certification" &&
-            <Award className="w-4 h-4" /> }
+          {entry.type === "experience" && <Briefcase className="w-4 h-4" />}
+          {entry.type === "education" && <GraduationCap className="w-4 h-4" />}
+          {entry.type === "certification" && <Award className="w-4 h-4" />}
         </div>
         <motion.div
           variants={{
@@ -79,7 +76,9 @@ export default function TimelineItem(entry: TimeLineEntry) {
         {entry.type === "education" ? (
           <h3 className="text-xl font-semibold text-white">
             {entry.degree}
-            <span className="text-primary">{entry.grade && ` • ${entry.grade}`}</span>
+            <span className="text-primary">
+              {entry.grade && ` • ${entry.grade}`}
+            </span>
           </h3>
         ) : (
           <h3 className="text-xl font-semibold text-white">{entry.title}</h3>
@@ -106,9 +105,7 @@ export default function TimelineItem(entry: TimeLineEntry) {
           </span>
 
           {entry.type === "experience" && entry.employmentType && (
-            <span className="text-white/80">
-              • {entry.employmentType}
-            </span>
+            <span className="text-white/80">• {entry.employmentType}</span>
           )}
 
           {entry.location && (
@@ -118,9 +115,7 @@ export default function TimelineItem(entry: TimeLineEntry) {
       )}
 
       {renderDate() && (
-        <p className="text-white/80 text-xs italic mt-0.5">
-          {renderDate()}
-        </p>
+        <p className="text-white/80 text-xs italic mt-0.5">{renderDate()}</p>
       )}
 
       {entry.description && (
@@ -160,7 +155,7 @@ export default function TimelineItem(entry: TimeLineEntry) {
                 className="relative shrink-0 cursor-pointer rounded-md overflow-hidden border border-white/10 hover:border-primary transition"
               >
                 <Image
-                  src={project.coverImage}
+                  src={project.cover_image}
                   alt={project.title}
                   width={100}
                   height={100}

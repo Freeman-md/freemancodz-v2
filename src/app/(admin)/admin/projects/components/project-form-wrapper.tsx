@@ -9,6 +9,7 @@ import { createProject, updateProject } from "@/lib/projects/actions";
 import ProjectForm from "./project-form";
 import Empty from "@/components/shared/empty";
 import { Project } from "@/types/project";
+import { getDefaultProjectFormValues } from "@/lib/projects/form-utils";
 
 type Props = {
   mode: "create" | "edit";
@@ -49,20 +50,7 @@ export default function ProjectFormWrapper({
   return (
     <ProjectForm
       action={mode === "edit" ? updateProject : createProject}
-      defaultValues={
-        project
-          ? {
-              title: project.title,
-              description: project.description,
-              longdescription: project.longdescription,
-              status: project.status,
-              role: project.role,
-              year: project.year,
-              categories: project.categories,
-              tools: project.tools,
-            }
-          : undefined
-      }
+      defaultValues={project ? getDefaultProjectFormValues(project) : undefined}
       categories={categories}
       tools={tools}
       submitLabel={mode === "edit" ? "Update Project" : "Save Project"}
