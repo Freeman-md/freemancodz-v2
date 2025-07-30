@@ -25,7 +25,7 @@ export type ProjectRole = "Solo Build" | "Team Lead" | "Collaborator";
 
 // Main Project Type
 export type Project = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   longdescription?: string;
