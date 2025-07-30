@@ -47,7 +47,7 @@ export default function ProjectTable({ data }: { data: Promise<Project[]> }) {
             <TableCell>{project.is_private ? "🔒" : "🌐"}</TableCell>
             <TableCell className="flex space-x-2 justify-end items-center">
               <form action={async () => await deleteProject(project.id)}>
-                <Button type="submit" variant="destructive">
+                <Button className="cursor-pointer" type="submit" variant="destructive">
                   <Trash />
                 </Button>
               </form>

@@ -86,5 +86,6 @@ export async function updateProject(prevState: unknown, formData: FormData) {
 }
 
 export const deleteProject = async (id: string) => {
-  console.log(id)
+  await supabase.from("projects").delete().eq("id", id)
+  revalidatePath('/admin/projects')
 }
