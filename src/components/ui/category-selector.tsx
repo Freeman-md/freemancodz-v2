@@ -1,12 +1,12 @@
 "use client";
 
 import EntitySelector from "@/components/ui/entity-selector";
-import CategoryForm from "@/app/(admin)/admin/categories/components/CategoryForm";
+import CategoryForm from "@/app/(admin)/admin/categories/components/category-form";
 import { EntitySelectorProps } from "@/components/ui/entity-selector";
 
 type CategorySelectorProps = Omit<
   EntitySelectorProps,
-  "entities" | "entityLabel" | "CreateFormComponent"
+  "entities" | "entityLabel" | "renderCreateForm"
 > & {
   categories: string[];
 };

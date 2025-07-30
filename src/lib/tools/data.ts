@@ -1,5 +1,3 @@
-import 'server-only'
-
 import { cache } from "react";
 import { supabase } from "../supabase";
 import { Tool } from "@/types/showcase";

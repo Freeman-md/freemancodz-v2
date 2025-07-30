@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useActionState } from "react";
-import CategorySelector from "./category-selector";
+import CategorySelector from "../../../../../components/ui/category-selector";
 
 type Props = {
   action: any; 

@@ -1,8 +1,8 @@
 import { getTools } from "@/lib/tools/data";
 import { Suspense } from "react";
 import TableSkeleton from "@/components/ui/table-skeleton";
-import ToolTable from "./components/ToolTable";
-import ToolForm from "./components/ToolForm";
+import ToolTable from "./components/tool-table";
+import ToolForm from "./components/tool-form";
 
 export const metadata = { title: "Tools | Admin" };
 

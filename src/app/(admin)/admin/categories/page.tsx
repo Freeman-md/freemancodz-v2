@@ -1,8 +1,8 @@
 import TableSkeleton from "@/components/ui/table-skeleton";
 import { getCategories } from "@/lib/categories/data";
 import { Suspense } from "react";
-import CategoryTable from "./components/CategoryTable";
-import CategoryForm from "./components/CategoryForm";
+import CategoryTable from "./components/category-table";
+import CategoryForm from "./components/category-form";
 
 export default function Page() {
   const categories = getCategories();
