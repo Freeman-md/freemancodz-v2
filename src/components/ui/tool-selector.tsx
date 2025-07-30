@@ -17,7 +17,7 @@ export default function ToolSelector({ tools, ...rest }: ToolSelectorProps) {
       {...rest}
       label="Tools"
       entities={tools}
-      entityLabel="Category"
+      entityLabel="Tool"
       renderCreateForm={(searchTerm) => (
         <ToolForm
           defaultValue={searchTerm}

@@ -119,10 +119,14 @@ export default function ProjectForm({
           maxLength={200}
           rows={3}
           className="resize-none"
-          defaultValue={formState?.values?.description ?? defaultValues.description}
+          defaultValue={
+            formState?.values?.description ?? defaultValues.description
+          }
         />
         {errors?.description && (
-          <small className="text-sm text-red-500">{errors.description[0]}</small>
+          <small className="text-sm text-red-500">
+            {errors.description[0]}
+          </small>
         )}
       </div>
 
@@ -133,48 +137,52 @@ export default function ProjectForm({
           placeholder="More detailed project description"
           rows={6}
           className="resize-none"
-          defaultValue={formState?.values?.longdescription ?? defaultValues.longdescription}
+          defaultValue={
+            formState?.values?.longdescription ?? defaultValues.longdescription
+          }
         />
         {errors?.longdescription && (
-          <small className="text-sm text-red-500">{errors.longdescription[0]}</small>
+          <small className="text-sm text-red-500">
+            {errors.longdescription[0]}
+          </small>
         )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="space-y-2">
-  <label className="text-sm font-medium">Status</label>
-  <Select name="status" defaultValue={defaultValues.status}>
-    <SelectTrigger className="w-full">
-      <SelectValue placeholder="Select status" />
-    </SelectTrigger>
-    <SelectContent>
-      <SelectItem value="Beta">Beta</SelectItem>
-      <SelectItem value="Live">Live</SelectItem>
-      <SelectItem value="Archived">Archived</SelectItem>
-      <SelectItem value="In Development">In Development</SelectItem>
-    </SelectContent>
-  </Select>
-  {errors?.status && (
-    <small className="text-sm text-red-500">{errors.status[0]}</small>
-  )}
-</div>
+          <label className="text-sm font-medium">Status</label>
+          <Select name="status" defaultValue={defaultValues.status}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Beta">Beta</SelectItem>
+              <SelectItem value="Live">Live</SelectItem>
+              <SelectItem value="Archived">Archived</SelectItem>
+              <SelectItem value="In Development">In Development</SelectItem>
+            </SelectContent>
+          </Select>
+          {errors?.status && (
+            <small className="text-sm text-red-500">{errors.status[0]}</small>
+          )}
+        </div>
 
-<div className="space-y-2">
-  <label className="text-sm font-medium">Role</label>
-  <Select name="role" defaultValue={defaultValues.role}>
-    <SelectTrigger className="w-full">
-      <SelectValue placeholder="Select role" />
-    </SelectTrigger>
-    <SelectContent>
-      <SelectItem value="Solo Build">Solo Build</SelectItem>
-      <SelectItem value="Team Lead">Team Lead</SelectItem>
-      <SelectItem value="Collaborator">Collaborator</SelectItem>
-    </SelectContent>
-  </Select>
-  {errors?.role && (
-    <small className="text-sm text-red-500">{errors.role[0]}</small>
-  )}
-</div>
+        <div className="space-y-2">
+          <label className="text-sm font-medium">Role</label>
+          <Select name="role" defaultValue={defaultValues.role}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select role" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Solo Build">Solo Build</SelectItem>
+              <SelectItem value="Team Lead">Team Lead</SelectItem>
+              <SelectItem value="Collaborator">Collaborator</SelectItem>
+            </SelectContent>
+          </Select>
+          {errors?.role && (
+            <small className="text-sm text-red-500">{errors.role[0]}</small>
+          )}
+        </div>
 
         <div className="space-y-2">
           <label className="text-sm font-medium">Year</label>
@@ -200,7 +208,12 @@ export default function ProjectForm({
       />
 
       {selectedCategories.map((category) => (
-        <input key={category} type="hidden" name="categories" value={category} />
+        <input
+          key={category}
+          type="hidden"
+          name="categories"
+          value={category}
+        />
       ))}
 
       <ToolSelector
