@@ -1,4 +1,4 @@
-import AdminCreateButton from "@/components/ui/admin-create-button";
+import LinkButton from "@/components/ui/link-button";
 import TableSkeleton from "@/components/ui/table-skeleton";
 import { getProjects } from "@/lib/projects/data";
 import { Suspense } from "react";
@@ -11,7 +11,7 @@ export default function Page() {
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">Projects</h1>
 
-        <AdminCreateButton url="/admin/projects/create" text="Create Project" />
+        <LinkButton url="/admin/projects/create" text="Create Project" />
       </div>
 
       <Suspense fallback={<TableSkeleton />}>

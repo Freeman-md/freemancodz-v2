@@ -2,7 +2,7 @@
 
 import { supabase } from "../supabase";
 import { revalidatePath } from "next/cache";
-import { parseProjectForm } from "./form-utils";
+import { insertProjectCategories, insertProjectTools, parseProjectForm } from "./form-utils";
 
 export const createProject = async (prevState: unknown, formData: FormData) => {
   const { result, raw } = await parseProjectForm(formData);
@@ -16,37 +16,17 @@ export const createProject = async (prevState: unknown, formData: FormData) => {
   }
 
   const {
-    title,
-    description,
-    longdescription,
-    status,
-    role,
-    year,
     categories,
     tools,
-    github,
-    link,
-    impact_note,
-    featured,
-    is_private,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    id,
+    ...projectData
   } = result.data;
 
 
   const { data: project, error } = await supabase
     .from("projects")
-    .insert({
-      title,
-      description,
-      longdescription,
-      status,
-      role,
-      year,
-      github,
-      link,
-      impact_note,
-      featured,
-      is_private,
-    })
+    .insert(projectData)
     .select()
     .single();
 
@@ -57,41 +37,52 @@ export const createProject = async (prevState: unknown, formData: FormData) => {
     };
   }
 
-  const { data: categoryRows } = await supabase
-    .from("categories")
-    .select("id, name")
-    .in("name", categories);
+  insertProjectCategories(project.id, categories)
 
-  if (categoryRows?.length) {
-    await supabase.from("projects_categories").insert(
-      categoryRows.map((cat) => ({
-        project_id: project.id,
-        category_id: cat.id,
-      }))
-    );
-  }
-
-  const { data: toolRows } = await supabase
-    .from("tools")
-    .select("id, name")
-    .in("name", tools);
-
-  if (toolRows?.length) {
-    await supabase.from("projects_tools").insert(
-      toolRows.map((tool) => ({
-        project_id: project.id,
-        tool_id: tool.id,
-      }))
-    );
-  }
+  insertProjectTools(project.id, tools)
 
   revalidatePath("/admin/projects");
 
   return { status: "success" };
 };
 
-export const updateProject = async (prevState: unknown, formData: FormData) => {
-  console.log(prevState, formData)
+export async function updateProject(prevState: unknown, formData: FormData) {
+  const { result, raw } = await parseProjectForm(formData);
+
+  if (!result.success) {
+    return {
+      status: "error",
+      errors: result.error.flatten().fieldErrors,
+      values: raw,
+    };
+  }
+
+  const { categories, tools, id: projectId, ...projectData } = result.data;
+
+  const { data: project, error } = await supabase
+    .from("projects")
+    .update(projectData)
+    .eq("id", projectId)
+    .select()
+    .single();
+
+  if (error || !project) {
+    return {
+      status: "error",
+      errors: { name: ["Failed to update project"] },
+      values: raw,
+    };
+  }
+
+  await supabase.from("projects_categories").delete().eq("project_id", project.id);
+  await supabase.from("projects_categories").delete().eq("project_id", project.id);
+
+  insertProjectCategories(project.id, categories)
+  insertProjectTools(project.id, tools)
+
+  revalidatePath("/admin/services");
+
+  return { status: "success" };
 }
 
 export const deleteProject = async (id: string) => {

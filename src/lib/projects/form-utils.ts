@@ -1,7 +1,9 @@
 import { ProjectFormValues } from "@/types/project";
 import { z } from "zod";
+import { supabase } from "../supabase";
 
 export const projectSchema = z.object({
+  id: z.string().optional(),
   title: z.string().min(3, "Title is required"),
   description: z.string().min(10, "Description is too short"),
   longdescription: z.string().min(10, "Long description is too short"),
@@ -19,6 +21,7 @@ export const projectSchema = z.object({
 
 export async function parseProjectForm(formData: FormData) {
   const raw = {
+    id: formData.get("id")?.toString() || "",
     title: formData.get("title")?.toString() || "",
     description: formData.get("description")?.toString() || "",
     longdescription: formData.get("longdescription")?.toString() || "",
@@ -43,6 +46,7 @@ export function getDefaultProjectFormValues(
   defaultValues: Partial<ProjectFormValues>
 ): ProjectFormValues {
   return {
+    id: defaultValues.id || "",
     title: defaultValues.title || "",
     description: defaultValues.description || "",
     longdescription: defaultValues.longdescription || "",
@@ -58,4 +62,36 @@ export function getDefaultProjectFormValues(
     featured: defaultValues.featured ?? false,
     is_private: defaultValues.is_private ?? false,
   };
+}
+
+export const insertProjectCategories = async (projectId: string, categories: string[]) => {
+  const { data: categoryRows } = await supabase
+    .from("categories")
+    .select("id, name")
+    .in("name", categories);
+
+  if (categoryRows?.length) {
+    await supabase.from("projects_categories").insert(
+      categoryRows.map((category) => ({
+        project_id: projectId,
+        category_id: category.id,
+      }))
+    );
+  }
+}
+
+export const insertProjectTools = async (projectId: string, tools: string[]) => {
+  const { data: toolRows } = await supabase
+    .from("tools")
+    .select("id, name")
+    .in("name", tools);
+
+  if (toolRows?.length) {
+    await supabase.from("projects_tools").insert(
+      toolRows.map((tool) => ({
+        project_id: projectId,
+        tool_id: tool.id,
+      }))
+    );
+  }
 }

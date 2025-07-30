@@ -1,3 +1,5 @@
+import { Category, Tool } from "./showcase";
+
 // Enums / Union Types
 export type ProjectCategory =
   | "Frontend"
@@ -36,14 +38,16 @@ export type ProjectFormValues = Partial<
 
 
 // Main Project Type
-export type Project = {
+export type RawProject = {
   id: string;
   title: string;
   description: string;
   longdescription?: string;
 
   // Classification
-  categories: ProjectCategory[];
+  projects_categories: {
+    categories: Category;
+  }[];
   status?: ProjectStatus;
   role?: ProjectRole;
 
@@ -61,10 +65,17 @@ export type Project = {
   year: number;
 
   // Stack
-  tools: string[];
+  projects_tools: {
+    tools: Tool;
+  }[];
 
   // Extra context
   impact_note?: string;      // e.g. "Used by 500+ people"
 
   aspect?: string;
+};
+
+export type Project = Omit<RawProject, "projects_categories" | "projects_tools"> & {
+  categories: string[];
+  tools: string[];
 };

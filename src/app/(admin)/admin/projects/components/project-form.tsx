@@ -81,6 +81,10 @@ export default function ProjectForm({
 
   return (
     <form className="space-y-4" action={formAction}>
+      {defaultValues.id && (
+        <input type="hidden" name="id" value={defaultValues.id} />
+      )}
+
       <div className="space-y-2">
         <label className="text-sm font-medium">Title</label>
         <Input
@@ -218,8 +222,8 @@ export default function ProjectForm({
           defaultValue={formState?.values?.github ?? defaultValues.github}
         />
         {errors?.github && (
-            <small className="text-sm text-red-500">{errors.github[0]}</small>
-          )}
+          <small className="text-sm text-red-500">{errors.github[0]}</small>
+        )}
       </div>
 
       <div className="space-y-2">
@@ -230,8 +234,8 @@ export default function ProjectForm({
           defaultValue={formState?.values?.link ?? defaultValues.link}
         />
         {errors?.link && (
-            <small className="text-sm text-red-500">{errors.link[0]}</small>
-          )}
+          <small className="text-sm text-red-500">{errors.link[0]}</small>
+        )}
       </div>
 
       <div className="space-y-2">
@@ -246,8 +250,10 @@ export default function ProjectForm({
           }
         />
         {errors?.impact_note && (
-            <small className="text-sm text-red-500">{errors.impact_note[0]}</small>
-          )}
+          <small className="text-sm text-red-500">
+            {errors.impact_note[0]}
+          </small>
+        )}
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
@@ -278,7 +284,9 @@ export default function ProjectForm({
           </div>
           <Switch checked={isPrivate} onCheckedChange={setIsPrivate} />
           {errors?.is_private && (
-            <small className="text-sm text-red-500">{errors.is_private[0]}</small>
+            <small className="text-sm text-red-500">
+              {errors.is_private[0]}
+            </small>
           )}
           <input
             type="hidden"
