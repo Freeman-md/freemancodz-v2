@@ -20,6 +20,7 @@ import { ProjectFormErrors, ProjectFormValues } from "@/types/project";
 import { getDefaultProjectFormValues } from "@/lib/projects/form-utils";
 
 type Props = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   action: any;
   defaultValues?: ProjectFormValues;
   categories: string[];

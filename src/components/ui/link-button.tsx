@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 type Props = {
   url: string;
   text?: string;
-  icon: ReactNode;
+  icon?: ReactNode;
 } & React.ComponentProps<typeof Button>;
 
 export default function LinkButton({

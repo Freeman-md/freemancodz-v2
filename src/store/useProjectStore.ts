@@ -10,7 +10,7 @@ type ProjectStore = {
   setFilteredProjects: () => void;
   selectedProject: Project | null;
   clearSelectedProject: () => void;
-  selectProjectById: (id: number) => void
+  selectProjectById: (id: string) => void
 };
 
 export const useProjectStore = create<ProjectStore>((set, get) => ({
@@ -41,7 +41,7 @@ export const useProjectStore = create<ProjectStore>((set, get) => ({
   selectedProject: null,
   clearSelectedProject: () => set({ selectedProject: null }),
 
-  selectProjectById: (id: number) => {
+  selectProjectById: (id: string) => {
     const project = get().allProjects.find((project) => project.id === id);
     if (project) set({ selectedProject: project });
   },

@@ -1,11 +1,10 @@
-import { ProjectCategory } from "@/types/project";
 import { create } from "zustand";
 import { useProjectStore } from "./useProjectStore";
 
 type ProjectFilterStore = {
-  activeCategories: Array<ProjectCategory>;
-  toggleCategory: (category: ProjectCategory) => void;
-  setCategories: (categories: ProjectCategory[]) => void;
+  activeCategories: Array<string>;
+  toggleCategory: (category: string) => void;
+  setCategories: (categories: string[]) => void;
   activeTools: Array<string>;
   toggleTool: (tool: string) => void;
   resetFilters: () => void;

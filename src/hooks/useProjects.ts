@@ -7,7 +7,7 @@ export function useProjects() {
 
   const rawProjects: Project[] = useMemo(() => [
     {
-      id: 1,
+      id: "1",
       title: "FileTidy",
       status: "Live",
       role: "Solo Build",
@@ -26,7 +26,7 @@ export function useProjects() {
       impact_note: "Currently being used to organize 5k+ files weekly"
     },
     {
-      id: 2,
+      id: "2",
       title: "SnappShare",
       status: "Archived",
       role: "Solo Build",
@@ -44,7 +44,7 @@ export function useProjects() {
       impact_note: "Shared over 10GB worth of files during launch week"
     },
     {
-      id: 3,
+      id: "3",
       title: "TellTheDev",
       status: "Beta",
       role: "Solo Build",

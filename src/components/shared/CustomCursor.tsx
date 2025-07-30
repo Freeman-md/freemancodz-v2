@@ -44,7 +44,7 @@ function CustomCursor() {
       document.removeEventListener("mouseover", handleHover);
       document.removeEventListener("mouseout", handleHover);
     };
-  }, []);
+  }, [mouseX, mouseY]);
 
   return (
     <motion.div

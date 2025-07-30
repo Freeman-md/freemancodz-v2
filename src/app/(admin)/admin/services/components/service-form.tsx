@@ -8,6 +8,7 @@ import { useActionState } from "react";
 import CategorySelector from "../../../../../components/ui/category-selector";
 
 type Props = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   action: any; 
   defaultValues?: {
     name?: string;
