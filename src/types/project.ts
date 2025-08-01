@@ -29,16 +29,9 @@ export type ProjectFormErrors = {
   [K in keyof ProjectFormValues]?: string[];
 };
 
-export type ProjectFormValues = Partial<
-  Project & {
-    categories: string[];
-    tools: string[];
-  }
->;
+export type ProjectFormValues = Partial<Project>;
 
-
-// Main Project Type
-export type RawProject = {
+export type Project = {
   id: string;
   title: string;
   description: string;
@@ -70,12 +63,10 @@ export type RawProject = {
   }[];
 
   // Extra context
-  impact_note?: string;      // e.g. "Used by 500+ people"
+  impact_note?: string;
 
   aspect?: string;
-};
 
-export type Project = Omit<RawProject, "projects_categories" | "projects_tools"> & {
   categories: string[];
   tools: string[];
 };

@@ -1,4 +1,4 @@
-import { Project, RawProject } from "@/types/project";
+import { Project, Project } from "@/types/project";
 import { cache } from "react";
 import { supabase } from "../supabase";
 
@@ -49,7 +49,7 @@ export const getProjectById = cache(async (id: string): Promise<Project | null> 
       `
     )
     .eq("id", id)
-    .single() as unknown as { data: RawProject | null; error: unknown };
+    .single() as unknown as { data: Project | null; error: unknown };
 
   if (error) {
     if (error instanceof Error) throw new Error(error.message);

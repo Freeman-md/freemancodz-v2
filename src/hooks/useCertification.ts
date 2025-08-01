@@ -7,7 +7,7 @@ export const useCertification = () => ({
       type: "certification",
       title: "Microsoft Certified: Azure Developer Associate",
       issuer: "Microsoft",
-      startDate: "Dec 2024",
+      start_date: "Dec 2024",
       endDate: "Dec 2025",
       description: "Validated ability to design, build, test, and maintain cloud applications and services on Microsoft Azure using C# and the .NET stack.",
       tools: [
@@ -30,7 +30,7 @@ export const useCertification = () => ({
       type: "certification",
       title: "Microsoft Certified: Azure Fundamentals",
       issuer: "Microsoft",
-      startDate: "Jul 2024",
+      start_date: "Jul 2024",
       description: "Demonstrated foundational knowledge of Azure cloud services, solutions, and governance—including pricing, compute, storage, and identity features.",
       tools: [
         ".NET Framework",
@@ -49,7 +49,7 @@ export const useCertification = () => ({
       type: "certification",
       title: "Advanced Diploma in Software Engineering",
       issuer: "APTECH Computer Education",
-      startDate: "Jun 2022",
+      start_date: "Jun 2022",
       description: "Completed intensive software engineering training covering both frontend and backend development, system design, and software architecture.",
       tools: [
         "React.js",

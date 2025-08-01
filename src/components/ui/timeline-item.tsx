@@ -18,9 +18,8 @@ export default function TimelineItem(entry: TimeLineEntry) {
   const isInView = useInView(ref);
 
   const renderDate = () => {
-    if (entry.startDate && entry.endDate)
-      return `${entry.startDate} – ${entry.endDate}`;
-    if (entry.date) return entry.date;
+    if (entry.start_date && entry.end_date)
+      return `${entry.start_date} – ${entry.end_date}`;
     return null;
   };
 
@@ -75,7 +74,7 @@ export default function TimelineItem(entry: TimeLineEntry) {
       <div className="flex items-center gap-2">
         {entry.type === "education" ? (
           <h3 className="text-xl font-semibold text-white">
-            {entry.degree}
+            {entry.title}
             <span className="text-primary">
               {entry.grade && ` • ${entry.grade}`}
             </span>
@@ -100,15 +99,15 @@ export default function TimelineItem(entry: TimeLineEntry) {
         <div className="text-primary/80 font-medium text-sm mt-1 flex flex-wrap flex-row items-center gap-2">
           <span>
             {entry.type === "experience" && entry.company}
-            {entry.type === "education" && entry.school}
-            {entry.type === "certification" && entry.issuer}
+            {(entry.type === "certification" || entry.type === "education") &&
+              entry.issuer}
           </span>
 
           {entry.type === "experience" && entry.employmentType && (
             <span className="text-white/80">• {entry.employmentType}</span>
           )}
 
-          {entry.location && (
+          {entry.type === "experience" && entry.location && (
             <span className="text-white/80">• {entry.location}</span>
           )}
         </div>
@@ -151,16 +150,18 @@ export default function TimelineItem(entry: TimeLineEntry) {
             {(entry.projects ?? []).map((project) => (
               <div
                 key={project.id}
-                onClick={() => selectProjectById(project.id)}
+                onClick={() => selectProjectById(project.id!)}
                 className="relative shrink-0 cursor-pointer rounded-md overflow-hidden border border-white/10 hover:border-primary transition"
               >
-                <Image
-                  src={project.cover_image}
-                  alt={project.title}
-                  width={100}
-                  height={100}
-                  className="object-cover"
-                />
+                {project.cover_image && (
+                  <Image
+                    src={project.cover_image}
+                    alt={project.title!}
+                    width={100}
+                    height={100}
+                    className="object-cover"
+                  />
+                )}
                 <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs px-2 py-1">
                   {project.title}
                 </div>

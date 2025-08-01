@@ -80,7 +80,7 @@ export async function updateProject(prevState: unknown, formData: FormData) {
   insertProjectCategories(project.id, categories)
   insertProjectTools(project.id, tools)
 
-  revalidatePath("/admin/services");
+  revalidatePath("/admin/projects");
 
   return { status: "success" };
 }

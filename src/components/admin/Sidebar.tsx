@@ -19,7 +19,6 @@ import {
   IconBrain,
   IconBriefcase,
   IconCertificate,
-  IconSchool,
   IconInfoCircle,
   IconMail,
   IconUser,
@@ -39,7 +38,6 @@ const groups = [
       { title: "Dashboard", href: "/admin", icon: IconHome },
       { title: "Projects", href: "/admin/projects", icon: IconFolder },
       { title: "Experience", href: "/admin/experience", icon: IconBriefcase },
-      { title: "Education", href: "/admin/education", icon: IconSchool },
       {
         title: "Certifications",
         href: "/admin/certifications",

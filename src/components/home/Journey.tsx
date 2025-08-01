@@ -2,7 +2,7 @@
 
 import { useExperience } from "@/hooks/useExperience";
 import { useEducation } from "@/hooks/useEducation";
-import { useCertification } from "@/hooks/useCertification";
+// import { useCertification } from "@/hooks/useCertification";
 import { useRef } from "react";
 import { useInView, motion } from "motion/react";
 import TimelineItem from "../ui/timeline-item";
@@ -13,7 +13,7 @@ export default function Journey() {
 
   const { experienceData } = useExperience();
   const { educationData } = useEducation();
-  const { certificationData } = useCertification();
+  // const { certificationData } = useCertification();
 
   return (
     <section id="journey" className="bg-dot-pattern">
@@ -41,16 +41,16 @@ export default function Journey() {
 
           <div className="flex flex-col gap-6">
             <h3 className="text-white text-lg font-semibold uppercase tracking-wide">
-              Education & Certifications
+              Certifications
             </h3>
             <ol className="relative space-y-8">
               {educationData.map((exp) => (
                 <TimelineItem key={exp.id} {...exp} />
               ))}
 
-              {certificationData.map((exp) => (
+              {/* {certificationData.map((exp) => (
                 <TimelineItem key={exp.id} {...exp} />
-              ))}
+              ))} */}
             </ol>
           </div>
         </div>
