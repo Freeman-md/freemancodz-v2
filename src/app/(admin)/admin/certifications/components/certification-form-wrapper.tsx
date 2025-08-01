@@ -13,12 +13,14 @@ import {
 import CertificationForm from "./certification-form";
 import { getDefaultCertificationFormValues } from "@/lib/certifications/form-utils";
 import Empty from "@/components/shared/empty";
+import { Project } from "@/types/project";
 
 type Props = {
   mode: "create" | "edit";
   certificationData?: Promise<Certification | null>;
   toolData: Promise<Tool[] | null>;
   moduleData: Promise<Module[] | null>;
+  projectData: Promise<Project[] | null>;
 };
 
 export default function CertificationFormWrapper({
@@ -26,15 +28,19 @@ export default function CertificationFormWrapper({
   certificationData,
   toolData,
   moduleData,
+  projectData
 }: Props) {
   const certification = certificationData ? use(certificationData) : null;
   const initialTools = use(toolData) ?? [];
   const initialModules = use(moduleData) ?? [];
+  const initialProjects = use(projectData) ?? []
 
   const [tools, setTools] = useState<string[]>(initialTools.map((t) => t.name));
   const [modules, setModules] = useState<string[]>(
     initialModules.map((m) => m.name)
   );
+
+  const projects: string[] = initialProjects.map(project => project.title)
 
   const reloadTools = async () => {
     const latest = await getTools();
@@ -59,6 +65,7 @@ export default function CertificationFormWrapper({
       }
       tools={tools}
       modules={modules}
+      projects={projects}
       submitLabel={
         mode === "edit" ? "Update Certification" : "Save Certification"
       }

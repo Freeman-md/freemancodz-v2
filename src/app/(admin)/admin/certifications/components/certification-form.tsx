@@ -6,6 +6,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useActionState } from "react";
 import ToolSelector from "@/components/ui/tool-selector";
+import ModuleSelector from "@/components/ui/module-selector";
+import ProjectSelector from "@/components/ui/project-selector";
 import {
   Select,
   SelectTrigger,
@@ -18,7 +20,6 @@ import {
   CertificationFormValues,
 } from "@/types/journey";
 import { getDefaultCertificationFormValues } from "@/lib/certifications/form-utils";
-import ModuleSelector from "@/components/ui/module-selector";
 
 type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -26,6 +27,7 @@ type Props = {
   defaultValues?: CertificationFormValues;
   tools: string[];
   modules: string[];
+  projects: string[]
   onSuccess?: () => void;
   onReload: () => void;
   submitLabel?: string;
@@ -38,6 +40,7 @@ export default function CertificationForm({
   onReload,
   tools,
   modules,
+  projects,
   submitLabel = "Save Certification",
 }: Props) {
   const [selectedTools, setSelectedTools] = useState<string[]>(
@@ -45,6 +48,9 @@ export default function CertificationForm({
   );
   const [selectedModules, setSelectedModules] = useState<string[]>(
     defaultValues.modules || []
+  );
+  const [selectedProjects, setSelectedProjects] = useState<string[]>(
+    defaultValues.projects || []
   );
 
   const [formState, formAction, isPending] = useActionState(action, {
@@ -60,6 +66,7 @@ export default function CertificationForm({
       if (!defaultValues?.title) {
         setSelectedTools([]);
         setSelectedModules([]);
+        setSelectedProjects([]);
       }
       onSuccess?.();
     }
@@ -70,6 +77,8 @@ export default function CertificationForm({
       if (formState.values?.tools) setSelectedTools(formState.values.tools);
       if (formState.values?.modules)
         setSelectedModules(formState.values.modules);
+      if (formState.values?.projects)
+        setSelectedProjects(formState.values.projects);
     }
   }, [formState]);
 
@@ -188,6 +197,17 @@ export default function CertificationForm({
       />
       {selectedModules.map((module) => (
         <input key={module} type="hidden" name="modules" value={module} />
+      ))}
+
+      <ProjectSelector
+        selected={selectedProjects}
+        onChange={setSelectedProjects}
+        error={errors?.projects?.[0]}
+        projects={projects}
+        onReload={onReload}
+      />
+      {selectedProjects.map((project) => (
+        <input key={project} type="hidden" name="projects" value={project} />
       ))}
 
       <div className="space-y-2">

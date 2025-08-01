@@ -27,7 +27,7 @@ export type EntitySelectorProps = {
   onReload?: () => void;
   error?: string;
   entityLabel?: string; // e.g. "Category", "Tool"
-  renderCreateForm: (searchTerm: string) => React.ReactNode;
+  renderCreateForm?: (searchTerm: string) => React.ReactNode;
 };
 
 export default function EntitySelector({
@@ -70,7 +70,7 @@ export default function EntitySelector({
                   type="button"
                   className="ml-1 text-xs cursor-pointer"
                   onClick={() => toggleEntity(value)}
-                aria-label={`Remove ${value}`}
+                  aria-label={`Remove ${value}`}
                 >
                   <XCircleIcon width={20} />
                 </button>
@@ -94,10 +94,19 @@ export default function EntitySelector({
               placeholder={`Search ${entityLabel.toLowerCase()}...`}
               onValueChange={(value) => setSearchTerm(value)}
             />
-            <CommandEmpty className="flex py-4 items-center justify-center gap-2">
-              <small>Can&apos;t find {entityLabel.toLowerCase()}?</small>
-              {onReload && renderCreateForm(searchTerm)}
+            <CommandEmpty className="flex py-4 items-center justify-center gap-2 flex-col text-center">
+              <small>Can’t find {entityLabel.toLowerCase()}?</small>
+
+              {onReload &&
+                (renderCreateForm ? (
+                  renderCreateForm(searchTerm)
+                ) : (
+                  <small className="text-muted-foreground text-xs italic">
+                    You can create a new {entityLabel.toLowerCase()} manually.
+                  </small>
+                ))}
             </CommandEmpty>
+
             <CommandList>
               {entities.map((value) => (
                 <CommandItem
