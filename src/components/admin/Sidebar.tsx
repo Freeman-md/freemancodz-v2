@@ -38,7 +38,6 @@ const groups = [
     items: [
       { title: "Dashboard", href: "/admin", icon: IconHome },
       { title: "Projects", href: "/admin/projects", icon: IconFolder },
-      { title: "Skills", href: "/admin/skills", icon: IconBrain },
       { title: "Experience", href: "/admin/experience", icon: IconBriefcase },
       { title: "Education", href: "/admin/education", icon: IconSchool },
       {
@@ -58,6 +57,7 @@ const groups = [
         href: "/admin/categories",
         icon: IconLayersDifference,
       },
+      { title: "Modules", href: "/admin/modules", icon: IconBrain },
     ],
   },
   {

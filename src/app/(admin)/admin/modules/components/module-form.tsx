@@ -1,6 +1,6 @@
 "use client";
 
-import { createTool } from "@/lib/tools/actions";
+import { createModule } from "@/lib/modules/actions";
 import {
   Dialog,
   DialogTrigger,
@@ -19,7 +19,7 @@ type Props = {
   onCreate?: () => void;
 };
 
-export default function ToolForm({
+export default function ModuleForm({
   variant = "button",
   defaultValue,
   onCreate,
@@ -30,7 +30,7 @@ export default function ToolForm({
     <Dialog>
       <DialogTrigger asChild>
         {variant === "button" ? (
-          <Button variant="outline"><PlusIcon /> Create Tool</Button>
+          <Button variant="outline"><PlusIcon /> Create Module</Button>
         ) : (
           <span
             className={cn(
@@ -41,12 +41,12 @@ export default function ToolForm({
           </span>
         )}
       </DialogTrigger>
-      <DialogContent aria-description="Create Tool Form">
-        <DialogTitle>Create Tool</DialogTitle>
+      <DialogContent aria-description="Create Module Form">
+        <DialogTitle>Create Module</DialogTitle>
         <form
           ref={formRef}
           action={async (formData) => {
-            await createTool(formData);
+            await createModule(formData);
             formRef.current?.reset();
             onCreate?.();
           }}
@@ -55,7 +55,7 @@ export default function ToolForm({
           <Input 
           key={defaultValue}
           name="name" 
-          placeholder="Tool name" 
+          placeholder="Module name" 
           required
           defaultValue={defaultValue}
            />
