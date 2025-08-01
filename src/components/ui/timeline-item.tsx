@@ -7,9 +7,9 @@ import {
 import { Award, Briefcase, ExternalLink, GraduationCap } from "lucide-react";
 import { motion, useInView, useAnimation } from "motion/react";
 import { Badge } from "./badge";
-import { useProjectStore } from "@/store/useProjectStore";
-import { ScrollArea, ScrollBar } from "./scroll-area";
-import Image from "next/image";
+// import { useProjectStore } from "@/store/useProjectStore";
+// import { ScrollArea, ScrollBar } from "./scroll-area";
+// import Image from "next/image";
 import { useRef, useEffect } from "react";
 import { TimeLineEntry } from "@/types/journey";
 
@@ -23,7 +23,7 @@ export default function TimelineItem(entry: TimeLineEntry) {
     return null;
   };
 
-  const { selectProjectById } = useProjectStore();
+  // const { selectProjectById } = useProjectStore();
 
   const controls = useAnimation();
 
