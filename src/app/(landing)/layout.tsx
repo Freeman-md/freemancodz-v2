@@ -1,7 +1,7 @@
-import Header from "@/components/shared/Header";
-import SocialIcons from "@/components/shared/SocialIcons";
-import DesktopMenu from "@/components/shared/DesktopMenu";
-import CursorWrapper from "@/components/shared/CustomCursor";
+import Header from "@/components/shared/header";
+import SocialIcons from "@/components/shared/social-icons";
+import DesktopMenu from "@/components/shared/desktop-menu";
+import CursorWrapper from "@/components/shared/custom-cursor";
 import '@/app/layout-root.css'
 
 export default function RootLayout({
