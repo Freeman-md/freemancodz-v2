@@ -1,20 +1,20 @@
-'use client'
+"use client";
 
-import { motion } from "framer-motion"
-import { IconMoodEmpty } from "@tabler/icons-react"
+import { motion } from "framer-motion";
+import { IconMoodEmpty } from "@tabler/icons-react";
 
 type EmptyProps = {
-  title?: string
-  message?: string
-  classes?: string
-  icon?: React.ReactNode
-}
+  title?: string;
+  message?: string;
+  classes?: string;
+  icon?: React.ReactNode;
+};
 
 export default function Empty({
   title,
   message,
   classes = "text-white/60",
-  icon = <IconMoodEmpty size={48} stroke={1.5} />
+  icon = <IconMoodEmpty size={48} stroke={1.5} />,
 }: EmptyProps) {
   return (
     <motion.div
@@ -33,5 +33,5 @@ export default function Empty({
       {title && <h3 className="text-xl font-semibold mb-2">{title}</h3>}
       {message && <p className="text-sm max-w-md">{message}</p>}
     </motion.div>
-  )
+  );
 }
