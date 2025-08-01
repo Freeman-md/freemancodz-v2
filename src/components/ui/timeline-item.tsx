@@ -144,7 +144,7 @@ export default function TimelineItem(entry: TimeLineEntry) {
       )}
 
       {/* Projects */}
-      {(entry.projects ?? []).length > 0 && (
+      {/* {(entry.projects ?? []).length > 0 && (
         <ScrollArea className="mt-5 w-full whitespace-nowrap rounded-md">
           <div className="flex w-max space-x-4 p-2">
             {(entry.projects ?? []).map((project) => (
@@ -170,7 +170,7 @@ export default function TimelineItem(entry: TimeLineEntry) {
           </div>
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
-      )}
+      )} */}
 
       {entry.type === "experience" &&
         (entry.responsibilities ?? []).length > 0 && (
