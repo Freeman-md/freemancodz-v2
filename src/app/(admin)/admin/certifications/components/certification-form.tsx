@@ -21,6 +21,7 @@ import { getDefaultCertificationFormValues } from "@/lib/certifications/form-uti
 import ModuleSelector from "@/components/ui/module-selector";
 
 type Props = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   action: any;
   defaultValues?: CertificationFormValues;
   tools: string[];
