@@ -6,6 +6,7 @@ import {
   parseCertificationForm,
   insertCertificationTools,
   insertCertificationModules,
+  insertCertificationProjects,
 } from "./form-utils";
 
 export const createCertification = async (prevState: unknown, formData: FormData) => {
@@ -20,7 +21,7 @@ export const createCertification = async (prevState: unknown, formData: FormData
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { tools, modules, id, ...certificationData } = result.data;
+  const { tools, modules, projects, id, ...certificationData } = result.data;
 
   const { data: certifcation, error } = await supabase
     .from("certifications")
@@ -37,6 +38,7 @@ export const createCertification = async (prevState: unknown, formData: FormData
 
   await insertCertificationTools(certifcation.id, tools);
   await insertCertificationModules(certifcation.id, modules ?? []);
+  await insertCertificationProjects(certifcation.id, projects ?? []);
 
   revalidatePath("/admin/certifications");
 
@@ -54,7 +56,7 @@ export const updateCertification = async (prevState: unknown, formData: FormData
     };
   }
 
-  const { tools, modules, id: certId, ...certificationData } = result.data;
+  const { tools, modules, projects, id: certId, ...certificationData } = result.data;
 
   const { data: cert, error } = await supabase
     .from("certifications")
@@ -71,11 +73,17 @@ export const updateCertification = async (prevState: unknown, formData: FormData
     };
   }
 
-  await supabase.from("certification_tool").delete().eq("certification_id", cert.id);
-  await supabase.from("certification_module").delete().eq("certification_id", cert.id);
+  await Promise.all([
+    supabase.from("certification_tool").delete().eq("certification_id", cert.id),
+    supabase.from("certification_module").delete().eq("certification_id", cert.id),
+    supabase.from("certification_project").delete().eq("certification_id", cert.id),
+  ]);
 
-  await insertCertificationTools(cert.id, tools);
-  await insertCertificationModules(cert.id, modules ?? []);
+  await Promise.all([
+    insertCertificationTools(cert.id, tools),
+    insertCertificationModules(cert.id, modules ?? []),
+    insertCertificationProjects(cert.id, projects ?? []),
+  ])
 
   revalidatePath("/admin/certifications");
 

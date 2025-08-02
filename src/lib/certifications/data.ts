@@ -14,7 +14,9 @@ export const getCertifications = cache(async (): Promise<Certification[]> => {
     end_date,
     link,
     certification_tool (
-      tool_id
+      tools (
+        name
+      )
     )
   `) as unknown as {
       data: Certification[];
@@ -42,17 +44,24 @@ export const getCertificationById = cache(async (id: string): Promise<Certificat
     title,
     type,
     issuer,
+    description,
     start_date,
     end_date,
     link,
     certification_tool (
-      tool_id
+      tools (
+        name
+      )
     ),
     certification_module (
-      module_id
+      modules (
+        name
+      )
     ),
       certification_project (
-      project_id
+      projects (
+        title
+      )
     )
       `
     )
@@ -67,7 +76,7 @@ export const getCertificationById = cache(async (id: string): Promise<Certificat
 
   return {
     ...data,
-    tools: data?.certification_tool.map(certification_tool => certification_tool.tools.name),
+    tools: data.certification_tool.map(certification_tool => certification_tool.tools.name),
     modules: data.certification_module.map(certification_module => certification_module.modules.name),
     projects: data.certification_project.map(certification_project => certification_project.projects.title),
   };

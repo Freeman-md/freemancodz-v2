@@ -12,7 +12,8 @@ export const certificationSchema = z.object({
   end_date: z.string().min(4, "End date is required"),
   link: z.string().url("Link must be a valid URL"),
   tools: z.array(z.string()).min(1, "Select at least one tool"),
-  modules: z.array(z.string()).optional(), // optional relationship
+  modules: z.array(z.string()).optional(),
+  projects: z.array(z.string()).optional(),
 });
 
 export async function parseCertificationForm(formData: FormData) {
@@ -27,6 +28,7 @@ export async function parseCertificationForm(formData: FormData) {
     link: formData.get("link")?.toString() || "",
     tools: formData.getAll("tools").map((t) => t.toString()),
     modules: formData.getAll("modules").map((m) => m.toString()),
+    projects: formData.getAll("projects").map((m) => m.toString()),
   };
 
   const result = certificationSchema.safeParse(raw);
@@ -47,6 +49,7 @@ export function getDefaultCertificationFormValues(
     link: defaultValues.link || "",
     tools: defaultValues.tools || [],
     modules: defaultValues.modules || [],
+    projects: defaultValues.projects || [],
   };
 }
 
@@ -77,6 +80,22 @@ export const insertCertificationModules = async (certId: string, modules: string
       moduleRows.map((module) => ({
         certification_id: certId,
         module_id: module.id,
+      }))
+    );
+  }
+};
+
+export const insertCertificationProjects = async (certId: string, projects: string[]) => {
+  const { data: projectRows } = await supabase
+    .from("projects")
+    .select("id, title")
+    .in("title", projects);
+
+  if (projectRows?.length) {
+    await supabase.from("certification_project").insert(
+      projectRows.map((project) => ({
+        certification_id: certId,
+        project_id: project.id,
       }))
     );
   }
