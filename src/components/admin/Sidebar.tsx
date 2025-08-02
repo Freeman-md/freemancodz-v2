@@ -59,8 +59,8 @@ const groups = [
   {
     label: "Site Info",
     items: [
-      { title: "About Me", href: "/admin/about", icon: IconInfoCircle },
-      { title: "Contact Info", href: "/admin/contact", icon: IconMail },
+      { title: "Meta Information", href: "/admin/site-meta", icon: IconInfoCircle },
+      { title: "Contact Messages", href: "/admin/contact", icon: IconMail },
     ],
   }
 ];
