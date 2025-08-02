@@ -1,8 +1,7 @@
 import { getTools } from "@/lib/tools/data";
-import { getProjects } from "@/lib/projects/data";
-import CertificationFormWrapper from "../../components/certification-form-wrapper";
-import { getCertificationById } from "@/lib/certifications/data";
-import { getModules } from "@/lib/modules/data";
+import ExperienceFormWrapper from "../../components/experience-form-wrapper";
+import { getExperienceById } from "@/lib/experiences/data";
+import { getCategories } from "@/lib/categories/data";
 
 export default async function EditCertificationPage({
   params,
@@ -11,20 +10,18 @@ export default async function EditCertificationPage({
 }) {
   const { id } = await params;
 
-  const certification = getCertificationById(id)
-  const project = getProjects();
-  const modules = getModules();
+  const experience = getExperienceById(id)
+  const categories = getCategories();
   const tools = getTools();
 
   return (
     <div className="space-y-6">
       <h1 className="text-xl font-semibold">Edit Project</h1>
 
-      <CertificationFormWrapper
+      <ExperienceFormWrapper
         mode="edit"
-        certificationData={certification}
-        projectData={project}
-        moduleData={modules}
+        experienceData={experience}
+        categoryData={categories}
         toolData={tools}
       />
     </div>

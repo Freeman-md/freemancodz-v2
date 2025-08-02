@@ -40,7 +40,6 @@ export const getExperienceById = cache(async (id: string): Promise<Experience | 
     .from("experiences")
     .select(`
       id,
-      type,
       title,
       company,
       employment_type,
