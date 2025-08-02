@@ -49,11 +49,11 @@ export const useExperience = () => {
       id: "exp-ath",
       type: "experience",
       title: "Frontend Developer",
-      company: "Across the Horizon",
+      company: "Mundane Labs",
       employmentType: "Full-time",
       start_date: "Sep 2020",
       end_date: "Jan 2022",
-      location: "Remote, Idaho, USA",
+      location: "Lagos, Nigeria",
       tools: ["Vue.js", "Laravel", "Paystack", "Twilio", "Google Maps API"],
       responsibilities: [
         "Re-architected frontend for relaunch, generating $60K+ in first week and enabling 10% MoM growth",
