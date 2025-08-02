@@ -1,5 +1,5 @@
 import { Project } from "./project";
-import { Tool, Module } from "./showcase";
+import { Tool, Module, Category } from "./showcase";
 
 export type Certification = {
   id: string;
@@ -42,15 +42,27 @@ export type Experience = {
   start_date: string;
   end_date?: string;
   date?: string;
-  tools?: string[];
-  modules?: string[];
   link?: string;
   location?: string;
-  projects?: Partial<Project>[];
   type: 'experience',
   company: string;
-  employmentType?: 'Full-time' | 'Part-time' | 'Contract' | 'Internship';
+  employment_type?: 'Full-time' | 'Part-time' | 'Contract' | 'Internship';
   responsibilities?: string[];
+  experience_tool: {
+    tools: Tool;
+  }[];
+  experience_category: {
+    categories: Category;
+  }[];
+  tools: string[];
+  categories: string[];
+  tool_count?: number
+};
+
+export type ExperienceFormValues = Partial<Experience>;
+
+export type ExperienceFormErrors = {
+  [K in keyof ExperienceFormValues]?: string[];
 };
 
 export type TimeLineEntry = Experience | Certification

@@ -16,7 +16,7 @@ export const useExperience = () => {
       end_date: "Present",
       location: "Remote, Greater London",
       tools: [
-        "C#", "ASP.NET Core", "Azure Functions", "Cosmos DB", "Bicep", 
+        "C#", "ASP.NET Core", "Azure Functions", "Cosmos DB", "Bicep",
         "Terraform", "GitHub Actions", "Vue.js", "Nuxt", "React", "TailwindCSS"
       ],
       responsibilities: [
@@ -33,7 +33,7 @@ export const useExperience = () => {
       type: "experience",
       title: "Mid-Level Frontend Developer",
       company: "Pay4Me App",
-      employmentType: "Full-time",
+      employment_type: "Full-time",
       start_date: "Jan 2022",
       end_date: "Feb 2023",
       location: "Boise, Idaho · Hybrid",
@@ -50,7 +50,7 @@ export const useExperience = () => {
       type: "experience",
       title: "Frontend Developer",
       company: "Mundane Labs",
-      employmentType: "Full-time",
+      employment_type: "Full-time",
       start_date: "Sep 2020",
       end_date: "Jan 2022",
       location: "Lagos, Nigeria",

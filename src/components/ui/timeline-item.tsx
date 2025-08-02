@@ -103,8 +103,8 @@ export default function TimelineItem(entry: TimeLineEntry) {
               entry.issuer}
           </span>
 
-          {entry.type === "experience" && entry.employmentType && (
-            <span className="text-white/80">• {entry.employmentType}</span>
+          {entry.type === "experience" && entry.employment_type && (
+            <span className="text-white/80">• {entry.employment_type}</span>
           )}
 
           {entry.type === "experience" && entry.location && (

@@ -21,8 +21,6 @@ import {
   IconCertificate,
   IconInfoCircle,
   IconMail,
-  IconUser,
-  IconSettings,
   IconLogout,
   IconTool,
   IconLayoutGrid,
@@ -37,7 +35,7 @@ const groups = [
     items: [
       { title: "Dashboard", href: "/admin", icon: IconHome },
       { title: "Projects", href: "/admin/projects", icon: IconFolder },
-      { title: "Experience", href: "/admin/experience", icon: IconBriefcase },
+      { title: "Experiences", href: "/admin/experiences", icon: IconBriefcase },
       {
         title: "Certifications",
         href: "/admin/certifications",
@@ -64,14 +62,7 @@ const groups = [
       { title: "About Me", href: "/admin/about", icon: IconInfoCircle },
       { title: "Contact Info", href: "/admin/contact", icon: IconMail },
     ],
-  },
-  {
-    label: "Admin",
-    items: [
-      { title: "Profile", href: "/admin/profile", icon: IconUser },
-      { title: "Settings", href: "/admin/settings", icon: IconSettings },
-    ],
-  },
+  }
 ];
 
 export function AdminSidebar() {

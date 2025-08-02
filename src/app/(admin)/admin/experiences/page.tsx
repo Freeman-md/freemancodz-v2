@@ -1,21 +1,21 @@
 import LinkButton from "@/components/ui/link-button";
 import TableSkeleton from "@/components/ui/table-skeleton";
-import { getCertifications } from "@/lib/certifications/data";
+import { getExperiences } from "@/lib/experiences/data";
 import { Suspense } from "react";
-import CertificationTable from "./components/certification-table";
+import ExperienceTable from "./components/experience-table";
 
 export default function Page() {
-  const certifications = getCertifications();
+  const experiences = getExperiences();
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">Certification</h1>
+        <h1 className="text-xl font-semibold">Experience</h1>
 
-        <LinkButton url="/admin/certifications/create" text="Create Certification" />
+        <LinkButton url="/admin/experiences/create" text="Create Experience" />
       </div>
 
       <Suspense fallback={<TableSkeleton />}>
-        <CertificationTable data={certifications} />
+        <ExperienceTable data={experiences} />
       </Suspense>
     </div>
   );

@@ -6,8 +6,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useActionState } from "react";
 import ToolSelector from "@/components/ui/tool-selector";
-import ModuleSelector from "@/components/ui/module-selector";
-import ProjectSelector from "@/components/ui/project-selector";
 import {
   Select,
   SelectTrigger,
@@ -15,58 +13,55 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import {
-  CertificationFormErrors,
-  CertificationFormValues,
-} from "@/types/journey";
-import { getDefaultCertificationFormValues } from "@/lib/certifications/form-utils";
+import { ExperienceFormErrors, ExperienceFormValues } from "@/types/journey";
+import { getDefaultExperienceFormValues } from "@/lib/experiences/form-utils";
+import { Plus, X } from "lucide-react";
+import CategorySelector from "@/components/ui/category-selector";
 
 type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   action: any;
-  defaultValues?: CertificationFormValues;
+  defaultValues?: ExperienceFormValues;
   tools: string[];
-  modules: string[];
-  projects: string[]
+  categories: string[];
   onSuccess?: () => void;
   onReload: () => void;
   submitLabel?: string;
 };
 
-export default function CertificationForm({
+export default function ExperienceForm({
   action,
   defaultValues = {},
   onSuccess,
   onReload,
   tools,
-  modules,
-  projects,
-  submitLabel = "Save Certification",
+  categories,
+  submitLabel = "Save Experience",
 }: Props) {
   const [selectedTools, setSelectedTools] = useState<string[]>(
     defaultValues.tools || []
   );
-  const [selectedModules, setSelectedModules] = useState<string[]>(
-    defaultValues.modules || []
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(
+    defaultValues.categories || []
   );
-  const [selectedProjects, setSelectedProjects] = useState<string[]>(
-    defaultValues.projects || []
+  const [responsibilities, setResponsibilities] = useState<string[]>(
+    defaultValues.responsibilities?.length ? defaultValues.responsibilities : [""]
   );
 
   const [formState, formAction, isPending] = useActionState(action, {
     status: "",
     errors: {},
-    values: getDefaultCertificationFormValues(defaultValues),
+    values: getDefaultExperienceFormValues(defaultValues),
   });
 
-  const errors = formState?.errors as CertificationFormErrors;
+  const errors = formState?.errors as ExperienceFormErrors;
 
   useEffect(() => {
     if (formState.status === "success") {
       if (!defaultValues?.title) {
         setSelectedTools([]);
-        setSelectedModules([]);
-        setSelectedProjects([]);
+        setSelectedCategories([]);
+        setResponsibilities([""]);
       }
       onSuccess?.();
     }
@@ -75,12 +70,25 @@ export default function CertificationForm({
   useEffect(() => {
     if (formState.status === "error") {
       if (formState.values?.tools) setSelectedTools(formState.values.tools);
-      if (formState.values?.modules)
-        setSelectedModules(formState.values.modules);
-      if (formState.values?.projects)
-        setSelectedProjects(formState.values.projects);
+      if (formState.values?.categories) setSelectedCategories(formState.values.categories);
+      if (formState.values?.responsibilities)
+        setResponsibilities(formState.values.responsibilities);
     }
   }, [formState]);
+
+  const handleResponsibilityChange = (index: number, value: string) => {
+    setResponsibilities((prev) =>
+      prev.map((item, i) => (i === index ? value : item))
+    );
+  };
+
+  const addResponsibility = () => {
+    setResponsibilities((prev) => [...prev, ""]);
+  };
+
+  const removeResponsibility = (index: number) => {
+    setResponsibilities((prev) => prev.filter((_, i) => i !== index));
+  };
 
   return (
     <form className="space-y-4" action={formAction}>
@@ -92,7 +100,7 @@ export default function CertificationForm({
         <label className="text-sm font-medium">Title</label>
         <Input
           name="title"
-          placeholder="Certification title"
+          placeholder="Experience title"
           defaultValue={formState?.values?.title ?? defaultValues.title}
         />
         {errors?.title && (
@@ -101,30 +109,32 @@ export default function CertificationForm({
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium">Issuer</label>
+        <label className="text-sm font-medium">Employer / Company</label>
         <Input
-          name="issuer"
-          placeholder="e.g. Microsoft, Google"
-          defaultValue={formState?.values?.issuer ?? defaultValues.issuer}
+          name="company"
+          placeholder="e.g. Google, Startup XYZ"
+          defaultValue={formState?.values?.company ?? defaultValues.company}
         />
-        {errors?.issuer && (
-          <small className="text-sm text-red-500">{errors.issuer[0]}</small>
+        {errors?.company && (
+          <small className="text-sm text-red-500">{errors.company[0]}</small>
         )}
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium">Type</label>
-        <Select name="type" defaultValue={defaultValues.type}>
+        <label className="text-sm font-medium">Employment Type</label>
+        <Select name="employment_type" defaultValue={defaultValues.employment_type}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select type" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="certification">Certification</SelectItem>
-            <SelectItem value="education">Education</SelectItem>
+            <SelectItem value="Full-time">Full-time</SelectItem>
+            <SelectItem value="Part-time">Part-time</SelectItem>
+            <SelectItem value="Contract">Contract</SelectItem>
+            <SelectItem value="Internship">Internship</SelectItem>
           </SelectContent>
         </Select>
-        {errors?.type && (
-          <small className="text-sm text-red-500">{errors.type[0]}</small>
+        {errors?.employment_type && (
+          <small className="text-sm text-red-500">{errors.employment_type[0]}</small>
         )}
       </div>
 
@@ -132,7 +142,7 @@ export default function CertificationForm({
         <label className="text-sm font-medium">Description</label>
         <Textarea
           name="description"
-          placeholder="Brief description (max 200 chars)"
+          placeholder="Brief overview (max 200 chars)"
           maxLength={200}
           rows={3}
           className="resize-none"
@@ -190,39 +200,58 @@ export default function CertificationForm({
         <input key={tool} type="hidden" name="tools" value={tool} />
       ))}
 
-      <ModuleSelector
-        selected={selectedModules}
-        onChange={setSelectedModules}
-        error={errors?.modules?.[0]}
-        modules={modules}
+      <CategorySelector
+        selected={selectedCategories}
+        onChange={setSelectedCategories}
+        error={errors?.categories?.[0]}
+        categories={categories}
         onReload={onReload}
       />
-      {selectedModules.map((module) => (
-        <input key={module} type="hidden" name="modules" value={module} />
-      ))}
-
-      <ProjectSelector
-        selected={selectedProjects}
-        onChange={setSelectedProjects}
-        error={errors?.projects?.[0]}
-        projects={projects}
-        onReload={onReload}
-      />
-      {selectedProjects.map((project) => (
-        <input key={project} type="hidden" name="projects" value={project} />
+      {selectedCategories.map((tool) => (
+        <input key={tool} type="hidden" name="categories" value={tool} />
       ))}
 
       <div className="space-y-2">
-        <label className="text-sm font-medium">Link</label>
-        <Input
-          name="link"
-          placeholder="https://..."
-          defaultValue={formState?.values?.link ?? defaultValues.link}
-        />
-        {errors?.link && (
-          <small className="text-sm text-red-500">{errors.link[0]}</small>
+        <label className="text-sm font-medium">Responsibilities</label>
+        {responsibilities.map((responsibility, index) => (
+          <div key={index} className="flex items-center space-x-2 mb-2">
+            <Input
+              name="responsibilities"
+              value={responsibility}
+              onChange={(e) => handleResponsibilityChange(index, e.target.value)}
+              placeholder={`Responsibility #${index + 1}`}
+              required
+            />
+            {index === 0 ? (
+              <Button
+                type="button"
+                size="icon"
+                variant="outline"
+                onClick={addResponsibility}
+              >
+                <Plus className="w-4 h-4" />
+              </Button>
+            ) : (
+              <Button
+                type="button"
+                size="icon"
+                variant="destructive"
+                onClick={() => removeResponsibility(index)}
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            )}
+          </div>
+        ))}
+        {errors?.responsibilities && (
+          <small className="text-sm text-red-500">
+            {errors.responsibilities[0]}
+          </small>
         )}
       </div>
+      {responsibilities.map((r) => (
+        <input key={r} type="hidden" name="responsibilities" value={r} />
+      ))}
 
       <Button type="submit" className="mt-4" disabled={isPending}>
         {isPending ? "Saving..." : submitLabel}
