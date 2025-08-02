@@ -95,7 +95,7 @@ export default function TimelineItem(entry: TimeLineEntry) {
         )}
       </div>
 
-      {["experience", "education", "certification"].includes(entry.type) && (
+      {entry.type && ["experience", "certification"].includes(entry.type) && (
         <div className="text-primary/80 font-medium text-sm mt-1 flex flex-wrap flex-row items-center gap-2">
           <span>
             {entry.type === "experience" && entry.company}
@@ -133,7 +133,7 @@ export default function TimelineItem(entry: TimeLineEntry) {
         </div>
       )}
 
-      {(entry.modules ?? []).length > 0 && (
+      {entry.type === 'certification' && (entry.modules ?? []).length > 0 && (
         <div className="flex flex-wrap gap-2 text-xs mt-4">
           {(entry.modules ?? []).map((moduleItem) => (
             <Badge key={moduleItem} variant="outline">
