@@ -44,7 +44,7 @@ export type Experience = {
   date?: string;
   link?: string;
   location?: string;
-  type: 'experience',
+  type?: 'experience',
   company: string;
   employment_type?: 'Full-time' | 'Part-time' | 'Contract' | 'Internship';
   responsibilities?: string[];

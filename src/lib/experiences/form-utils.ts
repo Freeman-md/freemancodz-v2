@@ -6,7 +6,6 @@ import { ExperienceFormValues } from "@/types/journey";
 export const experienceSchema = z.object({
   id: z.string().optional(),
   title: z.string().min(3, "Title is required"),
-  type: z.literal("experience"),
   company: z.string().min(2, "Company is required"),
   employment_type: z.string().optional(),
   location: z.string().min(2, "Location is required"),
@@ -22,7 +21,6 @@ export async function parseExperienceForm(formData: FormData) {
   const raw = {
     id: formData.get("id")?.toString() || "",
     title: formData.get("title")?.toString() || "",
-    type: "experience",
     company: formData.get("company")?.toString() || "",
     employment_type: formData.get("employment_type")?.toString() || "",
     location: formData.get("location")?.toString() || "",
@@ -30,7 +28,7 @@ export async function parseExperienceForm(formData: FormData) {
     end_date: formData.get("end_date")?.toString() || "",
     tools: formData.getAll("tools").map((tool) => tool.toString()),
     categories: formData.getAll("categories").map((category) => category.toString()),
-    responsibilities: formData.getAll("responsibilities").map((r) => r.toString()),
+    responsibilities: formData.getAll("responsibilities").map((responsibility) => responsibility.toString()),
   };
 
   const result = experienceSchema.safeParse(raw);
@@ -44,7 +42,6 @@ export function getDefaultExperienceFormValues(
   return {
     id: defaultValues.id || "",
     title: defaultValues.title || "",
-    type: "experience",
     company: defaultValues.company || "",
     employment_type: defaultValues.employment_type || "Full-time",
     location: defaultValues.location || "",

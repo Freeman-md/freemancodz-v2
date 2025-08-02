@@ -15,8 +15,8 @@ import {
 } from "@/components/ui/select";
 import { ExperienceFormErrors, ExperienceFormValues } from "@/types/journey";
 import { getDefaultExperienceFormValues } from "@/lib/experiences/form-utils";
-import { Plus, X } from "lucide-react";
 import CategorySelector from "@/components/ui/category-selector";
+import StringArrayInput from "@/components/ui/string-array-input";
 
 type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,7 +45,9 @@ export default function ExperienceForm({
     defaultValues.categories || []
   );
   const [responsibilities, setResponsibilities] = useState<string[]>(
-    defaultValues.responsibilities?.length ? defaultValues.responsibilities : [""]
+    defaultValues.responsibilities?.length
+      ? defaultValues.responsibilities
+      : [""]
   );
 
   const [formState, formAction, isPending] = useActionState(action, {
@@ -70,25 +72,12 @@ export default function ExperienceForm({
   useEffect(() => {
     if (formState.status === "error") {
       if (formState.values?.tools) setSelectedTools(formState.values.tools);
-      if (formState.values?.categories) setSelectedCategories(formState.values.categories);
+      if (formState.values?.categories)
+        setSelectedCategories(formState.values.categories);
       if (formState.values?.responsibilities)
         setResponsibilities(formState.values.responsibilities);
     }
   }, [formState]);
-
-  const handleResponsibilityChange = (index: number, value: string) => {
-    setResponsibilities((prev) =>
-      prev.map((item, i) => (i === index ? value : item))
-    );
-  };
-
-  const addResponsibility = () => {
-    setResponsibilities((prev) => [...prev, ""]);
-  };
-
-  const removeResponsibility = (index: number) => {
-    setResponsibilities((prev) => prev.filter((_, i) => i !== index));
-  };
 
   return (
     <form className="space-y-4" action={formAction}>
@@ -121,8 +110,23 @@ export default function ExperienceForm({
       </div>
 
       <div className="space-y-2">
+        <label className="text-sm font-medium">Location</label>
+        <Input
+          name="location"
+          placeholder="Location"
+          defaultValue={formState?.values?.location ?? defaultValues.location}
+        />
+        {errors?.location && (
+          <small className="text-sm text-red-500">{errors.location[0]}</small>
+        )}
+      </div>
+
+      <div className="space-y-2">
         <label className="text-sm font-medium">Employment Type</label>
-        <Select name="employment_type" defaultValue={defaultValues.employment_type}>
+        <Select
+          name="employment_type"
+          defaultValue={defaultValues.employment_type}
+        >
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select type" />
           </SelectTrigger>
@@ -134,7 +138,9 @@ export default function ExperienceForm({
           </SelectContent>
         </Select>
         {errors?.employment_type && (
-          <small className="text-sm text-red-500">{errors.employment_type[0]}</small>
+          <small className="text-sm text-red-500">
+            {errors.employment_type[0]}
+          </small>
         )}
       </div>
 
@@ -211,47 +217,13 @@ export default function ExperienceForm({
         <input key={tool} type="hidden" name="categories" value={tool} />
       ))}
 
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Responsibilities</label>
-        {responsibilities.map((responsibility, index) => (
-          <div key={index} className="flex items-center space-x-2 mb-2">
-            <Input
-              name="responsibilities"
-              value={responsibility}
-              onChange={(e) => handleResponsibilityChange(index, e.target.value)}
-              placeholder={`Responsibility #${index + 1}`}
-              required
-            />
-            {index === 0 ? (
-              <Button
-                type="button"
-                size="icon"
-                variant="outline"
-                onClick={addResponsibility}
-              >
-                <Plus className="w-4 h-4" />
-              </Button>
-            ) : (
-              <Button
-                type="button"
-                size="icon"
-                variant="destructive"
-                onClick={() => removeResponsibility(index)}
-              >
-                <X className="w-4 h-4" />
-              </Button>
-            )}
-          </div>
-        ))}
-        {errors?.responsibilities && (
-          <small className="text-sm text-red-500">
-            {errors.responsibilities[0]}
-          </small>
-        )}
-      </div>
-      {responsibilities.map((r) => (
-        <input key={r} type="hidden" name="responsibilities" value={r} />
-      ))}
+      <StringArrayInput
+        name="responsibilities"
+        label="Responsibilities"
+        initial={responsibilities}
+        placeholderPrefix="Responsibility"
+        error={errors?.responsibilities?.[0]}
+      />
 
       <Button type="submit" className="mt-4" disabled={isPending}>
         {isPending ? "Saving..." : submitLabel}
