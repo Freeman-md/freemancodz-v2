@@ -12,8 +12,8 @@ export const useExperience = () => {
       type: "experience",
       title: "Lead Engineer & .NET + Azure Specialist",
       company: "Freemancodz (Open Source & Contract Projects)",
-      startDate: "Feb 2023",
-      endDate: "Present",
+      start_date: "Feb 2023",
+      end_date: "Present",
       location: "Remote, Greater London",
       tools: [
         "C#", "ASP.NET Core", "Azure Functions", "Cosmos DB", "Bicep", 
@@ -34,8 +34,8 @@ export const useExperience = () => {
       title: "Mid-Level Frontend Developer",
       company: "Pay4Me App",
       employmentType: "Full-time",
-      startDate: "Jan 2022",
-      endDate: "Feb 2023",
+      start_date: "Jan 2022",
+      end_date: "Feb 2023",
       location: "Boise, Idaho · Hybrid",
       tools: ["Vue.js", "React.js", "DigitalOcean", "TypeScript"],
       responsibilities: [
@@ -51,8 +51,8 @@ export const useExperience = () => {
       title: "Frontend Developer",
       company: "Across the Horizon",
       employmentType: "Full-time",
-      startDate: "Sep 2020",
-      endDate: "Jan 2022",
+      start_date: "Sep 2020",
+      end_date: "Jan 2022",
       location: "Remote, Idaho, USA",
       tools: ["Vue.js", "Laravel", "Paystack", "Twilio", "Google Maps API"],
       responsibilities: [
@@ -65,14 +65,14 @@ export const useExperience = () => {
 
 
   const sortedExperience = experienceData.sort((a, b) => {
-    const aIsPresent = a.endDate?.toLowerCase() === "present";
-    const bIsPresent = b.endDate?.toLowerCase() === "present";
+    const aIsPresent = a.end_date?.toLowerCase() === "present";
+    const bIsPresent = b.end_date?.toLowerCase() === "present";
 
     if (aIsPresent && !bIsPresent) return -1;
     if (!aIsPresent && bIsPresent) return 1;
 
-    const aDate = parseDate(a.endDate ?? a.startDate);
-    const bDate = parseDate(b.endDate ?? b.startDate);
+    const aDate = parseDate(a.end_date ?? a.start_date);
+    const bDate = parseDate(b.end_date ?? b.start_date);
 
     return bDate.getTime() - aDate.getTime();
   });

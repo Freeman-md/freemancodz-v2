@@ -1,4 +1,4 @@
-import { Project, Project } from "@/types/project";
+import { Project } from "@/types/project";
 import { cache } from "react";
 import { supabase } from "../supabase";
 
@@ -59,7 +59,7 @@ export const getProjectById = cache(async (id: string): Promise<Project | null> 
 
   return {
     ...data,
-    categories: data.projects_categories.map(pc => pc.categories.name),
-    tools: data.projects_tools.map(pc => pc.tools.name),
+    categories: data.projects_categories ? data.projects_categories.map(pc => pc.categories.name) : [],
+    tools: data.projects_tools ? data.projects_tools.map(pc => pc.tools.name) : [],
   };
 });
