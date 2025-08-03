@@ -85,6 +85,20 @@ export async function updateProject(prevState: unknown, formData: FormData) {
   return { status: "success" };
 }
 
+
+export async function updateProjectImage(projectId: string, imageUrl: string) {
+  const { error } = await supabase
+    .from("projects")
+    .update({ cover_image: imageUrl })
+    .eq("id", projectId);
+
+  if (error) {
+    throw new Error("Failed to update project image.");
+  }
+
+  revalidatePath("/admin/projects");
+}
+
 export const deleteProject = async (id: string) => {
   await supabase.from("projects").delete().eq("id", id)
   revalidatePath('/admin/projects')

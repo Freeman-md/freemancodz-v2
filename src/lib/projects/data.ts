@@ -5,7 +5,7 @@ import { supabase } from "../supabase";
 export const getProjects = cache(async (): Promise<Project[]> => {
   const { data, error } = await supabase
     .from("projects")
-    .select("id, title, status, role, year, featured, is_private")
+    .select("id, title, status, cover_image, role, year, featured, is_private")
     .order('year', { ascending: false }) as unknown as {
       data: Project[];
       error: unknown;
