@@ -1,51 +1,34 @@
-"use client";
-
-import { updateSiteMeta } from "@/lib/site-meta/actions";
-import { useTransition, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+import MetaFormLink from "./form-types/meta-form-link";
+import MetaFormText from "./form-types/meta-form-text";
+import MetaFormImage from "./form-types/meta-form-image";
+import MetaFormMeta from "./form-types/meta-form-meta";
+import MetaFormContact from "./form-types/meta-form-contact";
+import MetaFormHeadline from "./form-types/meta-form-headline";
+import MetaFormSectionBlocks from "./form-types/meta-form-section-blocks";
 
 type Props = {
   keyName: string;
   type: string;
   value: string;
-  setValue: (val: string) => void;
 };
 
-export default function MetaForm({ keyName, type, value, setValue }: Props) {
-  const [isPending, startTransition] = useTransition();
-  const [message, setMessage] = useState<string | null>(null);
-
-  const handleSubmit = async () => {
-    const formData = new FormData();
-    formData.set("key", keyName);
-    formData.set("value", value);
-
-    startTransition(async () => {
-      const result = await updateSiteMeta(formData);
-      if (result.status === "success") {
-        setMessage("Saved!");
-      } else {
-        setMessage("Failed to update.");
-      }
-
-      setTimeout(() => setMessage(null), 2000);
-    });
-  };
-
-  return (
-    <div className="space-y-2">
-      <Textarea
-        className="min-h-[160px] font-mono text-xs"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      />
-      <div className="flex items-center justify-between">
-        <Button size="sm" disabled={isPending} onClick={handleSubmit}>
-          Save
-        </Button>
-        {message && <p className="text-xs text-muted-foreground">{message}</p>}
-      </div>
-    </div>
-  );
+export default function MetaForm({ keyName, type, value }: Props) {
+  switch (type) {
+    case "link":
+      return <MetaFormLink keyName={keyName} value={value} />;
+    case "text":
+      return <MetaFormText keyName={keyName} value={value} />;
+    case "image":
+      return <MetaFormImage keyName={keyName} value={value} />;
+    case "meta":
+      return <MetaFormMeta keyName={keyName} value={value} />;
+    case "headline":
+      return <MetaFormHeadline keyName={keyName} value={value} />;
+    case "contact":
+      return <MetaFormContact keyName={keyName} value={value} />;
+    case "section_blocks":
+      return <MetaFormSectionBlocks keyName={keyName} value={value} />;
+    default:
+      return <p className="text-sm text-red-500">Unknown meta type: {type}</p>;
+  }
 }

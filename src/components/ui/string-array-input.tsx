@@ -18,13 +18,15 @@ type Props = {
 export default function StringArrayInput({
   name,
   label,
-  initial = [""],
+  initial,
   placeholderPrefix = "Item",
   required = true,
   error,
   onChange,
 }: Props) {
-  const [values, setValues] = useState<string[]>(initial);
+  const [values, setValues] = useState<string[]>(() =>
+    initial && initial.length > 0 ? initial : [""]
+  );
 
   useEffect(() => {
     onChange?.(values);
@@ -38,24 +40,35 @@ export default function StringArrayInput({
 
   const addField = () => setValues((prev) => [...prev, ""]);
 
-  const removeField = (index: number) =>
-    setValues((prev) => prev.filter((_, i) => i !== index));
+  const removeField = (index: number) => {
+    setValues((prev) => {
+      const updated = prev.filter((_, i) => i !== index);
+      return updated.length === 0 ? [""] : updated;
+    });
+  };
 
   return (
     <div className="space-y-2">
       {label && <label className="text-sm font-medium">{label}</label>}
 
       {values.map((value, index) => (
-        <div key={`${name}-${index}`} className="flex items-center space-x-2 mb-2">
+        <div
+          key={`${name}-${index}`}
+          className="flex items-center space-x-2 mb-2"
+        >
           <Input
-            name={name}
             value={value}
             placeholder={`${placeholderPrefix} #${index + 1}`}
             onChange={(e) => handleChange(index, e.target.value)}
             required={required}
           />
           {index === 0 ? (
-            <Button type="button" variant="outline" size="icon" onClick={addField}>
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              onClick={addField}
+            >
               <Plus className="w-4 h-4" />
             </Button>
           ) : (
@@ -75,7 +88,12 @@ export default function StringArrayInput({
 
       {/* Hidden inputs for form submission */}
       {values.map((value, index) => (
-        <input key={`hidden-${name}-${index}`} type="hidden" name={name} value={value} />
+        <input
+          key={`hidden-${name}-${index}`}
+          type="hidden"
+          name={name}
+          value={value}
+        />
       ))}
     </div>
   );

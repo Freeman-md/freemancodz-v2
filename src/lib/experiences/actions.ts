@@ -28,8 +28,6 @@ export const createExperience = async (prevState: unknown, formData: FormData) =
     .select()
     .single();
 
-    console.log(error)
-
   if (error || !experience) {
     return {
       status: "error",
