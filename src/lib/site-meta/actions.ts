@@ -48,7 +48,7 @@ function parseGenericValue(value: string | null) {
   try {
     return JSON.parse(value);
   } catch {
-    throw new Error("Invalid JSON format.");
+    return value;
   }
 }
 
