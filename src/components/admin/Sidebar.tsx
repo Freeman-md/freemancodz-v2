@@ -28,6 +28,8 @@ import {
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Button } from "../ui/button";
+import { createClient } from "@/utils/supabase/client";
 
 const groups = [
   {
@@ -59,14 +61,28 @@ const groups = [
   {
     label: "Site Info",
     items: [
-      { title: "Meta Information", href: "/admin/site-meta", icon: IconInfoCircle },
-      { title: "Contact Messages", href: "/admin/contact-messages", icon: IconMail },
+      {
+        title: "Meta Information",
+        href: "/admin/site-meta",
+        icon: IconInfoCircle,
+      },
+      {
+        title: "Contact Messages",
+        href: "/admin/contact-messages",
+        icon: IconMail,
+      },
     ],
-  }
+  },
 ];
 
 export function AdminSidebar() {
   const pathname = usePathname();
+  const supabase = createClient()
+
+  async function handleSignOut() {
+    await supabase.auth.signOut();
+    window.location.href = "/auth/signin";
+  }
 
   return (
     <Sidebar>
@@ -112,10 +128,14 @@ export function AdminSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <button className="w-full flex items-center">
+              <Button
+                className="w-full flex items-center cursor-pointer"
+                onClick={handleSignOut}
+                variant="ghost"
+              >
                 <IconLogout className="w-4 h-4" />
                 <span>Sign out</span>
-              </button>
+              </Button>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

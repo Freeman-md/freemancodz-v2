@@ -1,25 +1,27 @@
 'use client'
 
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { supabase } from "@/lib/supabase"
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { createClient } from '@/utils/supabase/client'
 
-export default function AuthCallbackPage() {
+export default function AuthCallback() {
+  const supabase = createClient()
   const router = useRouter()
 
   useEffect(() => {
-    const handleRedirect = async () => {
+    const checkSession = async () => {
       const { data } = await supabase.auth.getSession()
-      if (data?.session) {
-        
+
+      if (data.session) {
         router.replace('/admin')
+        router.refresh()
       } else {
-        router.replace('/')
+        router.replace('/auth/signin')
       }
     }
 
-    handleRedirect()
-  }, [router])
+    checkSession()
+  }, [router, supabase.auth])
 
   return <p>Signing you in...</p>
 }

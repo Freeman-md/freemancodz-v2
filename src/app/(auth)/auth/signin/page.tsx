@@ -2,9 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { IconBrandGoogle } from "@tabler/icons-react";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/utils/supabase/client";
 
 export default function SignInWithGoogle() {
+  const supabase = createClient()
+
   const handleSignIn = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
@@ -12,6 +14,7 @@ export default function SignInWithGoogle() {
         redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
+    
     if (error) console.error("Google Sign-in Error:", error.message);
   };
 
