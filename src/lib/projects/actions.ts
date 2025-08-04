@@ -81,6 +81,7 @@ export async function updateProject(prevState: unknown, formData: FormData) {
   insertProjectTools(project.id, tools)
 
   revalidatePath("/admin/projects");
+  revalidatePath("/")
 
   return { status: "success" };
 }
