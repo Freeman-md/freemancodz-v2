@@ -1,5 +1,6 @@
 "use server"
 
+import { revalidatePath } from "next/cache";
 import { supabase } from "../supabase";
 
 export async function markContactMessageAsRead(id: string) {
@@ -7,5 +8,5 @@ export async function markContactMessageAsRead(id: string) {
 
     if (error) throw error;
 
-    return true;
+    revalidatePath('/admin/contact-messages')
 }
