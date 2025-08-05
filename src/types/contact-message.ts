@@ -7,3 +7,5 @@ export type ContactMessage = {
     read: boolean;
     responded: boolean;
 };
+
+export type ContactMessageInput = Pick<ContactMessage, "name" | "email" | "message">
