@@ -6,12 +6,16 @@ import { z } from 'zod'
 import { ContactMessageInput } from "@/types/contact-message";
 import { createClient } from "@/utils/supabase/client";
 import { FormState } from "@/types";
+import { Resend } from "resend";
+import { EmailTemplate } from "@/components/email-template";
 
 const ContactMessageSchema = z.object({
     name: z.string().min(3, "Your name is required"),
     email: z.string().email("Your email is invalid"),
     message: z.string().min(10, "Your message must contain at least 10 character(s)"),
 })
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function markContactMessageAsRead(id: string) {
     const { error } = await supabase.from("contact_messages").update({ read: true }).eq("id", id);
@@ -50,7 +54,16 @@ export async function submitContactMessage(prevState: FormState, formData: FormD
         };
     }
 
-    return { 
+    await resend.emails.send({
+        from: 'Freeman Contact <contact@freemanmadudili.com>',
+        to: ['freemanmadudili@gmail.com'],
+        subject: `New message from ${contactMessage.name}`,
+        replyTo: contactMessage.email,
+        react: EmailTemplate(contactMessage)
+    });
+
+
+    return {
         success: true,
         errors: {},
         values: {}
