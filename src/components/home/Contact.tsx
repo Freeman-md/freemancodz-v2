@@ -76,20 +76,35 @@ export default function Contact() {
           action={formAction}
         >
           {formState.success && (
-            <Alert variant="success">
-              <AlertCircleIcon />
-              <AlertTitle>Your message has been sent!</AlertTitle>
-              <AlertDescription>
-                I’ll get back to you as soon as I can. Thanks for reaching out.
-              </AlertDescription>
-            </Alert>
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Alert variant="success">
+                <AlertCircleIcon />
+                <AlertTitle>Your message has been sent!</AlertTitle>
+                <AlertDescription>
+                  I’ll get back to you as soon as I can. Thanks for reaching
+                  out.
+                </AlertDescription>
+              </Alert>
+            </motion.div>
           )}
 
           {"form" in formState.errors && formState.errors.form.length > 0 && (
-            <Alert variant="error">
-              <AlertCircleIcon />
-              <AlertTitle>{formState.errors.form?.[0]}</AlertTitle>
-            </Alert>
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Alert variant="error">
+                <AlertCircleIcon />
+                <AlertTitle>{formState.errors.form?.[0]}</AlertTitle>
+              </Alert>
+            </motion.div>
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -101,9 +116,15 @@ export default function Contact() {
               />
               {"name" in formState.errors &&
                 formState.errors.name.length > 0 && (
-                  <small className="text-sm text-red-500">
+                  <motion.small
+                    initial={{ opacity: 0, y: -4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-sm text-red-500"
+                  >
                     {formState.errors.name?.[0]}
-                  </small>
+                  </motion.small>
                 )}
             </div>
 
@@ -116,9 +137,15 @@ export default function Contact() {
               />
               {"email" in formState.errors &&
                 formState.errors.email.length > 0 && (
-                  <small className="text-sm text-red-500">
+                  <motion.small
+                    initial={{ opacity: 0, y: -4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-sm text-red-500"
+                  >
                     {formState.errors.email?.[0]}
-                  </small>
+                  </motion.small>
                 )}
             </div>
           </div>
@@ -132,9 +159,15 @@ export default function Contact() {
             />
             {"message" in formState.errors &&
               formState.errors.message.length > 0 && (
-                <small className="text-sm text-red-500">
+                <motion.small
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.2 }}
+                  className="text-sm text-red-500"
+                >
                   {formState.errors.message?.[0]}
-                </small>
+                </motion.small>
               )}
           </div>
 
