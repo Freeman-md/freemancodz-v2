@@ -58,3 +58,34 @@ insert into site_meta (key, type, value) values
       "text": "Simple always wins."
     }
   ]');
+
+
+INSERT INTO public.tools (name, inserted_at, updated_at, order_index)
+VALUES 
+  ('Next.js',       now(), now(), 1),
+  ('React',         now(), now(), 2),
+  ('Tailwind',      now(), now(), 3),
+  ('Nuxt.js',       now(), now(), 4),
+  ('Vue.js',        now(), now(), 5),
+  ('Razor',         now(), now(), 6),
+  ('CSSModules',    now(), now(), 7),
+  ('Motion',        now(), now(), 8),
+
+  ('Azure',         now(), now(), 9),
+  ('Supabase',      now(), now(), 10),
+  ('Node.js',       now(), now(), 11),
+  ('.NET',          now(), now(), 12),
+  ('AzureFunctions',now(), now(), 13),
+  ('CosmosDB',      now(), now(), 14),
+  ('AKS',           now(), now(), 15),
+  ('KeyVault',      now(), now(), 16),
+
+  ('TypeScript',    now(), now(), 17),
+  ('Git',           now(), now(), 18),
+  ('GitHub',        now(), now(), 19),
+  ('Docker',        now(), now(), 20),
+  ('Vite',          now(), now(), 21),
+  ('Playwright',    now(), now(), 22),
+  ('SQLite',        now(), now(), 23),
+  ('Hygen',         now(), now(), 24),
+  ('VitePress',     now(), now(), 25);

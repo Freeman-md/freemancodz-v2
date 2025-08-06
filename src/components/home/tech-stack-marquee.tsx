@@ -13,10 +13,15 @@ import {
 import { wrap } from "@motionone/utils";
 import { useRef } from "react";
 import "@/app/tech-marquee.css";
+import { Tool } from "@/types/showcase";
 
 interface ParallaxProps {
   children: string;
   baseVelocity: number;
+}
+
+interface TechStackMarqueeProps {
+  tools: Tool[];
 }
 
 function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
@@ -72,34 +77,41 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
   );
 }
 
-export default function TechStackMarquee() {
+export default function TechStackMarquee({ tools }: TechStackMarqueeProps) {
   const ref = useRef(null);
   const isInView = useInView(ref);
 
+  // ✅ 1. Sort tools by order_index if available, fallback to name
+  const sorted = [...tools].sort((a, b) => {
+    const aIndex = a.order_index ?? Infinity;
+    const bIndex = b.order_index ?? Infinity;
+
+    return aIndex - bIndex || a.name.localeCompare(b.name);
+  });
+
+  // ✅ 2. Split tools into 3 lines
+  const toolsPerLine = Math.ceil(sorted.length / 3);
+  const line1 = sorted.slice(0, toolsPerLine);
+  const line2 = sorted.slice(toolsPerLine, toolsPerLine * 2);
+  const line3 = sorted.slice(toolsPerLine * 2);
+
+  // ✅ 3. Convert to string
+  const toLineString = (arr: Tool[]) => arr.map((t) => t.name).join(" ");
+
   return (
-    <section id="tools" className="bg-dot-pattern">
-      <div ref={ref} className="space-y-4 pb-20">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.1, duration: 0.6 }}
-          className="uppercase text-base font-medium container mb-8 sm:mb-16"
-        >
-          Tools I Use To Build Magic
-        </motion.h2>
-        
-        <ParallaxText baseVelocity={-0.5}>
-          Next.js React Tailwind Nuxt.js Vue.js Razor CSSModules Motion
-        </ParallaxText>
+    <div ref={ref} className="space-y-4 pb-20">
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ delay: 0.1, duration: 0.6 }}
+        className="uppercase text-base font-medium container mb-8 sm:mb-16"
+      >
+        Tools I Use To Build Magic
+      </motion.h2>
 
-        <ParallaxText baseVelocity={0.5}>
-          Azure Supabase Node.js .NET AzureFunctions CosmosDB AKS KeyVault
-        </ParallaxText>
-
-        <ParallaxText baseVelocity={-0.2}>
-          TypeScript Git GitHub Docker Vite Playwright SQLite Hygen VitePress
-        </ParallaxText>
-      </div>
-    </section>
+      <ParallaxText baseVelocity={-0.5}>{toLineString(line1)}</ParallaxText>
+      <ParallaxText baseVelocity={0.5}>{toLineString(line2)}</ParallaxText>
+      <ParallaxText baseVelocity={-0.2}>{toLineString(line3)}</ParallaxText>
+    </div>
   );
 }

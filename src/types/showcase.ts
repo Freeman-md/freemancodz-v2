@@ -1,5 +1,6 @@
 export type Tool = {
-  name: string
+  name: string;
+  order_index?: number;
 }
 
 export type Module = {

@@ -145,7 +145,7 @@ CREATE TABLE "experiences" (
 );
 
 CREATE TABLE "modules" (
-    "id" bigint NOT NULL,
+    "id" bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     "name" text NOT NULL,
     "inserted_at" timestamp with time zone DEFAULT timezone('utc'::text, now()),
     "updated_at" timestamp with time zone DEFAULT timezone('utc'::text, now())
@@ -209,8 +209,9 @@ CREATE TABLE "site_meta" (
 );
 
 CREATE TABLE "tools" (
-    "id" bigint NOT NULL,
+    "id" bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     "name" text,
+    "order_index" integer,
     "inserted_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
     "updated_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now())
 );
