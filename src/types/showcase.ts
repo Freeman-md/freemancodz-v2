@@ -15,12 +15,12 @@ export type RawService = {
   id?: string;
   name: string;
   description: string;
-  service_categories: {
+  service_category: {
     categories: Category;
   }[];
 };
 
 
-export type Service = Omit<RawService, "service_categories"> & {
+export type Service = Omit<RawService, "service_category"> & {
   categories: string[];
 }

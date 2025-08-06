@@ -51,7 +51,7 @@ export async function createService(prevState: unknown, formData: FormData) {
       category_id: cat.id
     }));
 
-    await supabase.from("service_categories").insert(links);
+    await supabase.from("service_category").insert(links);
   }
 
   revalidatePath("/admin/services");
@@ -93,7 +93,7 @@ export async function updateService(prevState: unknown, formData: FormData) {
     };
   }
 
-  await supabase.from("service_categories").delete().eq("service_id", service.id);
+  await supabase.from("service_category").delete().eq("service_id", service.id);
 
   const { data: categoryRows } = await supabase
     .from("categories")
@@ -106,7 +106,7 @@ export async function updateService(prevState: unknown, formData: FormData) {
       category_id: cat.id
     }));
 
-    await supabase.from("service_categories").insert(links);
+    await supabase.from("service_category").insert(links);
   }
 
   revalidatePath("/admin/services");

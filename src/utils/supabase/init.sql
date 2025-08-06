@@ -13,9 +13,9 @@
 
 -- 🔥 Drop existing tables to start fresh (in reverse dependency order)
 DROP TABLE IF EXISTS 
-  service_categories,
-  projects_tools,
-  projects_categories,
+  service_category,
+  project_tool,
+  project_category,
   modules,
   experience_tool,
   experience_category,
@@ -62,36 +62,8 @@ CREATE TYPE employment_type AS ENUM (
 );
 
 
-CREATE TABLE "categories" (
-    "id" uuid NOT NULL DEFAULT gen_random_uuid(),
-    "inserted_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
-    "updated_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
-    "name" text
-);
-
-CREATE TABLE "certification_module" (
-    "certification_id" uuid NOT NULL,
-    "module_id" bigint NOT NULL,
-    "inserted_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
-    "updated_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now())
-);
-
-CREATE TABLE "certification_project" (
-    "certification_id" uuid NOT NULL,
-    "project_id" uuid NOT NULL,
-    "inserted_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
-    "updated_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now())
-);
-
-CREATE TABLE "certification_tool" (
-    "certification_id" uuid NOT NULL,
-    "tool_id" bigint NOT NULL,
-    "inserted_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
-    "updated_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now())
-);
-
-CREATE TABLE "certifications" (
-    "id" uuid NOT NULL DEFAULT gen_random_uuid(),
+CREATE TABLE certifications (
+    "id" uuid PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
     "type" text NOT NULL,
     "title" text NOT NULL,
     "issuer" text NOT NULL,
@@ -106,33 +78,8 @@ CREATE TABLE "certifications" (
     "updated_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now())
 );
 
-CREATE TABLE "contact_messages" (
-    "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-    "name" text NOT NULL,
-    "email" text NOT NULL,
-    "message" text NOT NULL,
-    "read" boolean DEFAULT false,
-    "responded" boolean DEFAULT false,
-    "inserted_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
-    "updated_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now())
-);
-
-CREATE TABLE "experience_category" (
-    "experience_id" uuid NOT NULL,
-    "category_id" uuid NOT NULL,
-    "inserted_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
-    "updated_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now())
-);
-
-CREATE TABLE "experience_tool" (
-    "experience_id" uuid NOT NULL,
-    "tool_id" bigint NOT NULL,
-    "inserted_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
-    "updated_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now())
-);
-
-CREATE TABLE "experiences" (
-    "id" uuid NOT NULL DEFAULT gen_random_uuid(),
+CREATE TABLE experiences (
+    "id" uuid PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
     "title" text NOT NULL,
     "company" text NOT NULL,
     "employment_type" employment_type NOT NULL,
@@ -144,15 +91,8 @@ CREATE TABLE "experiences" (
     "updated_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now())
 );
 
-CREATE TABLE "modules" (
-    "id" bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    "name" text NOT NULL,
-    "inserted_at" timestamp with time zone DEFAULT timezone('utc'::text, now()),
-    "updated_at" timestamp with time zone DEFAULT timezone('utc'::text, now())
-);
-
-CREATE TABLE "projects" (
-    "id" uuid NOT NULL DEFAULT gen_random_uuid(),
+CREATE TABLE projects (
+    "id" uuid PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
     "title" text NOT NULL,
     "status" project_status NOT NULL,
     "role" project_role NOT NULL,
@@ -169,38 +109,17 @@ CREATE TABLE "projects" (
     "updated_at" timestamp with time zone DEFAULT now()
 );
 
-CREATE TABLE "projects_categories" (
-    "project_id" uuid NOT NULL,
-    "category_id" uuid NOT NULL,
-    "inserted_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
-    "updated_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now())
-);
-
-CREATE TABLE "projects_tools" (
-    "project_id" uuid NOT NULL,
-    "tool_id" bigint NOT NULL,
-    "inserted_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
-    "updated_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now())
-);
-
-CREATE TABLE "service_categories" (
-    "service_id" uuid NOT NULL,
-    "category_id" uuid NOT NULL,
-    "inserted_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
-    "updated_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now())
-);
-
-CREATE TABLE "services" (
-    "id" uuid NOT NULL DEFAULT gen_random_uuid(),
-    "name" text NOT NULL,
+CREATE TABLE services (
+    "id" uuid PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
+    "name" text NOT NULL UNIQUE,
     "description" text,
     "price" numeric,
     "inserted_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
     "updated_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now())
 );
 
-CREATE TABLE "site_meta" (
-    "id" uuid NOT NULL DEFAULT gen_random_uuid(),
+CREATE TABLE site_meta (
+    "id" uuid PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
     "key" text NOT NULL,
     "type" text NOT NULL,
     "value" jsonb NOT NULL,
@@ -208,7 +127,21 @@ CREATE TABLE "site_meta" (
     "updated_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now())
 );
 
-CREATE TABLE "tools" (
+CREATE TABLE categories (
+    "id" bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    "inserted_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
+    "updated_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
+    "name" text NOT NULL UNIQUE
+);
+
+CREATE TABLE modules (
+    "id" bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    "name" text NOT NULL UNIQUE,
+    "inserted_at" timestamp with time zone DEFAULT timezone('utc'::text, now()),
+    "updated_at" timestamp with time zone DEFAULT timezone('utc'::text, now())
+);
+
+CREATE TABLE tools (
     "id" bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     "name" text,
     "order_index" integer,
@@ -216,6 +149,83 @@ CREATE TABLE "tools" (
     "updated_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now())
 );
 
+
+CREATE TABLE contact_messages (
+    "id" uuid PRIMARY KEY NOT NULL DEFAULT uuid_generate_v4(),
+    "name" text NOT NULL,
+    "email" text NOT NULL,
+    "message" text NOT NULL,
+    "read" boolean DEFAULT false,
+    "responded" boolean DEFAULT false,
+    "inserted_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
+    "updated_at" timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now())
+);
+
+CREATE TABLE experience_category (
+  experience_id uuid NOT NULL REFERENCES experiences(id) ON DELETE CASCADE,
+  category_id bigint NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
+  inserted_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  updated_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  UNIQUE(experience_id, category_id)
+);
+
+CREATE TABLE experience_tool (
+  experience_id uuid NOT NULL REFERENCES experiences(id) ON DELETE CASCADE,
+  tool_id bigint NOT NULL REFERENCES tools(id) ON DELETE CASCADE,
+  inserted_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  updated_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  UNIQUE(experience_id, tool_id)
+);
+
+CREATE TABLE project_category (
+  project_id uuid NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+  category_id bigint NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
+  inserted_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  updated_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  UNIQUE(project_id, category_id)
+);
+
+CREATE TABLE project_tool (
+  project_id uuid NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+  tool_id bigint NOT NULL REFERENCES tools(id) ON DELETE CASCADE,
+  inserted_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  updated_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  UNIQUE(project_id, tool_id)
+);
+
+CREATE TABLE certification_module (
+  certification_id uuid NOT NULL REFERENCES certifications(id) ON DELETE CASCADE,
+  module_id bigint NOT NULL REFERENCES modules(id) ON DELETE CASCADE,
+  inserted_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  updated_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  UNIQUE(certification_id, module_id)
+);
+
+
+CREATE TABLE certification_project (
+  certification_id uuid NOT NULL REFERENCES certifications(id) ON DELETE CASCADE,
+  project_id uuid NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+  inserted_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  updated_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  UNIQUE(certification_id, project_id)
+);
+
+
+CREATE TABLE certification_tool (
+  certification_id uuid NOT NULL REFERENCES certifications(id) ON DELETE CASCADE,
+  tool_id bigint NOT NULL REFERENCES tools(id) ON DELETE CASCADE,
+  inserted_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  updated_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  UNIQUE(certification_id, tool_id)
+);
+
+CREATE TABLE service_category (
+  service_id uuid NOT NULL REFERENCES services(id) ON DELETE CASCADE,
+  category_id bigint NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
+  inserted_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  updated_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  UNIQUE(service_id, category_id)
+);
 
 -- Enable RLS on all tables
 ALTER TABLE public.categories ENABLE ROW LEVEL SECURITY;
@@ -233,9 +243,9 @@ ALTER TABLE public.contact_messages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.experience_category ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.experience_tool ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.modules ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.projects_categories ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.projects_tools ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.service_categories ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.project_category ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.project_tool ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.service_category ENABLE ROW LEVEL SECURITY;
 
 
 -- Public READ only; everything else requires authentication
@@ -302,9 +312,9 @@ BEGIN
     'experience_category',
     'experience_tool',
     'modules',
-    'projects_categories',
-    'projects_tools',
-    'service_categories'
+    'project_category',
+    'project_tool',
+    'service_category'
   ]
   LOOP
     EXECUTE format($f$
@@ -380,14 +390,14 @@ CREATE TRIGGER update_modules_updated_at
   BEFORE UPDATE ON public.modules
   FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
 
-CREATE TRIGGER update_projects_categories_updated_at
-  BEFORE UPDATE ON public.projects_categories
+CREATE TRIGGER update_project_category_updated_at
+  BEFORE UPDATE ON public.project_category
   FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
 
-CREATE TRIGGER update_projects_tools_updated_at
-  BEFORE UPDATE ON public.projects_tools
+CREATE TRIGGER update_project_tool_updated_at
+  BEFORE UPDATE ON public.project_tool
   FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
 
-CREATE TRIGGER update_service_categories_updated_at
-  BEFORE UPDATE ON public.service_categories
+CREATE TRIGGER update_service_category_updated_at
+  BEFORE UPDATE ON public.service_category
   FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();

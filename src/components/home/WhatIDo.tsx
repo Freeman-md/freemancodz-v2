@@ -5,35 +5,13 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import { useProjectFilterStore } from "@/store/useProjectFilterStore";
 import { ProjectCategory } from "@/types/project";
+import { Service } from "@/types/showcase";
 
-const services = [
-  {
-    title: "Web App Development",
-    description:
-      "Building responsive, full-stack applications using Nuxt, Next.js, .NET, and more.",
-    categories: ["Frontend", "Backend", "Fullstack"],
-  },
-  {
-    title: "Native App Development",
-    description:
-      "Creating cross-platform native desktop apps with Avalonia and performant mobile-ready UIs.",
-    categories: ["Desktop", "Cross-platform", "Tooling"],
-  },
-  {
-    title: "DevOps & Infrastructure",
-    description:
-      "Automating CI/CD pipelines and Azure infrastructure for fast and safe deployments.",
-    categories: ["DevOps", "Automation"],
-  },
-  {
-    title: "Agentic App Development",
-    description:
-      "Designing apps with LLMs, LangGraph, and custom agents that reason and act.",
-    categories: ["AI", "Tooling"],
-  },
-];
-
-export default function WhatIDo() {
+export default function WhatIDo({
+  services
+} : {
+  services: Service[]
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -82,7 +60,7 @@ export default function WhatIDo() {
             >
               <div className="container py-0">
                 <h3 className="uppercase text-xl md:text-3xl lg:text-5xl font-semibold">
-                  {service.title}
+                  {service.name}
                 </h3>
               </div>
 

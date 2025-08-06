@@ -74,8 +74,8 @@ export async function updateProject(prevState: unknown, formData: FormData) {
     };
   }
 
-  await supabase.from("projects_categories").delete().eq("project_id", project.id);
-  await supabase.from("projects_categories").delete().eq("project_id", project.id);
+  await supabase.from("project_category").delete().eq("project_id", project.id);
+  await supabase.from("project_category").delete().eq("project_id", project.id);
 
   insertProjectCategories(project.id, categories)
   insertProjectTools(project.id, tools)

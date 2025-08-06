@@ -38,7 +38,7 @@ export type Project = {
   longdescription?: string;
 
   // Classification
-  projects_categories?: {
+  project_category?: {
     categories: Category;
   }[];
   status?: ProjectStatus;
@@ -58,7 +58,7 @@ export type Project = {
   year: number;
 
   // Stack
-  projects_tools?: {
+  project_tool?: {
     tools: Tool;
   }[];
 

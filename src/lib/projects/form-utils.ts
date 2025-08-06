@@ -71,7 +71,7 @@ export const insertProjectCategories = async (projectId: string, categories: str
     .in("name", categories);
 
   if (categoryRows?.length) {
-    await supabase.from("projects_categories").insert(
+    await supabase.from("project_category").insert(
       categoryRows.map((category) => ({
         project_id: projectId,
         category_id: category.id,
@@ -87,7 +87,7 @@ export const insertProjectTools = async (projectId: string, tools: string[]) => 
     .in("name", tools);
 
   if (toolRows?.length) {
-    await supabase.from("projects_tools").insert(
+    await supabase.from("project_tool").insert(
       toolRows.map((tool) => ({
         project_id: projectId,
         tool_id: tool.id,

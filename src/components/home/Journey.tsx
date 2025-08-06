@@ -1,19 +1,23 @@
 "use client";
 
-import { useExperience } from "@/hooks/useExperience";
 import { useEducation } from "@/hooks/useEducation";
-// import { useCertification } from "@/hooks/useCertification";
 import { useRef } from "react";
 import { useInView, motion } from "motion/react";
 import TimelineItem from "../ui/timeline-item";
+import { Certification, Experience } from "@/types/journey";
 
-export default function Journey() {
+export default function Journey({
+  experiences
+} : {
+  experiences: Experience[],
+  certifications?: Certification[],
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref);
 
-  const { experienceData } = useExperience();
+  console.log(experiences)
+
   const { educationData } = useEducation();
-  // const { certificationData } = useCertification();
 
   return (
     <section id="journey" className="bg-dot-pattern">
@@ -33,8 +37,8 @@ export default function Journey() {
               Experience
             </h3>
             <ol className="relative">
-              {experienceData.map((exp) => (
-                <TimelineItem key={exp.id} {...exp} />
+              {experiences.map((experience) => (
+                <TimelineItem key={experience.id} {...experience} />
               ))}
             </ol>
           </div>

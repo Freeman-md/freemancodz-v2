@@ -1,6 +1,7 @@
 import { Experience } from "@/types/journey";
 import { cache } from "react";
 import { supabase } from "../supabase";
+import { PostgrestError } from "@supabase/supabase-js";
 
 export const getExperiences = cache(async (): Promise<Experience[]> => {
   const { data, error } = await supabase
@@ -36,6 +37,46 @@ export const getExperiences = cache(async (): Promise<Experience[]> => {
     tool_count: experience.experience_tool.length,
   }));
 
+});
+
+export const getExperiencesWithDetails = cache(async (): Promise<Experience[]> => {
+  const { data, error } = await supabase
+    .from("experiences")
+    .select(`
+      id,
+      title,
+      company,
+      employment_type,
+      location,
+      start_date,
+      end_date,
+      responsibilities,
+      experience_tool (
+        tools (
+          name
+        )
+      ),
+      experience_category (
+        categories (
+          name
+        )
+      )
+    `) as unknown as {
+      data: Experience[];
+      error: unknown;
+    };
+
+  if (error) {
+    throw new Error((error as PostgrestError).message ?? "Unknown error")
+  }
+
+  if (!data || data.length === 0) return [];
+
+  return data.map((exp) => ({
+    ...exp,
+    tools: exp.experience_tool.map((et) => et.tools.name),
+    categories: exp.experience_category.map((ec) => ec.categories.name),
+  }));
 });
 
 export const getExperienceById = cache(async (id: string): Promise<Experience | null> => {

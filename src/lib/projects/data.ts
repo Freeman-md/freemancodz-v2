@@ -36,12 +36,12 @@ export const getProjectById = cache(async (id: string): Promise<Project | null> 
       featured,
       is_private,
       cover_image,
-      projects_categories (
+      project_category (
         categories (
           name
         )
       ),
-      projects_tools (
+      project_tool (
         tools (
           name
         )
@@ -59,7 +59,7 @@ export const getProjectById = cache(async (id: string): Promise<Project | null> 
 
   return {
     ...data,
-    categories: data.projects_categories ? data.projects_categories.map(pc => pc.categories.name) : [],
-    tools: data.projects_tools ? data.projects_tools.map(pc => pc.tools.name) : [],
+    categories: data.project_category ? data.project_category.map(pc => pc.categories.name) : [],
+    tools: data.project_tool ? data.project_tool.map(pc => pc.tools.name) : [],
   };
 });
