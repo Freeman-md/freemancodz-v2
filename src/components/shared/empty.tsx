@@ -12,7 +12,7 @@ type EmptyProps = {
 
 export default function Empty({
   title,
-  message,
+  message = "Not Found",
   classes = "text-white/60",
   icon = <IconMoodEmpty size={48} stroke={1.5} />,
 }: EmptyProps) {

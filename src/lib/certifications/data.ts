@@ -27,12 +27,14 @@ export const getCertifications = cache(async (): Promise<Certification[]> => {
     if (error instanceof Error) throw new Error(error.message);
   }
 
-  const certifications = data.map((certification) => ({
+  if (!data || data.length === 0) {
+    return [];
+  }
+
+  return data.map((certification) => ({
     ...certification,
     tool_count: certification.certification_tool.length,
   }));
-
-  return certifications ?? []
 });
 
 export const getCertificationById = cache(async (id: string): Promise<Certification | null> => {

@@ -19,20 +19,23 @@ export const getExperiences = cache(async (): Promise<Experience[]> => {
         )
       )
     `) as unknown as {
-    data: Experience[];
-    error: unknown;
-  };
+      data: Experience[];
+      error: unknown;
+    };
 
   if (error) {
     if (error instanceof Error) throw new Error(error.message);
   }
 
-  const experiences = data.map((experience) => ({
+  if (!data || data.length === 0) {
+    return [];
+  }
+
+  return data.map((experience) => ({
     ...experience,
     tool_count: experience.experience_tool.length,
   }));
 
-  return experiences ?? [];
 });
 
 export const getExperienceById = cache(async (id: string): Promise<Experience | null> => {
