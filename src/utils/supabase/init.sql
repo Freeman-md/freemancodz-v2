@@ -312,3 +312,81 @@ BEGIN
     $f$, table_name, table_name);
   END LOOP;
 END $$;
+
+-- Reusable trigger function to update the updated_at column
+CREATE OR REPLACE FUNCTION public.update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = now();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create triggers to auto-update updated_at on row updates
+CREATE TRIGGER update_categories_updated_at
+  BEFORE UPDATE ON public.categories
+  FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+CREATE TRIGGER update_certifications_updated_at
+  BEFORE UPDATE ON public.certifications
+  FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+CREATE TRIGGER update_projects_updated_at
+  BEFORE UPDATE ON public.projects
+  FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+CREATE TRIGGER update_experiences_updated_at
+  BEFORE UPDATE ON public.experiences
+  FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+CREATE TRIGGER update_tools_updated_at
+  BEFORE UPDATE ON public.tools
+  FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+CREATE TRIGGER update_services_updated_at
+  BEFORE UPDATE ON public.services
+  FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+CREATE TRIGGER update_site_meta_updated_at
+  BEFORE UPDATE ON public.site_meta
+  FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+CREATE TRIGGER update_certification_module_updated_at
+  BEFORE UPDATE ON public.certification_module
+  FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+CREATE TRIGGER update_certification_project_updated_at
+  BEFORE UPDATE ON public.certification_project
+  FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+CREATE TRIGGER update_certification_tool_updated_at
+  BEFORE UPDATE ON public.certification_tool
+  FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+CREATE TRIGGER update_contact_messages_updated_at
+  BEFORE UPDATE ON public.contact_messages
+  FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+CREATE TRIGGER update_experience_category_updated_at
+  BEFORE UPDATE ON public.experience_category
+  FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+CREATE TRIGGER update_experience_tool_updated_at
+  BEFORE UPDATE ON public.experience_tool
+  FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+CREATE TRIGGER update_modules_updated_at
+  BEFORE UPDATE ON public.modules
+  FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+CREATE TRIGGER update_projects_categories_updated_at
+  BEFORE UPDATE ON public.projects_categories
+  FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+CREATE TRIGGER update_projects_tools_updated_at
+  BEFORE UPDATE ON public.projects_tools
+  FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+CREATE TRIGGER update_service_categories_updated_at
+  BEFORE UPDATE ON public.service_categories
+  FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();

@@ -2,7 +2,7 @@ import { ContactMessage } from "@/types/contact-message";
 import { supabase } from "../supabase";
 
 export async function getContactMessages(filter: "all" | "read" | "unread" = "all"): Promise<ContactMessage[]> {
-    let query = supabase.from("contact_messages").select("*").order("created_at", { ascending: false });
+    let query = supabase.from("contact_messages").select("*").order("inserted_at", { ascending: false });
 
     if (filter === "read") query = query.eq("read", true);
     
@@ -12,5 +12,5 @@ export async function getContactMessages(filter: "all" | "read" | "unread" = "al
 
     if (error) throw error;
 
-    return data as ContactMessage[];
+    return data as ContactMessage[] ?? [];
 }
