@@ -14,9 +14,6 @@ export default function Journey({
 }) {
   const ref = useRef(null);
   const isInView = useInView(ref);
-
-  console.log(experiences)
-
   const { educationData } = useEducation();
 
   return (

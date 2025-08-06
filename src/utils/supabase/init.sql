@@ -162,69 +162,69 @@ CREATE TABLE contact_messages (
 );
 
 CREATE TABLE experience_category (
-  experience_id uuid NOT NULL REFERENCES experiences(id) ON DELETE CASCADE,
-  category_id bigint NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
-  inserted_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
-  updated_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
-  UNIQUE(experience_id, category_id)
+  "experience_id" uuid NOT NULL REFERENCES experiences(id) ON DELETE CASCADE,
+  "category_id" bigint NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
+  "inserted_at" timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  "updated_at" timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  primary key (experience_id, category_id)
 );
 
 CREATE TABLE experience_tool (
-  experience_id uuid NOT NULL REFERENCES experiences(id) ON DELETE CASCADE,
-  tool_id bigint NOT NULL REFERENCES tools(id) ON DELETE CASCADE,
-  inserted_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
-  updated_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
-  UNIQUE(experience_id, tool_id)
+  "experience_id" uuid NOT NULL REFERENCES experiences(id) ON DELETE CASCADE,
+  "tool_id" bigint NOT NULL REFERENCES tools(id) ON DELETE CASCADE,
+  "inserted_at" timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  "updated_at" timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  primary key (experience_id, tool_id)
 );
 
 CREATE TABLE project_category (
-  project_id uuid NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
-  category_id bigint NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
-  inserted_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
-  updated_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
-  UNIQUE(project_id, category_id)
+  "project_id" uuid NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+  "category_id" bigint NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
+  "inserted_at" timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  "updated_at" timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  primary key (project_id, category_id)
 );
 
 CREATE TABLE project_tool (
-  project_id uuid NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
-  tool_id bigint NOT NULL REFERENCES tools(id) ON DELETE CASCADE,
-  inserted_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
-  updated_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
-  UNIQUE(project_id, tool_id)
+  "project_id" uuid NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+  "tool_id" bigint NOT NULL REFERENCES tools(id) ON DELETE CASCADE,
+  "inserted_at" timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  "updated_at" timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  primary key (project_id, tool_id)
 );
 
 CREATE TABLE certification_module (
-  certification_id uuid NOT NULL REFERENCES certifications(id) ON DELETE CASCADE,
-  module_id bigint NOT NULL REFERENCES modules(id) ON DELETE CASCADE,
-  inserted_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
-  updated_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
-  UNIQUE(certification_id, module_id)
+  "certification_id" uuid NOT NULL REFERENCES certifications(id) ON DELETE CASCADE,
+  "module_id" bigint NOT NULL REFERENCES modules(id) ON DELETE CASCADE,
+  "inserted_at" timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  "updated_at" timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  primary key (certification_id, module_id)
 );
 
 
 CREATE TABLE certification_project (
-  certification_id uuid NOT NULL REFERENCES certifications(id) ON DELETE CASCADE,
-  project_id uuid NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
-  inserted_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
-  updated_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
-  UNIQUE(certification_id, project_id)
+  "certification_id" uuid NOT NULL REFERENCES certifications(id) ON DELETE CASCADE,
+  "project_id" uuid NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+  "inserted_at" timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  "updated_at" timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  primary key (certification_id, project_id)
 );
 
 
 CREATE TABLE certification_tool (
-  certification_id uuid NOT NULL REFERENCES certifications(id) ON DELETE CASCADE,
-  tool_id bigint NOT NULL REFERENCES tools(id) ON DELETE CASCADE,
-  inserted_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
-  updated_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
-  UNIQUE(certification_id, tool_id)
+  "certification_id" uuid NOT NULL REFERENCES certifications(id) ON DELETE CASCADE,
+  "tool_id" bigint NOT NULL REFERENCES tools(id) ON DELETE CASCADE,
+  "inserted_at" timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  "updated_at" timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  primary key (certification_id, tool_id)
 );
 
 CREATE TABLE service_category (
-  service_id uuid NOT NULL REFERENCES services(id) ON DELETE CASCADE,
-  category_id bigint NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
-  inserted_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
-  updated_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
-  UNIQUE(service_id, category_id)
+  "service_id" uuid NOT NULL REFERENCES services(id) ON DELETE CASCADE,
+  "category_id" bigint NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
+  "inserted_at" timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  "updated_at" timestamptz NOT NULL DEFAULT timezone('utc', now()),
+  primary key (service_id, category_id)
 );
 
 -- Enable RLS on all tables
@@ -248,59 +248,70 @@ ALTER TABLE public.project_tool ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.service_category ENABLE ROW LEVEL SECURITY;
 
 
--- Public READ only; everything else requires authentication
+-- Enable RLS on all tables
+ALTER TABLE public.categories ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.certifications ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.projects ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.experiences ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.services ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.site_meta ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.tools ENABLE ROW LEVEL SECURITY;
+
+ALTER TABLE public.certification_module ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.certification_project ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.certification_tool ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.contact_messages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.experience_category ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.experience_tool ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.modules ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.project_category ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.project_tool ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.service_category ENABLE ROW LEVEL SECURITY;
+
+
+-- Public READ only; authenticated MODIFY
 CREATE POLICY "Public can read categories" ON public.categories
   FOR SELECT USING (true);
-
 CREATE POLICY "Authenticated users can modify categories" ON public.categories
   FOR ALL USING (auth.role() = 'authenticated') WITH CHECK (auth.role() = 'authenticated');
 
 CREATE POLICY "Public can read certifications" ON public.certifications
   FOR SELECT USING (true);
-
 CREATE POLICY "Authenticated users can modify certifications" ON public.certifications
   FOR ALL USING (auth.role() = 'authenticated') WITH CHECK (auth.role() = 'authenticated');
 
 CREATE POLICY "Public can read projects" ON public.projects
   FOR SELECT USING (true);
-
 CREATE POLICY "Authenticated users can modify projects" ON public.projects
   FOR ALL USING (auth.role() = 'authenticated') WITH CHECK (auth.role() = 'authenticated');
 
 CREATE POLICY "Public can read experiences" ON public.experiences
   FOR SELECT USING (true);
-
 CREATE POLICY "Authenticated users can modify experiences" ON public.experiences
   FOR ALL USING (auth.role() = 'authenticated') WITH CHECK (auth.role() = 'authenticated');
 
 CREATE POLICY "Public can read services" ON public.services
   FOR SELECT USING (true);
-
 CREATE POLICY "Authenticated users can modify services" ON public.services
   FOR ALL USING (auth.role() = 'authenticated') WITH CHECK (auth.role() = 'authenticated');
 
 CREATE POLICY "Public can read site_meta" ON public.site_meta
   FOR SELECT USING (true);
-
 CREATE POLICY "Authenticated users can modify site_meta" ON public.site_meta
   FOR ALL USING (auth.role() = 'authenticated') WITH CHECK (auth.role() = 'authenticated');
 
 CREATE POLICY "Public can read tools" ON public.tools
   FOR SELECT USING (true);
-
 CREATE POLICY "Authenticated users can modify tools" ON public.tools
   FOR ALL USING (auth.role() = 'authenticated') WITH CHECK (auth.role() = 'authenticated');
 
--- Public can insert contact messages
+-- Public INSERT contact messages
 CREATE POLICY "Public can insert contact messages" ON public.contact_messages
   FOR INSERT WITH CHECK (true);
-
--- Authenticated users can update or delete (optional, if needed)
 CREATE POLICY "Authenticated users can modify contact messages" ON public.contact_messages
   FOR ALL USING (auth.role() = 'authenticated') WITH CHECK (auth.role() = 'authenticated');
 
-
--- Only authenticated users can read/write
+-- Authenticated read/write + Public SELECT for join tables
 DO $$
 DECLARE
   table_name text;
@@ -320,9 +331,13 @@ BEGIN
     EXECUTE format($f$
       CREATE POLICY "Authenticated users can access %I" ON public.%I
         FOR ALL USING (auth.role() = 'authenticated') WITH CHECK (auth.role() = 'authenticated');
-    $f$, table_name, table_name);
+
+      CREATE POLICY "Public can read %I" ON public.%I
+        FOR SELECT USING (true);
+    $f$, table_name, table_name, table_name, table_name);
   END LOOP;
 END $$;
+
 
 -- Reusable trigger function to update the updated_at column
 CREATE OR REPLACE FUNCTION public.update_updated_at_column()

@@ -3,6 +3,7 @@ import Journey from "./Journey";
 
 export default async function JourneySection() {
   const experienceData = await getExperiencesWithDetails();
+  
   const experiences = experienceData.map((experience) => ({
     ...experience,
     type: "experience" as const,

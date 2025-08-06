@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { supabase } from "../supabase";
 import { ExperienceFormValues } from "@/types/journey";
 
 // 🧩 Schema
@@ -52,35 +51,3 @@ export function getDefaultExperienceFormValues(
     responsibilities: defaultValues.responsibilities || [],
   };
 }
-
-export const insertExperienceTools = async (experienceId: string, tools: string[]) => {
-  const { data: toolRows } = await supabase
-    .from("tools")
-    .select("id, name")
-    .in("name", tools);
-
-  if (toolRows?.length) {
-    await supabase.from("experience_tool").insert(
-      toolRows.map((tool) => ({
-        experience_id: experienceId,
-        tool_id: tool.id,
-      }))
-    );
-  }
-};
-
-export const insertExperienceCategories = async (experienceId: string, categories: string[]) => {
-  const { data: categoryRows } = await supabase
-    .from("categories")
-    .select("id, name")
-    .in("name", categories);
-
-  if (categoryRows?.length) {
-    await supabase.from("experience_category").insert(
-      categoryRows.map((category) => ({
-        experience_id: experienceId,
-        category_id: category.id,
-      }))
-    );
-  }
-};

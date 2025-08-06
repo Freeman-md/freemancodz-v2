@@ -1,14 +1,13 @@
 "use server";
 
-import { supabase } from "../supabase";
 import { revalidatePath } from "next/cache";
 import {
   parseExperienceForm,
-  insertExperienceTools,
-  insertExperienceCategories,
 } from "./form-utils";
+import { createClient } from "@/utils/supabase/server";
 
 export const createExperience = async (prevState: unknown, formData: FormData) => {
+  const supabase = await createClient()
   const { result, raw } = await parseExperienceForm(formData);
 
   if (!result.success) {
@@ -28,6 +27,8 @@ export const createExperience = async (prevState: unknown, formData: FormData) =
     .select()
     .single();
 
+  console.log(error, experienceData)
+
   if (error || !experience) {
     return {
       status: "error",
@@ -46,6 +47,7 @@ export const createExperience = async (prevState: unknown, formData: FormData) =
 };
 
 export const updateExperience = async (prevState: unknown, formData: FormData) => {
+  const supabase = await createClient()
   const { result, raw } = await parseExperienceForm(formData);
 
   if (!result.success) {
@@ -89,6 +91,8 @@ export const updateExperience = async (prevState: unknown, formData: FormData) =
 };
 
 export const deleteExperience = async (id: string) => {
+  const supabase = await createClient()
+
   await Promise.all([
     supabase.from("experience_tool").delete().eq("experience_id", id),
     supabase.from("experience_category").delete().eq("experience_id", id),
@@ -96,4 +100,41 @@ export const deleteExperience = async (id: string) => {
 
   await supabase.from("experiences").delete().eq("id", id);
   revalidatePath("/admin/experiences");
+};
+
+
+const insertExperienceTools = async (experienceId: string, tools: string[]) => {
+  const supabase = await createClient()
+
+  const { data: toolRows } = await supabase
+    .from("tools")
+    .select("id, name")
+    .in("name", tools);
+
+  if (toolRows?.length) {
+    await supabase.from("experience_tool").insert(
+      toolRows.map((tool) => ({
+        experience_id: experienceId,
+        tool_id: tool.id,
+      }))
+    );
+  }
+};
+
+const insertExperienceCategories = async (experienceId: string, categories: string[]) => {
+  const supabase = await createClient()
+
+  const { data: categoryRows } = await supabase
+    .from("categories")
+    .select("id, name")
+    .in("name", categories);
+
+  if (categoryRows?.length) {
+    await supabase.from("experience_category").insert(
+      categoryRows.map((category) => ({
+        experience_id: experienceId,
+        category_id: category.id,
+      }))
+    );
+  }
 };
