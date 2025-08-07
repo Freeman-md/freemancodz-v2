@@ -2,16 +2,21 @@
 import { Badge } from "@/components/ui/badge";
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
-import ProjectCard from "../projects/ProjectCard";
+import ProjectCard from "../../../components/projects/ProjectCard";
 import { useProjects } from "@/hooks/useProjects";
-import ProjectDetails from "../projects/ProjectDetails";
+import ProjectDetails from "../../../components/projects/ProjectDetails";
 import { useProjectFilterStore } from "@/store/useProjectFilterStore";
 import { useProjectStore } from "@/store/useProjectStore";
-import Empty from "../shared/empty";
+import Empty from "../../../components/shared/empty";
 
 export default function Projects() {
-  const { activeCategories, activeTools, toggleCategory, toggleTool, resetFilters } =
-    useProjectFilterStore();
+  const {
+    activeCategories,
+    activeTools,
+    toggleCategory,
+    toggleTool,
+    resetFilters,
+  } = useProjectFilterStore();
   const ref = useRef(null);
   const isInView = useInView(ref);
   const { categories, tools } = useProjects();
@@ -101,16 +106,15 @@ export default function Projects() {
           </motion.div>
 
           {(activeCategories.length > 0 || activeTools.length > 0) && (
-  <div className="flex justify-center pt-4">
-    <button
-      onClick={resetFilters}
-      className="text-sm px-4 py-1.5 border border-white/30 rounded-full text-white/60 hover:text-white hover:border-white transition"
-    >
-      Reset Filters
-    </button>
-  </div>
-)}
-
+            <div className="flex justify-center pt-4">
+              <button
+                onClick={resetFilters}
+                className="text-sm px-4 py-1.5 border border-white/30 rounded-full text-white/60 hover:text-white hover:border-white transition"
+              >
+                Reset Filters
+              </button>
+            </div>
+          )}
         </div>
 
         {filteredProjects.length > 0 ? (

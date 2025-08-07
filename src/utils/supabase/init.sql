@@ -36,6 +36,7 @@ CASCADE;
 DROP TYPE IF EXISTS project_status CASCADE;
 DROP TYPE IF EXISTS project_role CASCADE;
 DROP TYPE IF EXISTS employment_type CASCADE;
+DROP TYPE IF EXISTS certification_type CASCADE;
 
 
 -- ENUM: project_status
@@ -61,10 +62,15 @@ CREATE TYPE employment_type AS ENUM (
   'Internship'
 );
 
+CREATE TYPE certification_type AS ENUM (
+  'Certification',
+  'Education'
+);
+
 
 CREATE TABLE certifications (
     "id" uuid PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
-    "type" text NOT NULL,
+    "type" certification_type NOT NULL,
     "title" text NOT NULL,
     "issuer" text NOT NULL,
     "start_date" text,

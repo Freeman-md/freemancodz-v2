@@ -1,10 +1,10 @@
-import About from "@/components/home/About";
-import Contact from "@/components/home/Contact";
-import Hero from "@/components/home/Hero";
-import JourneySection from "@/components/home/journey-section";
-import Projects from "@/components/home/Projects";
-import ToolsSection from "@/components/home/tools-section";
-import WhatIDoSection from "@/components/home/what-i-do-section";
+import About from "@/app/(landing)/components/About";
+import Contact from "@/app/(landing)/components/Contact";
+import Hero from "@/app/(landing)/components/Hero";
+import Projects from "@/app/(landing)/components/Projects";
+import ToolsSection from "@/app/(landing)/components/tools-section";
+import WhatIDoSection from "@/app/(landing)/components/what-i-do-section";
+import JourneySection from "./components/journey/JourneySection";
 
 export default function Home() {
   return (

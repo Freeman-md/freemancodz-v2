@@ -37,6 +37,54 @@ export const getCertifications = cache(async (): Promise<Certification[]> => {
   }));
 });
 
+export const getCertificationsWithDetails = cache(async (): Promise<Certification[]> => {
+  const { data, error } = await supabase
+    .from("certifications")
+    .select(`
+      id,
+    title,
+    type,
+    issuer,
+    description,
+    start_date,
+    end_date,
+    link,
+    certification_tool (
+      tools (
+        name
+      )
+    ),
+    certification_module (
+      modules (
+        name
+      )
+    ),
+      certification_project (
+      projects (
+        title
+      )
+    )
+      `) as unknown as {
+      data: Certification[];
+      error: unknown;
+    };
+
+  if (error) {
+    if (error instanceof Error) throw new Error(error.message);
+  }
+
+  if (!data || data.length === 0) {
+    return [];
+  }
+
+  return data.map((certification) => ({
+    ...certification,
+    tools: certification.certification_tool.map(certification_tool => certification_tool.tools.name),
+    modules: certification.certification_module.map(certification_module => certification_module.modules.name),
+    projects: certification.certification_project.map(certification_project => certification_project.projects.title),
+  }));
+});
+
 export const getCertificationById = cache(async (id: string): Promise<Certification | null> => {
   const { data, error } = await supabase
     .from("certifications")

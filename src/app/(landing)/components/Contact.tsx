@@ -4,7 +4,11 @@ import { useActionState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { AlertCircleIcon, MailIcon, MapPin, Send } from "lucide-react";
 import { submitContactMessage } from "@/lib/contact-messages/actions";
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "../../../components/ui/alert";
 
 export default function Contact() {
   const ref = useRef(null);

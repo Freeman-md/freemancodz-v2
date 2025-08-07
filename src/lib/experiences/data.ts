@@ -40,7 +40,6 @@ export const getExperiences = cache(async (): Promise<Experience[]> => {
 });
 
 export const getExperiencesWithDetails = cache(async (): Promise<Experience[]> => {
-  console.log("Fetching experiences");
   const { data, error } = await supabase
     .from("experiences")
     .select(`
@@ -70,8 +69,6 @@ export const getExperiencesWithDetails = cache(async (): Promise<Experience[]> =
   if (error) {
     throw new Error((error as PostgrestError).message ?? "Unknown error")
   }
-
-  console.log(data, error)
 
   if (!data || data.length === 0) return [];
 
