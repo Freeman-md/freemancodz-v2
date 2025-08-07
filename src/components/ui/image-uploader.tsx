@@ -27,7 +27,8 @@ export default function ImageUploader({ folder = "uploads", initialUrl = "", onS
         setPreviewUrl(url);
         setMessage("Uploaded!");
         onSuccess(url);
-      } catch {
+      } catch (error) {
+        console.log(error)
         setMessage("Upload failed.");
       }
 

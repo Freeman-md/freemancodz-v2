@@ -2,14 +2,19 @@
 import { Badge } from "@/components/ui/badge";
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
-import ProjectCard from "../../../components/projects/ProjectCard";
 import { useProjects } from "@/hooks/useProjects";
-import ProjectDetails from "../../../components/projects/ProjectDetails";
 import { useProjectFilterStore } from "@/store/useProjectFilterStore";
-import { useProjectStore } from "@/store/useProjectStore";
-import Empty from "../../../components/shared/empty";
+// import { useProjectStore } from "@/store/useProjectStore";
+import { Project } from "@/types/project";
+import ProjectCard from "@/components/projects/ProjectCard";
+import ProjectDetails from "@/components/projects/ProjectDetails";
+import Empty from "@/components/shared/empty";
 
-export default function Projects() {
+export default function Projects({
+  projects
+} : {
+  projects: Project[]
+}) {
   const {
     activeCategories,
     activeTools,
@@ -20,7 +25,7 @@ export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref);
   const { categories, tools } = useProjects();
-  const { filteredProjects } = useProjectStore();
+  // const { filteredProjects } = useProjectStore();
 
   return (
     <section id="projects">
@@ -117,9 +122,9 @@ export default function Projects() {
           )}
         </div>
 
-        {filteredProjects.length > 0 ? (
+        {projects.length > 0 ? (
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4 mt-8">
-            {filteredProjects.map((project, index) => (
+            {projects.map((project, index) => (
               <ProjectCard
                 key={index}
                 project={project}
@@ -130,8 +135,7 @@ export default function Projects() {
           </div>
         ) : (
           <Empty
-            title="No projects found."
-            message="Try changing your filters or explore another service."
+            title="No featured projects at the moment."
           />
         )}
 

@@ -1,10 +1,12 @@
 "use server"
 
-import { supabase } from "../supabase";
 import { revalidatePath } from "next/cache";
 import { insertProjectCategories, insertProjectTools, parseProjectForm } from "./form-utils";
+import { createClient } from "@/utils/supabase/server";
 
 export const createProject = async (prevState: unknown, formData: FormData) => {
+  const supabase = await createClient()
+
   const { result, raw } = await parseProjectForm(formData);
 
   if (!result.success) {
@@ -47,6 +49,8 @@ export const createProject = async (prevState: unknown, formData: FormData) => {
 };
 
 export async function updateProject(prevState: unknown, formData: FormData) {
+  const supabase = await createClient()
+
   const { result, raw } = await parseProjectForm(formData);
 
   if (!result.success) {
@@ -88,6 +92,8 @@ export async function updateProject(prevState: unknown, formData: FormData) {
 
 
 export async function updateProjectImage(projectId: string, imageUrl: string) {
+  const supabase = await createClient()
+
   const { error } = await supabase
     .from("projects")
     .update({ cover_image: imageUrl })
