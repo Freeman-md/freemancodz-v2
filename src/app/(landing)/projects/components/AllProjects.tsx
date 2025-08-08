@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import type { Project } from "@/types/project";
 import { Badge } from "@/components/ui/badge";
 import ProjectCard from "../../components/projects/ProjectCard";
+import Empty from "@/components/shared/empty";
 
 type AllProjectsProps = {
   projects: Project[];
@@ -133,7 +134,9 @@ export default function AllProjects({ projects, categories, tools }: AllProjects
 
       {/* Optional empty state when filters hide everything */}
       {filteredProjects.length === 0 && (
-        <p className="text-center text-sm text-white/60">No projects match the selected filters.</p>
+        <Empty 
+        message="No projects match the selected filters."
+        />
       )}
     </section>
   );

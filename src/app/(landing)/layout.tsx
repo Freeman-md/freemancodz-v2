@@ -10,7 +10,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="md:cursor-none bg-background text-foreground">
+    <div className="md:cursor-none bg-secondary min-h-screen h-full text-foreground">
       <Header />
 
       <DesktopMenu />
