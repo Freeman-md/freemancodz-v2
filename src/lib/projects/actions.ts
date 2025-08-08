@@ -107,6 +107,8 @@ export async function updateProjectImage(projectId: string, imageUrl: string) {
 }
 
 export const deleteProject = async (id: string) => {
+  const supabase = await createClient()
+  
   await supabase.from("projects").delete().eq("id", id)
   revalidatePath('/admin/projects')
 }
