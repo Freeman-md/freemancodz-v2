@@ -1,31 +1,26 @@
 "use client";
-import { useProjectStore } from "@/store/useProjectStore";
 import { Project } from "@/types/project";
 import { motion } from "framer-motion";
 import { ExternalLink, GithubIcon, InfoIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Badge } from "../ui/badge";
 import { getStatusBadgeVariant } from "@/lib/badge-utils";
 import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
 type Props = {
   project: Project;
   aspect?: string;
   delay?: number;
+  onSelect?: () => void;
 };
 
 export default function ProjectCard({
   project,
   aspect = "aspect-[4/3]",
   delay = 0,
+  onSelect
 }: Props) {
-  const { selectProjectById } = useProjectStore();
-
-  const handleViewMoreClick = () => {
-    selectProjectById(project.id);
-  };
-
   const statusVariant = getStatusBadgeVariant(project.status ?? "Beta");
 
   return (
@@ -41,7 +36,7 @@ export default function ProjectCard({
           className="absolute inset-0 rounded-xl overflow-hidden group-hover:z-10"
           data-cursor="hover"
           data-cursor-label="More Info"
-          onClick={handleViewMoreClick}
+          onClick={onSelect}
         >
           <Image
             src={project.cover_image}
@@ -55,7 +50,7 @@ export default function ProjectCard({
         <div className="absolute inset-0 bg-black/60 transition-opacity duration-300 group-hover:opacity-0 z-10 group-hover:z-0" />
 
         <button
-          onClick={handleViewMoreClick}
+          onClick={onSelect}
           className="absolute top-2 right-2 z-10 cursor-pointer"
         >
           <div className="bg-black/50 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">

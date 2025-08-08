@@ -1,31 +1,62 @@
 "use client";
 
-import { useProjectStore } from "@/store/useProjectStore";
+import { useEffect, useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, GithubIcon, XIcon, PlayIcon } from "lucide-react"; // PlayIcon for video
-import { useState } from "react";
+import { ExternalLink, GithubIcon, XIcon, PlayIcon } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Badge } from "../ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { getStatusBadgeVariant } from "@/lib/badge-utils";
 import { cn } from "@/lib/utils";
+import type { Project } from "@/types/project";
 
-export default function ProjectDetails() {
-  const { selectedProject, clearSelectedProject } = useProjectStore();
+type Props = {
+  project: Project | null;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onOpenFullPage?: () => void;
+};
+
+export default function ProjectDetailsModal({
+  project,
+  open,
+  onOpenChange,
+  onOpenFullPage,
+}: Props) {
   const [showVideo, setShowVideo] = useState(false);
 
-  const handleClose = () => {
-    clearSelectedProject();
+  const handleClose = useCallback(() => {
     setShowVideo(false);
-  };
+    onOpenChange(false);
+  }, [onOpenChange]);
 
-  if (!selectedProject) return null;
+  useEffect(() => {
+    // reset video when project changes or modal closes
+    setShowVideo(false);
+  }, [project, open]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") handleClose();
+    };
+
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [open, handleClose]);
+
+  if (!open || !project) return null;
 
   const {
     id,
@@ -37,9 +68,13 @@ export default function ProjectDetails() {
     github,
     cover_image,
     video_url,
-  } = selectedProject;
+    year,
+    status,
+    role,
+    impact_note,
+  } = project;
 
-  const statusVariant = getStatusBadgeVariant(selectedProject.status ?? "Beta");
+  const statusVariant = getStatusBadgeVariant(status ?? "Beta");
 
   return (
     <AnimatePresence>
@@ -48,22 +83,31 @@ export default function ProjectDetails() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-        className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-auto"
+        transition={{ duration: 0.25 }}
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
         onClick={handleClose}
       >
         <motion.div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${title} details`}
           className="relative bg-secondary rounded-xl shadow-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto"
           onClick={(e) => e.stopPropagation()}
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          initial={{ y: 24, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 24, opacity: 0 }}
+          transition={{ type: "spring", stiffness: 300, damping: 28 }}
         >
+          {/* Close */}
           <button
             onClick={handleClose}
             className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+            aria-label="Close"
           >
             <XIcon className="h-5 w-5" />
           </button>
 
+          {/* Media */}
           <motion.div
             layoutId={`project-image-${id}`}
             className="relative w-full aspect-video rounded-t-xl overflow-hidden bg-black"
@@ -90,6 +134,7 @@ export default function ProjectDetails() {
                   <button
                     onClick={() => setShowVideo(true)}
                     className="absolute inset-0 flex items-center justify-center z-10 bg-black/40 hover:bg-black/50 transition-colors"
+                    aria-label="Play video"
                   >
                     <div className="bg-white text-black rounded-full p-4 shadow-md">
                       <PlayIcon className="h-6 w-6" />
@@ -100,12 +145,11 @@ export default function ProjectDetails() {
             )}
           </motion.div>
 
+          {/* Body */}
           <div className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-sm text-white/60">
-                {selectedProject.year}
-              </span>
-              {selectedProject.status && (
+              <span className="text-sm text-white/60">{year}</span>
+              {status && (
                 <Badge
                   variant={
                     statusVariant.variant as React.ComponentProps<
@@ -117,70 +161,62 @@ export default function ProjectDetails() {
                     statusVariant.className
                   )}
                 >
-                  {selectedProject.status}
+                  {status}
                 </Badge>
               )}
             </div>
 
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.3 }}
+              transition={{ duration: 0.25 }}
               className="text-3xl font-bold mb-4 text-primary"
             >
               {title}
             </motion.h2>
 
-            {selectedProject.role && (
-              <p className="text-xs text-white/50 italic">
-                {selectedProject.role}
-              </p>
-            )}
+            {role && <p className="text-xs text-white/50 italic">{role}</p>}
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.3 }}
+              transition={{ delay: 0.05, duration: 0.25 }}
               className="text-white/80 leading-relaxed mb-6"
             >
               <Accordion type="single" collapsible>
-                <AccordionItem value="item-1">
+                <AccordionItem value="summary">
                   <AccordionTrigger>{description}</AccordionTrigger>
                   <AccordionContent>{longdescription}</AccordionContent>
                 </AccordionItem>
               </Accordion>
             </motion.div>
 
-            {selectedProject.impact_note && (
+            {impact_note && (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.48, duration: 0.3 }}
+                transition={{ delay: 0.1, duration: 0.25 }}
                 className="mb-6"
               >
-                <h3 className="text-lg font-semibold text-white mb-2">
-                  Impact
-                </h3>
-                <p className="text-white/80 leading-relaxed">
-                  {selectedProject.impact_note}
-                </p>
+                <h3 className="text-lg font-semibold text-white mb-2">Impact</h3>
+                <p className="text-white/80 leading-relaxed">{impact_note}</p>
               </motion.div>
             )}
 
-            {tools && (
+            {tools?.length ? (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.3 }}
+                transition={{ delay: 0.12, duration: 0.25 }}
                 className="mb-6"
               >
                 <h3 className="text-lg font-semibold text-white mb-2">
                   Tools Used:
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  {tools.map((tech, index) => (
+                  {tools.map((tech, i) => (
                     <span
-                      key={index}
+                      key={`${tech}-${i}`}
                       className="bg-primary/20 text-primary px-3 py-1 rounded-full text-sm"
                     >
                       {tech}
@@ -188,21 +224,23 @@ export default function ProjectDetails() {
                   ))}
                 </div>
               </motion.div>
-            )}
+            ) : null}
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.3 }}
-              className="flex items-center gap-6 pt-4 border-t border-gray-700 mt-6"
+              transition={{ delay: 0.15, duration: 0.25 }}
+              className="flex flex-wrap items-center gap-6 pt-4 border-t border-gray-700 mt-6"
             >
-              <Link
-                href={link}
-                target="_blank"
-                className="text-lg flex items-center gap-2 text-primary hover:underline"
-              >
-                <ExternalLink className="h-5 w-5" /> Live Project
-              </Link>
+              {link && (
+                <Link
+                  href={link}
+                  target="_blank"
+                  className="text-lg flex items-center gap-2 text-primary hover:underline"
+                >
+                  <ExternalLink className="h-5 w-5" /> Live Project
+                </Link>
+              )}
 
               {github && (
                 <Link
@@ -212,6 +250,15 @@ export default function ProjectDetails() {
                 >
                   <GithubIcon className="h-5 w-5" /> GitHub
                 </Link>
+              )}
+
+              {onOpenFullPage && (
+                <button
+                  onClick={onOpenFullPage}
+                  className="text-lg text-white/70 hover:text-white underline underline-offset-4"
+                >
+                  Open full page
+                </button>
               )}
             </motion.div>
           </div>
