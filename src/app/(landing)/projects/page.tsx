@@ -22,6 +22,8 @@ import { getCategories } from "@/lib/categories/data";
 import { getTools } from "@/lib/tools/data";
 import { getAllProjectsForCards } from "@/lib/projects/data";
 import AllProjects from "../../../features/projects/components/AllProjects";
+import { Suspense } from "react";
+import CardsSkeleton from "@/components/ui/cards-skeleton";
 
 export default async function ProjectsPage() {
   const [projects, categories, tools] = await Promise.all([
@@ -42,10 +44,12 @@ export default async function ProjectsPage() {
   const filteredTools = toolNames.filter((name) => usedToolSet.has(name));
 
   return (
-    <AllProjects
-      projects={projects}
-      categories={filteredCategories}
-      tools={filteredTools}
-    />
+    <Suspense fallback={<CardsSkeleton />}>
+      <AllProjects
+        projects={projects}
+        categories={filteredCategories}
+        tools={filteredTools}
+      />
+    </Suspense>
   );
 }

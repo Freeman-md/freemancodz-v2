@@ -22,6 +22,7 @@ const plaster = Plaster({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://freemanmadudili.com"),
   title: {
     default: "Freeman Madudili | Full-Stack .NET & JavaScript Developer",
     template: "%s | Freeman Madudili",
