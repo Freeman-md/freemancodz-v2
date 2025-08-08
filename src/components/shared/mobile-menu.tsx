@@ -6,10 +6,11 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
 const links = [
-  { text: "About", url: "#about" },
-  { text: "Journey", url: "#journey" },
-  { text: "Projects", url: "#projects" },
-  { text: "Contact", url: "#contact" },
+  { text: "About", url: "/#about" },
+  { text: "Blog", url: "https://freemancodz.hashnode.dev/", external: true },
+  { text: "Journey", url: "/#journey" },
+  { text: "Projects", url: "/projects" },
+  { text: "Contact", url: "/#contact" },
 ];
 
 export default function MobileMenu() {
@@ -35,7 +36,7 @@ export default function MobileMenu() {
             transition={{ type: "spring", damping: 18, stiffness: 160 }}
             className="absolute right-0 mt-8 w-56 py-4 rounded-xl backdrop-blur ring-1 ring-white/10 drop-shadow-lg z-[999]"
           >
-            {links.map(({ text, url }, index) => (
+            {links.map(({ text, url, external }, index) => (
               <motion.div
                 key={text}
                 initial={{ opacity: 0, x: -20 }}
@@ -48,13 +49,19 @@ export default function MobileMenu() {
                   damping: 20,
                 }}
               >
-                <Link
-                  href={url}
-                  onClick={() => setIsOpen(false)}
-                  className="block px-5 py-2 text-xs tracking-wide uppercase text-white hover:text-primary transition"
-                >
-                  {text}
-                </Link>
+                {external ? (
+                  <a href={url} target="_blank" rel="noopener noreferrer" className="block px-5 py-2 text-xs tracking-wide uppercase text-white hover:text-primary transition">
+                    {text}
+                  </a>
+                ) : (
+                  <Link
+                    href={url}
+                    onClick={() => setIsOpen(false)}
+                    className="block px-5 py-2 text-xs tracking-wide uppercase text-white hover:text-primary transition"
+                  >
+                    {text}
+                  </Link>
+                )}
               </motion.div>
             ))}
           </motion.div>

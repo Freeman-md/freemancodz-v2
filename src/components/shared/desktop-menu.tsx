@@ -3,14 +3,13 @@ import { motion } from "motion/react";
 import Link from "next/link";
 
 export default function DesktopMenu() {
- const links = [
-  { text: "About", url: "/#about", label: "My Ethos" },
-  { text: "Journey", url: "/#journey", label: "View My Journey" },
-  { text: "Projects", url: "/projects", label: "Explore Projects" },
-  { text: "Contact", url: "/#contact", label: "Say Hello" },
-];
-
-
+  const links = [
+    { text: "About", url: "/#about", label: "My Ethos" },
+    { text: "Blog", url: "https://freemancodz.hashnode.dev/", label: "Read My Blog", external: true },
+    { text: "Journey", url: "/#journey", label: "View My Journey" },
+    { text: "Projects", url: "/projects", label: "Explore Projects" },
+    { text: "Contact", url: "/#contact", label: "Say Hello" },
+  ];
 
   return (
     <motion.nav
@@ -28,7 +27,7 @@ export default function DesktopMenu() {
       className="fixed hidden sm:block top-20 right-20 z-20"
     >
       <ul className="flex flex-col space-y-4 items-end uppercase font-medium backdrop-blur pl-20 pr-4 py-4 rounded-lg">
-        {links.map(({ text, url, label }) => (
+        {links.map(({ text, url, label, external }) => (
           <motion.li
             key={text}
             variants={{
@@ -45,7 +44,13 @@ export default function DesktopMenu() {
             data-cursor="hover"
             data-cursor-label={label}
           >
-            <Link href={url}>{text}</Link>
+            {external ? (
+              <a href={url} target="_blank" rel="noopener noreferrer">
+                {text}
+              </a>
+            ) : (
+              <Link href={url}>{text}</Link>
+            )}
           </motion.li>
         ))}
       </ul>
