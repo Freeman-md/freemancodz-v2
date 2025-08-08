@@ -18,6 +18,45 @@ export const getProjects = cache(async (): Promise<Project[]> => {
   return data ?? []
 });
 
+export const getAllProjectsForCards = cache(async (): Promise<Project[]> => {
+  const { data, error } = await supabase
+    .from("projects")
+    .select(`
+      id,
+      title,
+      description,
+      status,
+      role,
+      year,
+      cover_image,
+      link,
+      github,
+      project_category (
+        categories ( name )
+      ),
+      project_tool (
+        tools ( name )
+      )
+    `)
+    .order("year", { ascending: false }) as unknown as {
+      data: Project[];
+      error: unknown;
+    };
+
+  if (error) {
+    if (error instanceof Error) throw new Error(error.message);
+  }
+
+  if (!data) return [];
+
+  return data.map(project => ({
+    ...project,
+    categories: project.project_category?.map(pc => pc.categories.name) ?? [],
+    tools: project.project_tool?.map(pt => pt.tools.name) ?? [],
+  }));
+});
+
+
 export const getFeaturedProjects = cache(async (): Promise<Project[]> => {
   const { data, error } = await supabase
     .from("projects")
