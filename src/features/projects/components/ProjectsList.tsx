@@ -3,7 +3,7 @@ import { motion, useInView } from "motion/react";
 import { useRef, useState } from "react";
 import { Project } from "@/types/project";
 import Empty from "@/components/shared/empty";
-import ProjectCard from "../../../../features/projects/components/ProjectCard";
+import ProjectCard from "./ProjectCard";
 import ProjectDetailsModal from "./ProjectDetailsModal";
 
 export default function ProjectsList({ projects }: { projects: Project[] }) {

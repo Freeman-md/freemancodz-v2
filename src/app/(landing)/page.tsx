@@ -4,7 +4,7 @@ import Hero from "@/app/(landing)/components/Hero";
 import ToolsSection from "@/app/(landing)/components/tools-section";
 import WhatIDoSection from "@/app/(landing)/components/what-i-do-section";
 import JourneySection from "./components/journey/JourneySection";
-import ProjectsSection from "./components/projects/ProjectsSection";
+import ProjectsSection from "../../features/projects/components/ProjectsSection";
 
 export default function Home() {
   return (

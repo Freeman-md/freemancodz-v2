@@ -3,12 +3,13 @@ import { motion } from "motion/react";
 import Link from "next/link";
 
 export default function DesktopMenu() {
-  const links = [
-  { text: "About", url: "#about", label: "My Ethos" },
-  { text: "Journey", url: "#journey", label: "View My Journey" },
-  { text: "Projects", url: "#projects", label: "Explore Projects" },
-  { text: "Contact", url: "#contact", label: "Say Hello" },
+ const links = [
+  { text: "About", url: "/#about", label: "My Ethos" },
+  { text: "Journey", url: "/#journey", label: "View My Journey" },
+  { text: "Projects", url: "/projects", label: "Explore Projects" },
+  { text: "Contact", url: "/#contact", label: "Say Hello" },
 ];
+
 
 
   return (

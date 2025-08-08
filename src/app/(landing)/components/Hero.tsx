@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const rotatingWords = ["Cloud", "Web", "Mobile", "Desktop"];
-const lines = ["Building", "Clean", "", "Apps", "Since", "2023"];
+const lines = ["Building", "Clean", "", "Apps", "Since", "2022"];
 
 export default function Hero() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
