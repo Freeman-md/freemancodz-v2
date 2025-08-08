@@ -40,9 +40,23 @@ export const metadata: Metadata = {
     "portfolio",
     "developer for hire",
     "software engineer",
+    "web development",
+    "cloud apps",
+    "SaaS builder",
+    "UI designer",
+    "UX designer",
+    "React",
+    "TypeScript",
+    "frontend",
+    "backend",
+    "API",
+    "software solutions",
   ],
   openGraph: {
-    title: "Freeman Madudili | Full-Stack .NET & JavaScript Developer",
+    title: {
+      default: "Freeman Madudili | Full-Stack .NET & JavaScript Developer",
+      template: "%s | Freeman Madudili",
+    },
     description:
       "Freeman Madudili builds cloud-native apps, SaaS platforms, and high-quality UI/UX experiences. Available for hire.",
     url: "https://freemanmadudili.com",
@@ -56,14 +70,24 @@ export const metadata: Metadata = {
       },
     ],
     type: "website",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Freeman Madudili | Full-Stack .NET & JavaScript Developer",
+    title: {
+      default: "Freeman Madudili | Full-Stack .NET & JavaScript Developer",
+      template: "%s | Freeman Madudili",
+    },
     description:
       "Freeman Madudili builds cloud-native apps, SaaS platforms, and high-quality UI/UX experiences. Available for hire.",
     images: ["/images/og-image.png"],
+    site: "@freemanmadudili",
+    creator: "@freemanmadudili",
   },
+  authors: [{ name: "Freeman Madudili", url: "https://freemanmadudili.com" }],
+  creator: "Freeman Madudili",
+  publisher: "Freeman Madudili",
+  robots: "index, follow",
 };
 
 export default function RootLayout({

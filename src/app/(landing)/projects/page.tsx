@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Projects | Freeman Madudili Portfolio",
+  title: "Projects",
   description:
     "Explore SaaS platforms, cloud-native apps, and UI/UX projects built by Freeman Madudili, full-stack .NET & JavaScript developer.",
   keywords: [
@@ -17,29 +17,6 @@ export const metadata: Metadata = {
     "UI/UX",
     "software engineer",
   ],
-  openGraph: {
-    title: "Projects | Freeman Madudili Portfolio",
-    description:
-      "Explore SaaS platforms, cloud-native apps, and UI/UX projects built by Freeman Madudili, full-stack .NET & JavaScript developer.",
-    url: "https://freemanmadudili.com/projects",
-    siteName: "Freeman Madudili Portfolio",
-    images: [
-      {
-        url: "/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Freeman Madudili Portfolio OG Image",
-      },
-    ],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Projects | Freeman Madudili Portfolio",
-    description:
-      "Explore SaaS platforms, cloud-native apps, and UI/UX projects built by Freeman Madudili, full-stack .NET & JavaScript developer.",
-    images: ["/images/og-image.png"],
-  },
 };
 import { getCategories } from "@/lib/categories/data";
 import { getTools } from "@/lib/tools/data";

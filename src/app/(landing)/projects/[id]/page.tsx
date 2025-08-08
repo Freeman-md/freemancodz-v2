@@ -9,33 +9,13 @@ export async function generateMetadata({
   const project = await getProjectById(params.id);
   if (!project) {
     return {
-      title: "Project Not Found | Freeman Madudili Portfolio",
+      title: "Project Not Found",
       description: "The project you are looking for does not exist.",
-      openGraph: {
-        title: "Project Not Found | Freeman Madudili Portfolio",
-        description: "The project you are looking for does not exist.",
-        url: `https://freemanmadudili.com/projects/${params.id}`,
-        siteName: "Freeman Madudili Portfolio",
-        images: [
-          {
-            url: "/images/og-image.png",
-            width: 1200,
-            height: 630,
-            alt: "Freeman Madudili Portfolio OG Image",
-          },
-        ],
-        type: "website",
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: "Project Not Found | Freeman Madudili Portfolio",
-        description: "The project you are looking for does not exist.",
-        images: ["/images/og-image.png"],
-      },
+      keywords: ["Freeman Madudili", "project not found", "portfolio"],
     };
   }
   return {
-    title: `${project.title} | Freeman Madudili Portfolio`,
+    title: project.title,
     description: project.description || "Project showcase by Freeman Madudili.",
     keywords: [
       "Freeman Madudili",
@@ -51,29 +31,6 @@ export async function generateMetadata({
       "UI/UX",
       "software engineer",
     ],
-    openGraph: {
-      title: `${project.title} | Freeman Madudili Portfolio`,
-      description:
-        project.description || "Project showcase by Freeman Madudili.",
-      url: `https://freemanmadudili.com/projects/${params.id}`,
-      siteName: "Freeman Madudili Portfolio",
-      images: [
-        {
-          url: "/images/og-image.png",
-          width: 1200,
-          height: 630,
-          alt: "Freeman Madudili Portfolio OG Image",
-        },
-      ],
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${project.title} | Freeman Madudili Portfolio`,
-      description:
-        project.description || "Project showcase by Freeman Madudili.",
-      images: ["/images/og-image.png"],
-    },
   };
 }
 import { getProjectById } from "@/lib/projects/data";
