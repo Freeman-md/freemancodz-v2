@@ -3,6 +3,7 @@ import SocialIcons from "@/components/shared/social-icons";
 import DesktopMenu from "@/components/shared/desktop-menu";
 import CursorWrapper from "@/components/shared/custom-cursor";
 import '@/app/layout-root.css'
+import ScrollToTop from "@/components/shared/ScrollToTop";
 
 export default function RootLayout({
   children,
@@ -18,6 +19,8 @@ export default function RootLayout({
       <CursorWrapper />
 
       <main className="pt-20">{children}</main>
+
+      <ScrollToTop />
 
       <SocialIcons />
     </div>
