@@ -4,9 +4,10 @@ import type { Metadata } from "next";
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
-  const project = await getProjectById(params.id);
+  const { id } = await params
+  const project = await getProjectById(id);
   if (!project) {
     return {
       title: "Project Not Found",
@@ -40,9 +41,10 @@ import Empty from "@/components/shared/empty";
 export default async function ProjectDetailsPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const project = await getProjectById(params.id);
+  const { id } = await params
+  const project = await getProjectById(id);
 
   if (!project) {
     return (
