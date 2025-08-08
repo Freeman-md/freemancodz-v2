@@ -1,37 +1,31 @@
 "use client";
 
 import { useInView, motion } from "motion/react";
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import Image from "next/image";
-import { useProjectFilterStore } from "@/store/useProjectFilterStore";
+import { useRouter } from "next/navigation";
 import { ProjectCategory } from "@/types/project";
 import { Service } from "@/types/showcase";
 
-export default function WhatIDo({
-  services
-} : {
-  services: Service[]
-}) {
+export default function WhatIDo({ services }: { services: Service[] }) {
   const ref = useRef(null);
   const isInView = useInView(ref);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const router = useRouter();
 
-  const { setCategories } = useProjectFilterStore();
-
-  const handleServiceClick = (categories: ProjectCategory[]) => {
-    setCategories(categories);
-
-    const el = document.getElementById("projects");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+  const handleServiceClick = useCallback((categories: ProjectCategory[]) => {
+    const unique = Array.from(new Set(categories)).filter(Boolean);
+    if (unique.length === 0) {
+      router.push("/projects");
+      return;
     }
-  };
+
+    const qs = new URLSearchParams({ categories: unique.join(",") });
+    router.push(`/projects?${qs.toString()}`);
+  }, [router]);
 
   return (
-    <section
-      id="what-i-do"
-      className="relative overflow-hidden"
-    >
+    <section id="what-i-do" className="relative overflow-hidden">
       <div ref={ref} className="py-40 space-y-8 relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -45,7 +39,7 @@ export default function WhatIDo({
         <div className="relative">
           {services.map((service, index) => (
             <motion.div
-              key={index}
+              key={service.name}
               onMouseEnter={() => setActiveIndex(index)}
               onMouseLeave={() => setActiveIndex(null)}
               initial={{ opacity: 0, x: -20 }}
@@ -54,9 +48,7 @@ export default function WhatIDo({
               className="border-t border-white/20 py-6 transition duration-500 hover:bg-primary hover:text-secondary relative max-md:cursor-pointer"
               data-cursor="hover"
               data-cursor-label="View projects"
-              onClick={() =>
-                handleServiceClick(service.categories as ProjectCategory[])
-              }
+              onClick={() => handleServiceClick(service.categories as ProjectCategory[])}
             >
               <div className="container py-0">
                 <h3 className="uppercase text-xl md:text-3xl lg:text-5xl font-semibold">
@@ -64,14 +56,13 @@ export default function WhatIDo({
                 </h3>
               </div>
 
-              {/* Description on Hover */}
               {activeIndex === index && (
                 <motion.div
                   initial={{ opacity: 0, x: 30 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 30 }}
                   transition={{ duration: 0.3 }}
-                  className="absolute top-1/2 right-10 transform -translate-y-1/2 w-[280px] text-sm leading-relaxed hidden sm:block"
+                  className="absolute top-1/2 right-10 -translate-y-1/2 w-[280px] text-sm leading-relaxed hidden sm:block"
                 >
                   <p className="text-secondary">{service.description}</p>
                 </motion.div>
@@ -81,7 +72,6 @@ export default function WhatIDo({
         </div>
       </div>
 
-      {/* Background Image */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
