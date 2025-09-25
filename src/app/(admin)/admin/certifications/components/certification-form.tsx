@@ -119,8 +119,8 @@ export default function CertificationForm({
             <SelectValue placeholder="Select type" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="Certification">Certification</SelectItem>
-            <SelectItem value="Education">Education</SelectItem>
+            <SelectItem value="certification">Certification</SelectItem>
+            <SelectItem value="education">Education</SelectItem>
           </SelectContent>
         </Select>
         {errors?.type && (
