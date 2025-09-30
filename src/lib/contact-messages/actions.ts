@@ -9,6 +9,7 @@ import { FormState } from "@/types";
 import { Resend } from "resend";
 import { EmailTemplate } from "@/components/email-template";
 
+
 const ContactMessageSchema = z.object({
     name: z.string().min(3, "Your name is required"),
     email: z.string().email("Your email is invalid"),
@@ -31,6 +32,16 @@ export async function submitContactMessage(prevState: FormState, formData: FormD
         email: formData.get("email")?.toString() || "",
         message: formData.get("message")?.toString() || "",
     })
+
+    const secretField = formData.get("secretField")?.toString() || "";
+
+    if (secretField && secretField.trim() !== "") {
+        return {
+            success: false,
+            errors: { form: ["Bot detected"] } as Record<string, string[]>,
+            values: contactMessage as unknown as ContactMessageInput
+        }
+    }
 
     if (!success) {
         return {

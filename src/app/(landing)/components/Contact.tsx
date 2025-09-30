@@ -111,6 +111,13 @@ export default function Contact() {
             </motion.div>
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <input
+              type="text"
+              name="secretField"
+              style={{ display: "none" }}
+              tabIndex={-1}
+            />
+
             <div>
               <input
                 type="text"
