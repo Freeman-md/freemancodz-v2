@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s | Freeman Madudili",
   },
   description:
-    "Freeman Madudili is a full-stack .NET and JavaScript developer building cloud-native apps, SaaS platforms, and high-quality UI/UX experiences. Available for hire.",
+    "Freeman Madudili is a full-stack .NET and JavaScript developer building cloud-native apps, SaaS platforms, and high-quality UI/UX experiences.",
   keywords: [
     "Freeman Madudili",
     "full-stack developer",
@@ -39,7 +39,6 @@ export const metadata: Metadata = {
     "SaaS",
     "UI/UX",
     "portfolio",
-    "developer for hire",
     "software engineer",
     "web development",
     "cloud apps",
@@ -59,7 +58,7 @@ export const metadata: Metadata = {
       template: "%s | Freeman Madudili",
     },
     description:
-      "Freeman Madudili builds cloud-native apps, SaaS platforms, and high-quality UI/UX experiences. Available for hire.",
+      "Freeman Madudili builds cloud-native apps, SaaS platforms, and high-quality UI/UX experiences",
     url: "https://freemanmadudili.com",
     siteName: "Freeman Madudili Portfolio",
     images: [
@@ -80,7 +79,7 @@ export const metadata: Metadata = {
       template: "%s | Freeman Madudili",
     },
     description:
-      "Freeman Madudili builds cloud-native apps, SaaS platforms, and high-quality UI/UX experiences. Available for hire.",
+      "Freeman Madudili builds cloud-native apps, SaaS platforms, and high-quality UI/UX experiences.",
     images: ["/images/og-image.png"],
     site: "@freemanmadudili",
     creator: "@freemanmadudili",
