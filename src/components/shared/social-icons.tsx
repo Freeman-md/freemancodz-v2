@@ -18,7 +18,7 @@ export default function SocialIcons() {
 
   const links = [
     { name: "github", url: "https://github.com/Freeman-md", label: "View GitHub" },
-    { name: "linkedin", url: "https://linkedin.com/in/freeman-madudili", label: "Connect on LinkedIn" },
+    { name: "linkedin", url: "https://www.linkedin.com/in/freeman-madudili-9864101a2/", label: "Connect on LinkedIn" },
     { name: "x", url: "https://x.com/freemancodz", label: "Follow on X" },
     { name: "instagram", url: "https://instagram.com/freemancodz", label: "Follow on Instagram" },
     { name: "youtube", url: "https://www.youtube.com/@freemancodz", label: "Watch on YouTube" },
